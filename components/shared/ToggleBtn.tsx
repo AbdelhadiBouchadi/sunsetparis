@@ -2,14 +2,22 @@
 
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ToggleBtn = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
+  // Don't render anything until the component is mounted
+  if (!mounted) return null;
 
   return (
     <div

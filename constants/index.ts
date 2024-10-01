@@ -1,4 +1,4 @@
-const artists = [
+export const artists = [
   {
     name: 'arthur paux',
     path: '/arthur-paux',

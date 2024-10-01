@@ -27,23 +27,6 @@ const ContactUs = () => {
             adelia.booking@gmail.com
           </Link>
         </div>
-        <h3 className="font-bold text-xl lg:text-3xl">Other :</h3>
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-4">
-          <Link
-            href="https://wa.me/+33660587839"
-            className="underline text-lg text-center"
-            target="_blank"
-          >
-            +33 6 60 58 78 39
-          </Link>
-          <span className="hidden lg:inline-block font-semibold">/</span>
-          <Link
-            href="mailto:kevin.ledortz.mgt@gmail.com?subject=Subject%20Here&body=Body%20Text%20Here"
-            className="underline text-lg text-center"
-          >
-            kevin.ledortz.mgt@gmail.com
-          </Link>
-        </div>
       </div>
     </div>
   );

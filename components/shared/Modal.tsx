@@ -10,8 +10,8 @@ interface ModalProps {
 
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   const overlayClasses = isOpen
-    ? 'fixed inset-0 w-screen h-screen bg-white/60 dark:bg-black/60 backdrop-blur-sm flex justify-center items-center z-[999] transition-all duration-300 ease-in-out'
-    : 'fixed inset-0 w-screen h-screen bg-white/60 dark:bg-black/60 backdrop-blur-sm flex justify-center items-center z-[999] transition-all duration-300 ease-in-out opacity-0 pointer-events-none';
+    ? 'fixed inset-0 w-screen h-screen bg-white/60 dark:bg-black/10 backdrop-blur-sm flex justify-center items-center z-[999] transition-all duration-300 ease-in-out'
+    : 'fixed inset-0 w-screen h-screen bg-white/60 dark:bg-black/10 backdrop-blur-sm flex justify-center items-center z-[999] transition-all duration-300 ease-in-out opacity-0 pointer-events-none';
 
   if (!isOpen) return null;
 
