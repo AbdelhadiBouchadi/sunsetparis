@@ -25,9 +25,8 @@ export default function RootLayout({
       <body className={`${jost.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          // disableTransitionOnChange
+          defaultTheme="light"
+          disableTransitionOnChange
         >
           <Header />
           {children}
