@@ -27,21 +27,21 @@ const Header = () => {
   }
 
   return (
-    <nav className="w-full  p-8 md:p-12 xl:p-16 flex justify-between items-center">
+    <nav className="w-full  p-4 md:p-12 xl:p-16 flex justify-between items-center gap-4">
       <button
         className="relative w-10 h-10 mx-4 flex items-center justify-center group"
         onClick={() => openModal()}
       >
-        <span className="absolute w-1 h-10 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4]   to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl z-10"></span>
-        <span className="absolute h-1 w-10 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl"></span>
+        <span className="absolute w-2 h-16 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4]   to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl z-10"></span>
+        <span className="absolute h-2 w-16 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl"></span>
       </button>
       <Link href="/">
         <Image
           src="/assets/logo.png"
-          width={180}
+          width={300}
           height={300}
           alt="sunsetparis_logo_image"
-          className="w-auto h-auto"
+          // className="w-auto h-auto"
         />
       </Link>
       <ToggleBtn />

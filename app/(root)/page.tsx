@@ -11,11 +11,10 @@ const page = () => {
     setMounted(true);
   }, []);
 
-  // Don't render the header until mounted
   if (!mounted) return null;
 
   return (
-    <div className="w-full flex flex-col items-center justify-center my-10">
+    <div className="w-full h-full flex flex-col items-center justify-center my-10">
       <ul className="flex flex-col items-center justify-center gap-20">
         {artists.map((artist, index) => (
           <li key={index}>

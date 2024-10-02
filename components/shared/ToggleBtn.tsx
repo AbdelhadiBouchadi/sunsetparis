@@ -27,15 +27,15 @@ const ToggleBtn = () => {
       {theme === 'light' ? (
         <Image
           src="/images/light_btn.png"
-          width={65}
-          height={65}
+          width={80}
+          height={80}
           alt="dark_mode_btn"
         />
       ) : (
         <Image
           src="/images/dark_btn.png"
-          width={65}
-          height={65}
+          width={80}
+          height={80}
           alt="light_mode_btn"
         />
       )}
