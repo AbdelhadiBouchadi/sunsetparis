@@ -28,3 +28,86 @@ export const artists = [
     path: '/thomas-canu',
   },
 ];
+
+export const projects = [
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+  {
+    title: 'luxury & fasion',
+    description: 'fashion design in paris',
+    artist: 'arthur paux',
+    imageUrl:
+      'https://unsplash.com/photos/a-woman-with-her-hands-on-her-face-YqtXKaBzz1s',
+    videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
+  },
+];
