@@ -1,7 +1,8 @@
+import ProjectsExample from '@/components/shared/ProjectsExample';
 import React from 'react';
 
 const page = () => {
-  return <div>page</div>;
+  return <ProjectsExample />;
 };
 
 export default page;

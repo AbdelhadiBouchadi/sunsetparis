@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/variants';
@@ -28,7 +30,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         initial="hidden"
         animate="show"
         exit="hidden"
-        className="max-w-[980px] 2xl:max-w-[1366px] mx-4 md:mx-0 w-full cursor-default flex flex-col gap-2 items-center justify-center relative"
+        className="max-w-[980px] 2xl:max-w-[1366px] mx-4 md:mx-0 w-full cursor-default flex flex-col gap-2 items-center justify-center relative bg-transparent"
       >
         {children}
       </motion.div>
