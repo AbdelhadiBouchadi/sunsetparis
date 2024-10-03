@@ -16,6 +16,10 @@ export const artists = [
     path: '/mathieu-caplanne',
   },
   {
+    name: 'nicolas gautier',
+    path: '/nicolas-gautier',
+  },
+  {
     name: 'romain loiseau',
     path: '/romain-loiseau',
   },

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Ubuntu, Jost } from 'next/font/google';
+import { Jost } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/shared/theme-provider';
 import Header from '@/components/shared/Header';
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jost.variable} antialiased h-full`}>
+      <body className={`${jost.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
