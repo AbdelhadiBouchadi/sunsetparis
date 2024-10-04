@@ -27,7 +27,7 @@ const Header = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 left-0  p-8 md:p-12 2xl:p-16 flex justify-between items-center gap-4 z-50 bg-background">
+    <nav className="w-full fixed top-0 left-0  p-8 2xl:p-16 flex justify-between items-center gap-4 z-50 bg-background">
       <button
         className="relative w-10 h-10 mx-4 flex items-center justify-center group"
         onClick={() => openModal()}

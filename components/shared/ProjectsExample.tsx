@@ -36,12 +36,12 @@ const ProjectsExample = () => {
             key={index}
             onClick={() => openModal(project)}
           >
-            <div className="absolute bottom-2 left-4 flex flex-col items-center justify-center gap-2 z-10 text-white transition-all duration-500 group-hover:translate-x-1">
-              <span className="w-full text-sm font-bold uppercase text-start">
+            <div className="absolute bottom-2 left-4 2xl:bottom-6 2xl:left-12 flex flex-col items-center justify-center gap-2 z-10 text-white transition-all duration-500 group-hover:translate-x-1 shadow-lg">
+              <span className="w-full text-sm xl:text-lg 2xl:text-2xl font-bold uppercase text-start">
                 {' '}
                 {project.title}{' '}
               </span>
-              <span className="w-full text-sm font-light uppercase text-start">
+              <span className="w-full text-sm xl:text-lg 2xl:text-2xl font-light uppercase text-start">
                 {' '}
                 {project.description}{' '}
               </span>
