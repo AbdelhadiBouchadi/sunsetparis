@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jost.variable} antialiased`}>
+      <body className={`${jost.variable} antialiased bg-background`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
