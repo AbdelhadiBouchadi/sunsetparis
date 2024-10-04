@@ -32,11 +32,11 @@ const ProjectsExample = () => {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 xl:gap-8 mx-auto pb-4">
         {projects.map((project, index) => (
           <div
-            className="w-full flex justify-center items-center cursor-pointer relative group overflow-hidden"
+            className="w-full flex justify-center items-center cursor-pointer relative group overflow-hidden shadow-xl"
             key={index}
             onClick={() => openModal(project)}
           >
-            <div className="absolute bottom-2 left-4 2xl:bottom-6 2xl:left-12 flex flex-col items-center justify-center gap-2 z-10 text-white transition-all duration-500 group-hover:translate-x-1 shadow-lg">
+            <div className="absolute bottom-2 left-4 2xl:bottom-6 2xl:left-12 flex flex-col items-center justify-center gap-2 z-10 text-white transition-all duration-500 group-hover:translate-x-1">
               <span className="w-full text-sm xl:text-lg 2xl:text-2xl font-bold uppercase text-start">
                 {' '}
                 {project.title}{' '}
@@ -57,7 +57,7 @@ const ProjectsExample = () => {
         ))}
       </div>
       {selectedImage && (
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal isOpen={isOpen} onClose={closeModal}>
           <div className="h-0 w-full pb-[100%] sm:pb-[80%] md:pb-[60%] ">
             <div className="absolute top-0 left-0 w-full h-full flex flex-col">
               <div className="w-full h-full relative">

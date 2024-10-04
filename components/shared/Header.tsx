@@ -46,7 +46,7 @@ const Header = () => {
       </Link>
       <ToggleBtn />
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Modal isOpen={isOpen} onClose={closeModal}>
         <ContactUs />
       </Modal>
     </nav>
