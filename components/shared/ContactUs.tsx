@@ -23,7 +23,7 @@ const ContactUs = () => {
           </Link>
           <Link
             href="mailto:adelia.booking@gmail.com?subject=Subject%20Here&body=Body%20Text%20Here"
-            className=" text-lg text-center uppercase text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] "
+            className=" text-lg text-center text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] "
           >
             adelia.booking@gmail.com
           </Link>
