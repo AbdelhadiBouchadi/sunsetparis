@@ -7,8 +7,8 @@ const ContactUs = () => {
   return (
     <div className="max-w-[80vw] w-full h-full flex flex-col justify-center items-center shadow-xl bg-white dark:bg-black py-4 md:py-8 rounded-xl overflow-hidden">
       <div className="w-full flex flex-col items-center justify-center gap-4 md:gap-8 lg:gap-12 py-4 md:py-8 lg:py-12">
-        <h3 className="font-bold text-xl lg:text-3xl uppercase text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2]">
-          contact sunset
+        <h3 className="font-semibold text-xl lg:text-3xl uppercase text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] tracking-widest">
+          contact sunset :
         </h3>
         <h5 className="font-normal text-xl lg:text-3xl text-center uppercase text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] ">
           Adélia Cailleux
