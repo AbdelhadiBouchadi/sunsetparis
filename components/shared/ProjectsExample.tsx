@@ -3,7 +3,7 @@
 import { projects } from '@/constants';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import Modal from './Modal';
+import VideoModal from './VideoModal';
 
 interface ProjectData {
   title: string;
@@ -57,21 +57,13 @@ const ProjectsExample = () => {
         ))}
       </div>
       {selectedImage && (
-        <Modal isOpen={isOpen} onClose={closeModal}>
-          <div className="h-0 w-full pb-[100%] sm:pb-[80%] md:pb-[60%] ">
-            <div className="absolute top-0 left-0 w-full h-full flex flex-col">
-              <div className="w-full h-full relative">
-                <iframe
-                  src={selectedImage.videoSource}
-                  width="100%"
-                  height="100%"
-                  frameBorder={0}
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        </Modal>
+        <VideoModal
+          isOpen={isOpen}
+          onClose={closeModal}
+          videoUrl={selectedImage.videoSource}
+          title="Louis Vuitton LVERS"
+          subtitle="Laura Parade · Louis Vuitton LVERS · Suffo Moncloa · Cadence Films"
+        />
       )}
     </>
   );

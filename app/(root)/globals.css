@@ -77,3 +77,40 @@ body {
     @apply border-border;
   }
 }
+
+@layer utilities {
+  .aspect-w-16 {
+    aspect-ratio: 16 / 9;
+  }
+  .aspect-h-9 {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.video_container {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center
+}
+
+@media (max-width: 991px) {
+  .video_container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .video_container {
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 0;
+    height: auto!important;
+    width: 100%!important;
+    position: absolute;
+    padding: 0 10px;
+    top: 50%;
+    transform: translateY(-50%)
+  }
+}
