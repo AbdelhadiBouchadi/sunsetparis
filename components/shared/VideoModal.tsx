@@ -55,7 +55,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         initial="hidden"
         animate="show"
         exit="hidden"
-        className="w-[60%] aspect-w-16 aspect-h-9"
+        className="w-full md:w-[60%] aspect-w-16 aspect-h-9"
       >
         <iframe
           src={videoUrl}
@@ -68,7 +68,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         ></iframe>
       </motion.div>
       <div className="text-white mb-4">
-        <p className="text-sm text-gray-300">{subtitle}</p>
+        <p className="text-sm text-gray-300 text-center">{subtitle}</p>
       </div>
     </motion.div>
   );
