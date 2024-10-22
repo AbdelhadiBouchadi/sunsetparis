@@ -67,17 +67,24 @@ export async function POST(req: Request) {
       photo: image_url,
     };
 
-    const newUser = await createUser(user);
+    try {
+      const newUser = await createUser(user);
+      console.log('User created in database:', newUser);
 
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+      if (newUser) {
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: newUser._id,
+          },
+        });
+        console.log('Clerk user metadata updated');
+      }
+
+      return NextResponse.json({ message: 'OK', user: newUser });
+    } catch (error) {
+      console.error('Error creating user:', error);
+      return new Response('Error creating user', { status: 500 });
     }
-
-    return NextResponse.json({ message: 'OK', user: newUser });
   }
 
   if (eventType === 'user.updated') {
