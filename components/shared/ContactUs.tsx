@@ -29,6 +29,12 @@ const ContactUs = () => {
           </Link>
         </div>
       </div>
+      <Link
+        href="/sunsetparis-admin"
+        className=" text-lg text-center text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] uppercase underline"
+      >
+        admin
+      </Link>
     </div>
   );
 };
