@@ -44,7 +44,7 @@ const AdminPage = async () => {
             </CardTitle>
             <CardDescription className="">
               Our Team has checked your current status , unfortunately you are
-              not allowed to acces this page . Please feel free to browse our
+              not allowed to access this page . Please feel free to browse our
               website content as a visitor. Thank you.
             </CardDescription>
           </CardHeader>
