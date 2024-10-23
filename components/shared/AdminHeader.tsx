@@ -23,7 +23,7 @@ const AdminHeader = () => {
         <SignedOut>
           <Button
             asChild
-            className="py-2 px-4 bg-transparent bg-gradient-to-b hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2]"
+            className="py-2 px-4  hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
           >
             <Link href="/sign-in">Sign In</Link>
           </Button>

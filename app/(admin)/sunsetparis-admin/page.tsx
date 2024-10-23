@@ -1,5 +1,5 @@
 import AdminPage from '@/components/shared/admin/AdminPage';
-import { Shield, LogIn, UserPlus } from 'lucide-react';
+import { ShieldCheck, LogIn, UserPlus } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -18,10 +18,10 @@ export default function Home() {
         <AdminPage />
       </SignedIn>
       <SignedOut>
-        <Card className="w-full max-w-md bg-dark-300">
+        <Card className="w-full max-w-md bg-dark-300 border-green-700">
           <CardHeader className="text-center space-y-2">
             <div className="mx-auto  w-12 h-12 rounded-full flex items-center justify-center mb-2">
-              <Shield className="w-6 h-6 " color="green" />
+              <ShieldCheck className="size-10" color="green" />
             </div>
             <CardTitle className="text-2xl font-bold text-green-700">
               Admin Access Only
