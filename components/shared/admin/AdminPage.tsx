@@ -2,7 +2,7 @@ import { getUserById } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import { Shield, LogIn, UserPlus, ShieldX } from 'lucide-react';
+import { LogIn, ShieldX } from 'lucide-react';
 import {
   Card,
   CardContent,
