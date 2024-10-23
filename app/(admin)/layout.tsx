@@ -25,14 +25,11 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            'min-h-screen bg-dark-300 font-sans antialiased text-dark-700',
+            'min-h-screen  font-sans antialiased text-dark-700',
             ubuntu.className
           )}
         >
-          <div className="mx-auto flex max-w-7xl flex-col space-y-14">
-            <AdminHeader />
-            {children}
-          </div>
+          {children}
         </body>
       </html>
     </ClerkProvider>

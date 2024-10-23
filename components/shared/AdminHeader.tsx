@@ -1,6 +1,8 @@
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { Button } from '../ui/button';
 
 const AdminHeader = () => {
   return (
@@ -15,7 +17,17 @@ const AdminHeader = () => {
             className="h-8 w-fit"
           />
         </Link>
-        <p className="text-xl text-gray-300 ">Admin Dashboard</p>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <Button
+            asChild
+            className="py-2 px-4 bg-transparent bg-gradient-to-b hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2]"
+          >
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
+        </SignedOut>
       </header>
     </div>
   );

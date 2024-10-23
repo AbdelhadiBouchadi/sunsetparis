@@ -14,6 +14,8 @@ export async function createUser(user: CreateUserParams) {
 
     const newUser = await User.create(user);
 
+    console.log(newUser);
+
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     handleError(error);
@@ -63,7 +65,7 @@ export async function deleteUser(clerkId: string) {
 
     // Delete user
     const deletedUser = await User.findByIdAndDelete(userToDelete._id);
-    revalidatePath('/darja-admin/users');
+    revalidatePath('/sunsetparis-admin');
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
   } catch (error) {

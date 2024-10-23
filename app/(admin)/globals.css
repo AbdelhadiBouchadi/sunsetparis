@@ -74,6 +74,10 @@ body {
   }
 }
 
+.auth {
+  @apply flex justify-center items-center min-h-screen w-full bg-gradient-to-br from-[#FCBB54] via-[#FB65A4] to-[#A67DD2]
+}
+
 @layer utilities {
   /* ===== TYPOGRAPHY */
   .text-36-bold {
