@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 @layer utilities {
   .text-balance {
@@ -123,7 +120,7 @@ body {
   /* Shadcn-ui */
 
   .shad-primary-btn {
-    @apply bg-green-500 text-white !important;
+    @apply bg-green-700 text-white !important;
   }
   
   .shad-danger-btn {
@@ -163,7 +160,7 @@ body {
   }
   
   .shad-select-content {
-    @apply bg-dark-400 border-dark-500 !important;
+    @apply bg-dark-400 border-dark-500 text-gray-200 !important;
   }
   
   .shad-dialog {

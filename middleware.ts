@@ -6,6 +6,7 @@ const isPublicRoute = createRouteMatcher([
   '/(admin)/sign-in(.*)',
   '/(admin)/sign-up(.*)',
   '/api/webhook/clerk',
+  '/api/uploadthing(.*)',
   '/',
   '/sunsetparis-admin',
   '/arthur-paux',

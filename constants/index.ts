@@ -111,3 +111,11 @@ export const projects = [
     videoSource: 'https://player.vimeo.com/video/1000811589?autoplay=1',
   },
 ];
+
+export const projectDefaultValues = {
+  title: '',
+  description: '',
+  artist: 'arthur',
+  imageUrl: '',
+  videoSource: '',
+};

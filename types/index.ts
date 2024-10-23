@@ -21,3 +21,39 @@ export type UpdateUserParams = {
   username: string;
   photo: string;
 };
+
+// ====== PROJECT PARAMS
+export interface CreateProjectParams {
+  title: string;
+  description: string;
+  artist:
+    | 'arthur paux'
+    | 'gabriel porier'
+    | 'kevin le dortz'
+    | 'mathieu caplanne'
+    | 'nicolas gautier'
+    | 'romain loiseau'
+    | 'thomas canu';
+  imageUrl: string;
+  videoSource: string;
+}
+
+export interface UpdateProjectParams {
+  _id: string;
+  title: string;
+  description: string;
+  artist:
+    | 'arthur paux'
+    | 'gabriel porier'
+    | 'kevin le dortz'
+    | 'mathieu caplanne'
+    | 'nicolas gautier'
+    | 'romain loiseau'
+    | 'thomas canu';
+  imageUrl: string;
+  videoSource: string;
+}
+
+export interface DeleteProjectParams {
+  projectId: string;
+}

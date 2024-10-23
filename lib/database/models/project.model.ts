@@ -10,11 +10,11 @@ export interface IProject extends Document {
     | 'gabriel porier'
     | 'kevin le dortz'
     | 'mathieu caplanne'
+    | 'nicolas gautier'
     | 'romain loiseau'
     | 'thomas canu';
   imageUrl: string;
   videoSource: string;
-  category: string;
   createdAt: Date;
 }
 
@@ -28,6 +28,7 @@ const ProjectSchema = new Schema<IProject>({
       'gabriel porier',
       'kevin le dortz',
       'mathieu caplanne',
+      'nicolas gautier',
       'romain loiseau',
       'thomas canu',
     ],
@@ -35,7 +36,6 @@ const ProjectSchema = new Schema<IProject>({
   },
   imageUrl: { type: String },
   videoSource: { type: String, required: true },
-  category: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 
