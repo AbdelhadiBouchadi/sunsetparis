@@ -18,7 +18,7 @@ const UpdateProject = async ({ params: { projectId } }: UpdateProjectProps) => {
         <p className="text-dark-700">Start editing your project.</p>
       </section>
 
-      <div className="wrapper my-8">
+      <div className="wrapper my-8 w-full">
         <ProjectForm type="Update" projectId={project._id} project={project} />
       </div>
     </main>
