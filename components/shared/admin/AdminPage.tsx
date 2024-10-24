@@ -127,8 +127,8 @@ const AdminPage = async () => {
           </div>
         </main>
       ) : (
-        <div className="w-[80%] flex justify-center items-center ">
-          <Card className="w-full max-w-md bg-dark-300 border-red-700">
+        <div className="w-full flex justify-center items-center ">
+          <Card className="w-[80%] max-w-md bg-dark-300 border-red-700">
             <CardHeader className="text-center space-y-2">
               <div className="mx-auto  w-12 h-12 rounded-full flex items-center justify-center mb-2">
                 <ShieldX className="size-10 " color="Red" />

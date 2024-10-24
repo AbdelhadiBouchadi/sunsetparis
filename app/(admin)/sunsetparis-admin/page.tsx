@@ -19,7 +19,7 @@ export default function Home() {
       </SignedIn>
       <SignedOut>
         <div className="w-full flex justify-center items-center">
-          <Card className="w-f[80%] max-w-md bg-dark-300 border-green-700">
+          <Card className="w-[80%] max-w-md bg-dark-300 border-green-700">
             <CardHeader className="text-center space-y-2">
               <div className="mx-auto  w-12 h-12 rounded-full flex items-center justify-center mb-2">
                 <ShieldCheck className="size-10" color="green" />
