@@ -218,7 +218,12 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
           )}
         />
 
-        <SubmitButton isLoading={isLoading}> {type} Project </SubmitButton>
+        <SubmitButton
+          className="bg-green-700 hover:bg-green-400"
+          isLoading={isLoading}
+        >
+          {type} Project
+        </SubmitButton>
       </form>
     </Form>
   );

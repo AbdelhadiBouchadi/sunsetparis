@@ -5,7 +5,7 @@ import { useDropzone } from '@uploadthing/react';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
 
 import { Button } from '@/components/ui/button';
-import { convertFileToUrl } from '@/lib/utils';
+import { cn, convertFileToUrl } from '@/lib/utils';
 
 type FileUploaderProps = {
   onFieldChange: (url: string) => void;
@@ -31,7 +31,10 @@ export function FileUploader({
   return (
     <div
       {...getRootProps()}
-      className="flex justify-center items-center bg-dark-500 h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50"
+      className={cn(
+        'flex justify-center items-center bg-gradient-to-br from-zinc-900 to-zinc-800 border-zinc-800 hover:border-zinc-700 transition-all duration-300  cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50',
+        imageUrl ? 'h-full' : 'h-72'
+      )}
     >
       <input {...getInputProps()} className="cursor-pointer" />
 
@@ -53,10 +56,13 @@ export function FileUploader({
             height={77}
             alt="file upload"
           />
-          <h3 className="mb-2 mt-2">Drag photo here</h3>
+          <h3 className="mb-2 mt-2">Drag & Drop Photo Here</h3>
           <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
-          <Button type="button" className="rounded-full shad-primary-btn">
-            Select from computer
+          <Button
+            type="button"
+            className="rounded-full shad-primary-btn hover:bg-green-400"
+          >
+            Select From Device
           </Button>
         </div>
       )}

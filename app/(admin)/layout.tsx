@@ -26,7 +26,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            'min-h-screen  font-sans antialiased text-dark-700',
+            'min-h-screen  font-sans antialiased text-dark-700 bg-dark-300',
             ubuntu.className
           )}
         >

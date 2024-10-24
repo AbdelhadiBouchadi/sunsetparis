@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   title: 'Sunset Paris',
   description: 'Sunset Paris Agency Official Website',
   icons: {
-    icon: '/favicon.ico', // Path to your favicon
+    icon: '/favicon.ico',
     shortcut: '/favicon.ico',
-    apple: '/favicon.ico', // Optional, if you have an Apple touch icon
+    apple: '/favicon.ico',
     other: [
       {
         rel: 'icon',

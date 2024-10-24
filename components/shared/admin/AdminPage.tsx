@@ -2,7 +2,7 @@ import { getUserById } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import { LogIn, ShieldX } from 'lucide-react';
+import { LogIn, ShieldX, User } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -10,8 +10,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
+import { getAllProjects } from '@/lib/actions/project.actions';
+import { DataTable } from './DataTable';
+import columns from './columns';
+import { StatCard } from './StatCard';
+import { cn } from '@/lib/utils';
 
 const AdminPage = async () => {
   const activeUser = await currentUser();
@@ -29,10 +34,98 @@ const AdminPage = async () => {
     return null;
   }
 
+  const projects = await getAllProjects();
+
+  const projectCounts = projects.reduce(
+    (counts, project) => {
+      if (counts[project.artist] !== undefined) {
+        counts[project.artist]++;
+      }
+      return counts;
+    },
+    {
+      'arthur paux': 0,
+      'gabriel porier': 0,
+      'kevin le dortz': 0,
+      'mathieu caplanne': 0,
+      'nicolas gautier': 0,
+      'romain loiseau': 0,
+      'thomas canu': 0,
+    }
+  );
+
   return (
-    <div>
+    <>
       {isAdmin ? (
-        <div>AdminPage</div>
+        <main className="p-8 w-full mx-auto">
+          <section className="mb-8">
+            <h1 className="text-3xl font-bold text-zinc-100 mb-2">
+              Welcome 👋
+            </h1>
+            <p className="text-zinc-400">
+              Start the day with managing new projects.
+            </p>
+          </section>
+
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            <StatCard
+              type="arthur paux"
+              count={projectCounts['arthur paux']}
+              label="Arthur Paux"
+              icon={User}
+            />
+            <StatCard
+              type="gabriel porier"
+              count={projectCounts['gabriel porier']}
+              label="Gabriel Porier"
+              icon={User}
+            />
+            <StatCard
+              type="kevin le dortz"
+              count={projectCounts['kevin le dortz']}
+              label="Kevin Le Dortz"
+              icon={User}
+            />
+            <StatCard
+              type="mathieu caplanne"
+              count={projectCounts['mathieu caplanne']}
+              label="Mathieu Caplanne"
+              icon={User}
+            />
+            <StatCard
+              type="nicolas gautier"
+              count={projectCounts['nicolas gautier']}
+              label="Nicolas Gautier"
+              icon={User}
+            />
+            <StatCard
+              type="romain loiseau"
+              count={projectCounts['romain loiseau']}
+              label="Romain Loiseau"
+              icon={User}
+            />
+            <StatCard
+              type="thomas canu"
+              count={projectCounts['thomas canu']}
+              label="Thomas Canu"
+              icon={User}
+            />
+          </section>
+
+          <div className="space-y-6">
+            <DataTable columns={columns} data={projects} />
+
+            <Link
+              href="/sunsetparis-admin/create"
+              className={cn(
+                'inline-flex items-center justify-center w-full py-3 px-4 rounded-lg bg-green-700 hover:bg-green-400 text-white font-medium transition-colors',
+                buttonVariants({ variant: 'link' })
+              )}
+            >
+              Create a new project
+            </Link>
+          </div>
+        </main>
       ) : (
         <Card className="w-full max-w-md bg-dark-300 border-red-700">
           <CardHeader className="text-center space-y-2">
@@ -61,7 +154,7 @@ const AdminPage = async () => {
           </CardContent>
         </Card>
       )}
-    </div>
+    </>
   );
 };
 
