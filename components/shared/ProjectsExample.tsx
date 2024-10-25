@@ -61,8 +61,8 @@ const ProjectsExample = () => {
           isOpen={isOpen}
           onClose={closeModal}
           videoUrl={selectedImage.videoSource}
-          title="Louis Vuitton LVERS"
-          subtitle="Laura Parade · Louis Vuitton LVERS · Suffo Moncloa · Cadence Films"
+          title={selectedImage.title}
+          subtitle={selectedImage.description}
         />
       )}
     </>

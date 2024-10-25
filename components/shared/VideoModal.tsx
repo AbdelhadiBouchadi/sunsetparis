@@ -29,7 +29,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 w-screen h-screen bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+      className="fixed inset-0 w-screen h-dvh bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
     >
       <div className="flex justify-between items-center mb-4 w-full">
         <Link href="/">
@@ -67,7 +67,8 @@ const VideoModal: React.FC<VideoModalProps> = ({
           className="w-full h-full"
         ></iframe>
       </motion.div>
-      <div className="text-white mb-4">
+      <div className="text-white my-4">
+        <p className="text-lg text-gray-300 text-center uppercase">{title}</p>
         <p className="text-sm text-gray-300 text-center">{subtitle}</p>
       </div>
     </motion.div>
