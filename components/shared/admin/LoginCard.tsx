@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import { Link, LogIn, ShieldCheck, UserPlus } from 'lucide-react';
 import React from 'react';
 
@@ -30,15 +29,18 @@ const LoginCard = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <Link
-              href="/sign-in"
-              className={cn(
-                'flex items-center justify-center gap-2 w-full bg-green-700 bg-gradient-to-b hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2]',
-                buttonVariants({ variant: 'secondary' })
-              )}
+            <Button
+              asChild
+              className="w-full bg-green-700 bg-gradient-to-b hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2]"
             >
-              <p>Sign In</p>
-            </Link>
+              <Link
+                href="/sign-in"
+                className="flex items-center justify-center gap-2 w-full bg-green-700 bg-gradient-to-b hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2]"
+              >
+                <LogIn className="w-4 h-4" />
+                Sign In
+              </Link>
+            </Button>
             <Button
               asChild
               className="w-full bg-gray-300 hover:bg-green-700 text-green-700 hover:text-gray-100"
