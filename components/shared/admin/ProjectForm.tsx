@@ -60,6 +60,10 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
     try {
       setIsLoading(true);
 
+      const toastId = toast.loading(
+        type === 'Create' ? 'Creating project...' : 'Updating project...'
+      );
+
       let uploadedImageUrl = values.imageUrl;
 
       if (files.length > 0) {
@@ -89,7 +93,10 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
           });
 
           if (newProject) {
-            toast.success('Project created successfully');
+            toast.success('Project created successfully', {
+              id: toastId,
+              description: 'Your project has been created and saved',
+            });
             form.reset();
             router.push('/sunsetparis-admin');
           }
@@ -108,7 +115,10 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
           });
 
           if (updatedProject) {
-            toast.success('Project updated successfully');
+            toast.success('Project Updated successfully', {
+              id: toastId,
+              description: 'Your project has been updated and saved',
+            });
             form.reset();
             router.push('/sunsetparis-admin');
           }
@@ -190,7 +200,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    placeholder="Video Source"
+                    placeholder="Video ID"
                     {...field}
                     className="shad-input border-0"
                   />

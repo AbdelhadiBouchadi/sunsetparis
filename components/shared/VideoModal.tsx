@@ -10,7 +10,7 @@ import Image from 'next/image';
 interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  videoUrl: string;
+  videoId: string;
   title: string;
   subtitle: string;
 }
@@ -18,7 +18,7 @@ interface VideoModalProps {
 const VideoModal: React.FC<VideoModalProps> = ({
   isOpen,
   onClose,
-  videoUrl,
+  videoId,
   title,
   subtitle,
 }) => {
@@ -38,7 +38,6 @@ const VideoModal: React.FC<VideoModalProps> = ({
             width={100}
             height={100}
             alt="sunsetparis_logo_image"
-            // className="w-auto h-auto"
           />
         </Link>
         <button
@@ -58,7 +57,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         className="w-full md:w-[60%] aspect-w-16 aspect-h-9"
       >
         <iframe
-          src={videoUrl}
+          src={`https://player.vimeo.com/video/${videoId}`}
           width="100%"
           height="100%"
           frameBorder={0}

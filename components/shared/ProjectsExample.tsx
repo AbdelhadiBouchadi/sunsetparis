@@ -60,7 +60,7 @@ const ProjectsExample = () => {
         <VideoModal
           isOpen={isOpen}
           onClose={closeModal}
-          videoUrl={selectedImage.videoSource}
+          videoId={selectedImage.videoSource}
           title={selectedImage.title}
           subtitle={selectedImage.description}
         />

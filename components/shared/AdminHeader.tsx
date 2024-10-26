@@ -12,7 +12,7 @@ const AdminHeader = () => {
           <Image
             src="/assets/logo.png"
             height={80}
-            width={80}
+            width={120}
             alt="logo"
             className="h-8 w-fit"
           />

@@ -3,8 +3,7 @@ import { Ubuntu } from 'next/font/google';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { cn } from '@/lib/utils';
-import AdminHeader from '@/components/shared/AdminHeader';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from 'sonner';
 
 const ubuntu = Ubuntu({
   subsets: ['latin'],
@@ -31,7 +30,7 @@ export default function RootLayout({
           )}
         >
           {children}
-          <Toaster />
+          <Toaster position="top-center" richColors />
         </body>
       </html>
     </ClerkProvider>

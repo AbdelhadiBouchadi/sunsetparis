@@ -75,7 +75,7 @@ export const columns: ColumnDef<IProject>[] = [
           <Link
             href={`/sunsetparis-admin/${projectId}/update`}
             className={cn(
-              'capitalize text-green-700',
+              'capitalize text-green-700 hover:bg-green-700',
               buttonVariants({ variant: 'ghost' })
             )}
           >

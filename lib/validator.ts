@@ -18,5 +18,5 @@ export const projectFormSchema = z.object({
     }
   ),
   imageUrl: z.string().url('Image URL must be a valid URL'),
-  videoSource: z.string().url({ message: 'Invalid video URL' }),
+  videoSource: z.string().min(1, { message: 'Invalid video URL' }),
 });

@@ -27,7 +27,7 @@ export const DeleteConfirmation = ({ projectId }: { projectId: string }) => {
     <AlertDialog>
       <AlertDialogTrigger
         className={cn(
-          'capitalize text-red-700',
+          'capitalize text-red-700 hover:bg-red-700',
           buttonVariants({ variant: 'ghost' })
         )}
       >
@@ -36,16 +36,18 @@ export const DeleteConfirmation = ({ projectId }: { projectId: string }) => {
 
       <AlertDialogContent className="bg-dark-300">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-dark-600">
+          <AlertDialogTitle className="text-white">
             Are you sure you want to delete?
           </AlertDialogTitle>
-          <AlertDialogDescription className="p-regular-16 text-dark-600">
+          <AlertDialogDescription className="p-regular-16 text-gray-200">
             This will permanently delete this project.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="text-accent-foreground">
+            Cancel
+          </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={() =>
@@ -53,7 +55,7 @@ export const DeleteConfirmation = ({ projectId }: { projectId: string }) => {
                 await deleteProject({ projectId });
               })
             }
-            className="bg-red-700"
+            className="bg-red-700 hover:bg-red-800"
           >
             {isPending ? 'Deleting...' : 'Delete'}
           </AlertDialogAction>
