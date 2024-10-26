@@ -39,10 +39,12 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
           <div className="flex items-center justify-between">
             <p className="text-sm text-zinc-400">
               Showing projects for{' '}
-              {selectedArtist
-                .split(' ')
-                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ')}
+              <span className="font-bold text-lg text-green-700">
+                {selectedArtist
+                  .split(' ')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')}
+              </span>
             </p>
             <Button
               onClick={() => setSelectedArtist(null)}
