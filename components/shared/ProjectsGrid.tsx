@@ -46,6 +46,7 @@ const ProjectCard = ({
         height={200}
         alt="project_image_sunset_paris"
         className="object-cover w-full h-full transition-all duration-500 group-hover:scale-105 ease-in-out"
+        loading="lazy"
       />
     </div>
   );
