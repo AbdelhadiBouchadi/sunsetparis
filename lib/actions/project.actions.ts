@@ -109,31 +109,31 @@ const getProjectsByArtist = async (artist: string) => {
 };
 
 // Arthur Paux Projects
-const getArthurProjects = async () => {
+export const getArthurProjects = async () => {
   return getProjectsByArtist('arthur paux');
 };
 
 // Gabriel Porier
-const getGabrielProjects = async () => {
+export const getGabrielProjects = async () => {
   return getProjectsByArtist('gabriel porier');
 };
 
 // Kevin Projects
-const getKevinProjects = async () => {
+export const getKevinProjects = async () => {
   return getProjectsByArtist('kevin le dortz');
 };
 
 // Nicolas Gautier
-const getNicolasProjects = async () => {
+export const getNicolasProjects = async () => {
   return getProjectsByArtist('nicolas gautier');
 };
 
 // Romain Projects
-const getRomainProjects = async () => {
+export const getRomainProjects = async () => {
   return getProjectsByArtist('romain loiseau');
 };
 
 // Thomas Projects
-const getThomasProjects = async () => {
+export const getThomasProjects = async () => {
   return getProjectsByArtist('thomas canu');
 };

@@ -1,8 +1,11 @@
-import ProjectsExample from '@/components/shared/ProjectsExample';
+import ProjectsGrid from '@/components/shared/ProjectsGrid';
+import { getGabrielProjects } from '@/lib/actions/project.actions';
 import React from 'react';
 
-const page = () => {
-  return <ProjectsExample />;
+const page = async () => {
+  const projects = await getGabrielProjects();
+
+  return <ProjectsGrid projects={projects} />;
 };
 
 export default page;
