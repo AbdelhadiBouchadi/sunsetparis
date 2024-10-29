@@ -1,19 +1,19 @@
 'use client';
 
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import VideoModal from './VideoModal';
 import { IProject } from '@/lib/database/models/project.model';
+import Image from 'next/image';
 
 interface ProjectsGridProps {
   projects: IProject[];
 }
 
 const ProjectSkeleton = () => (
-  <div className="w-full h-[300px] 2xl:h-[400px] bg-gray-200 animate-pulse  overflow-hidden">
+  <div className="w-full h-[300px] 2xl:h-[400px] bg-gray-200 dark:bg-gray-700 animate-pulse  overflow-hidden">
     <div className="w-full h-full flex flex-col justify-end p-4 2xl:p-12">
-      <div className="w-3/4 h-6 bg-gray-300  mb-2"></div>
-      <div className="w-1/2 h-4 bg-gray-300 "></div>
+      <div className="w-3/4 h-6 bg-gray-300 dark:bg-gray-600  mb-2"></div>
+      <div className="w-1/2 h-4 bg-gray-300 dark:bg-gray-600 "></div>
     </div>
   </div>
 );

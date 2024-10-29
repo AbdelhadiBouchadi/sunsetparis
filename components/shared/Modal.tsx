@@ -3,6 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/variants';
+import Link from 'next/link';
+import Image from 'next/image';
+import { X } from 'lucide-react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,30 +14,34 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  const overlayClasses = isOpen
-    ? 'fixed inset-0 w-screen h-screen bg-white/60  backdrop-blur-sm flex justify-center items-center z-[999] transition-all duration-300 ease-in-out'
-    : 'fixed inset-0 w-screen h-screen bg-white/60  backdrop-blur-sm flex justify-center items-center z-[999] transition-all duration-300 ease-in-out opacity-0 pointer-events-none';
-
   if (!isOpen) return null;
 
-  const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target instanceof HTMLDivElement && e.target.id === 'wrapper') {
-      onClose();
-    }
-  };
-
   return (
-    <div className={overlayClasses} id="wrapper" onClick={handleClose}>
-      <motion.div
-        variants={fadeIn('up', 0.1)}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className="max-w-[980px] 2xl:max-w-[1366px] mx-4 md:mx-0 w-full cursor-default flex flex-col gap-2 items-center justify-center relative bg-transparent"
-      >
-        {children}
-      </motion.div>
-    </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 w-screen h-dvh bg-white dark:bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+    >
+      <div className="flex justify-between items-center mb-4 w-full">
+        <Link href="/">
+          <Image
+            src="/assets/logo.png"
+            width={100}
+            height={100}
+            alt="sunsetparis_logo_image"
+          />
+        </Link>
+        <button
+          onClick={onClose}
+          className="dark:text-white text-gray-900 hover:text-gray-500 dark:hover:text-gray-300 transition-colors"
+          aria-label="Close modal"
+        >
+          <X size={24} />
+        </button>
+      </div>
+      {children}
+    </motion.div>
   );
 };
 
