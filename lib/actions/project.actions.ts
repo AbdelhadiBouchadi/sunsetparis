@@ -19,7 +19,13 @@ export const createProject = async (project: CreateProjectParams) => {
     });
 
     revalidatePath('/sunsetparis-admin');
-    revalidatePath('/');
+    revalidatePath('/arthur-paux');
+    revalidatePath('/gabriel-porier');
+    revalidatePath('/kevin-le-dortz');
+    revalidatePath('/mathieu-caplanne');
+    revalidatePath('/nicolas-gautier');
+    revalidatePath('/romain-loiseau');
+    revalidatePath('/thomas-canu');
     return parseStringify(newProject);
   } catch (error) {
     console.error('Error creating a new project', error);
