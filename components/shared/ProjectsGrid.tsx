@@ -10,10 +10,10 @@ interface ProjectsGridProps {
 }
 
 const ProjectSkeleton = () => (
-  <div className="w-full h-[300px] 2xl:h-[400px] bg-gray-200 dark:bg-gray-700 animate-pulse  overflow-hidden">
+  <div className="w-full h-[300px] 2xl:h-[400px] bg-gray-200 dark:bg-gray-700 animate-pulse overflow-hidden">
     <div className="w-full h-full flex flex-col justify-end p-4 2xl:p-12">
-      <div className="w-3/4 h-6 bg-gray-300 dark:bg-gray-600  mb-2"></div>
-      <div className="w-1/2 h-4 bg-gray-300 dark:bg-gray-600 "></div>
+      <div className="w-3/4 h-6 bg-gray-300 dark:bg-gray-600 mb-2"></div>
+      <div className="w-1/2 h-4 bg-gray-300 dark:bg-gray-600"></div>
     </div>
   </div>
 );
@@ -25,6 +25,8 @@ const ProjectCard = ({
   project: IProject;
   onClick: () => void;
 }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div
       className="w-full flex justify-center items-center cursor-pointer relative group overflow-hidden shadow-xl"
@@ -40,13 +42,17 @@ const ProjectCard = ({
           {project.description}
         </span>
       </div>
+      {!imageLoaded && <ProjectSkeleton />}
       <Image
         src={project.imageUrl}
         width={400}
         height={200}
         alt="project_image_sunset_paris"
-        className="object-cover w-full h-full transition-all duration-500 group-hover:scale-105 ease-in-out"
+        className={`object-cover w-full h-full transition-all duration-500 group-hover:scale-105 ease-in-out ${
+          imageLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
         loading="lazy"
+        onLoad={() => setImageLoaded(true)}
       />
     </div>
   );
@@ -55,20 +61,6 @@ const ProjectCard = ({
 const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
-  const [loadedProjects, setLoadedProjects] = useState<IProject[]>([]);
-
-  useEffect(() => {
-    const loadProjects = async () => {
-      for (let i = 0; i < projects.length; i++) {
-        await new Promise((resolve) =>
-          setTimeout(resolve, Math.random() * 500)
-        ); // Simulate variable loading times
-        setLoadedProjects((prev) => [...prev, projects[i]]);
-      }
-    };
-
-    loadProjects();
-  }, [projects]);
 
   function openModal(project: IProject) {
     setSelectedProject(project);
@@ -83,17 +75,12 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
   return (
     <>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 xl:gap-8 mx-auto pb-4">
-        {projects.map((project, index) => (
-          <React.Fragment key={project._id}>
-            {index < loadedProjects.length ? (
-              <ProjectCard
-                project={project}
-                onClick={() => openModal(project)}
-              />
-            ) : (
-              <ProjectSkeleton />
-            )}
-          </React.Fragment>
+        {projects.map((project) => (
+          <ProjectCard
+            key={project._id}
+            project={project}
+            onClick={() => openModal(project)}
+          />
         ))}
       </div>
       {selectedProject && (
