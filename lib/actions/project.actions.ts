@@ -19,6 +19,7 @@ export const createProject = async (project: CreateProjectParams) => {
     });
 
     revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
     return parseStringify(newProject);
   } catch (error) {
     console.error('Error creating a new project', error);
@@ -42,6 +43,7 @@ export const updateProject = async (project: UpdateProjectParams) => {
     );
 
     revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
     return parseStringify(updatedProject);
   } catch (error) {
     console.error('Error updating the project', error);
@@ -54,7 +56,10 @@ export const deleteProject = async ({ projectId }: DeleteProjectParams) => {
     await connectToDatabase();
 
     const deletedProject = await Project.findByIdAndDelete(projectId);
-    if (deletedProject) revalidatePath('/sunsetparis-admin');
+    if (deletedProject) {
+      revalidatePath('/sunsetparis-admin');
+      revalidatePath('/');
+    }
   } catch (error) {
     handleError(error);
   }
