@@ -2,46 +2,61 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-let cached = (global as any).mongoose || { conn: null, promise: null };
+if (!MONGODB_URI) {
+  throw new Error(
+    'Please define the MONGODB_URI environment variable inside .env'
+  );
+}
+
+let cached = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = {
+    conn: null,
+    promise: null,
+  };
+}
 
 export const connectToDatabase = async () => {
-  if (!MONGODB_URI) throw new Error('MONGODB_URI is missing');
+  if (cached.conn) {
+    return cached.conn;
+  }
 
-  try {
-    // Only use cached connection if it's still connected
-    if (cached.conn && mongoose.connection.readyState === 1) {
-      return cached.conn;
-    }
-
-    // If there's no connection or it's disconnected, create a new one
+  if (!cached.promise) {
     const opts = {
+      bufferCommands: true, // Changed to true
       dbName: 'sunsetparis',
-      bufferCommands: false,
-      maxPoolSize: 10, // Adjust based on your needs
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
     };
 
-    // Clear existing promise if connection is not active
-    if (cached.conn === null || mongoose.connection.readyState !== 1) {
-      cached.promise = null;
-    }
-
-    cached.promise = cached.promise || mongoose.connect(MONGODB_URI, opts);
-    cached.conn = await cached.promise;
-
-    return cached.conn;
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    // Reset cache on connection error
-    cached.conn = null;
-    cached.promise = null;
-    throw error;
+    cached.promise = mongoose.connect(MONGODB_URI, opts);
   }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
+  return cached.conn;
 };
 
-// Add a function to clear the connection cache if needed
-export const clearDatabaseCache = () => {
-  cached.conn = null;
-  cached.promise = null;
+// Add this function to ensure connection is ready
+export const ensureDatabaseConnection = async () => {
+  try {
+    const conn = await connectToDatabase();
+    // Wait for connection to be ready
+    await new Promise((resolve) => {
+      if (conn.connection.readyState === 1) {
+        resolve(true);
+      } else {
+        conn.connection.once('connected', resolve);
+      }
+    });
+    return conn;
+  } catch (error) {
+    console.error('Database connection error:', error);
+    throw error;
+  }
 };
