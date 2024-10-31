@@ -1,14 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env'
-  );
+interface MongooseConnection {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
 }
 
-let cached = (global as any).mongoose;
+let cached: MongooseConnection = (global as any).mongoose;
 
 if (!cached) {
   cached = (global as any).mongoose = {
@@ -18,45 +17,18 @@ if (!cached) {
 }
 
 export const connectToDatabase = async () => {
-  if (cached.conn) {
-    return cached.conn;
-  }
+  if (cached.conn) return cached.conn;
 
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: true, // Changed to true
+  if (!MONGODB_URI) throw new Error('MongoDB URL not defined!');
+
+  cached.promise =
+    cached.promise ||
+    mongoose.connect(MONGODB_URI, {
       dbName: 'sunsetparis',
-      maxPoolSize: 10,
-    };
+      bufferCommands: false,
+    });
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts);
-  }
-
-  try {
-    cached.conn = await cached.promise;
-  } catch (e) {
-    cached.promise = null;
-    throw e;
-  }
+  cached.conn = await cached.promise;
 
   return cached.conn;
-};
-
-// Add this function to ensure connection is ready
-export const ensureDatabaseConnection = async () => {
-  try {
-    const conn = await connectToDatabase();
-    // Wait for connection to be ready
-    await new Promise((resolve) => {
-      if (conn.connection.readyState === 1) {
-        resolve(true);
-      } else {
-        conn.connection.once('connected', resolve);
-      }
-    });
-    return conn;
-  } catch (error) {
-    console.error('Database connection error:', error);
-    throw error;
-  }
 };
