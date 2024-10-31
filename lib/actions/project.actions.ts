@@ -134,6 +134,11 @@ export const getKevinProjects = async () => {
   return getProjectsByArtist('kevin le dortz');
 };
 
+// Kevin Projects
+export const getMathieuProjects = async () => {
+  return getProjectsByArtist('mathieu caplanne');
+};
+
 // Nicolas Gautier
 export const getNicolasProjects = async () => {
   return getProjectsByArtist('nicolas gautier');
