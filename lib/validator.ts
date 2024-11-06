@@ -19,4 +19,8 @@ export const projectFormSchema = z.object({
   ),
   imageUrl: z.string().url('Image URL must be a valid URL'),
   videoSource: z.string().min(1, { message: 'Invalid video URL' }),
+  place: z.string().min(1, { message: 'Please Enter the location' }),
+  date: z.string().min(1, { message: 'Please Enter The Date' }),
+  real: z.string().min(1, { message: 'You forgot to enter the REAL' }),
+  dop: z.string().min(1, { message: 'You forgot to enter the DOP' }),
 });

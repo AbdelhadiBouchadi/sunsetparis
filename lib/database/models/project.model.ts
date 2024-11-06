@@ -15,6 +15,10 @@ export interface IProject extends Document {
     | 'thomas canu';
   imageUrl: string;
   videoSource: string;
+  place: string;
+  date: string;
+  real: string;
+  dop: string;
   createdAt: Date;
 }
 
@@ -36,6 +40,10 @@ const ProjectSchema = new Schema<IProject>({
   },
   imageUrl: { type: String },
   videoSource: { type: String, required: true },
+  place: { type: String },
+  date: { type: String },
+  real: { type: String },
+  dop: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
 

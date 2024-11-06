@@ -22,9 +22,11 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
   return (
     <main className="p-8 w-full mx-auto">
       <section className="mb-8">
-        <h1 className="text-3xl font-bold text-zinc-100 mb-2">Welcome 👋</h1>
+        <h1 className="text-3xl font-bold text-zinc-100 mb-2">
+          Welcome Adélia 👋
+        </h1>
         <p className="text-zinc-400">
-          Start the day with managing new projects.
+          Start the day with managing your projects.
         </p>
       </section>
 

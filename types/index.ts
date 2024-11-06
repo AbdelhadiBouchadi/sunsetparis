@@ -36,6 +36,10 @@ export interface CreateProjectParams {
     | 'thomas canu';
   imageUrl: string;
   videoSource: string;
+  place: string;
+  date: string;
+  real: string;
+  dop: string;
 }
 
 export interface UpdateProjectParams {
@@ -52,6 +56,10 @@ export interface UpdateProjectParams {
     | 'thomas canu';
   imageUrl: string;
   videoSource: string;
+  place: string;
+  date: string;
+  real: string;
+  dop: string;
 }
 
 export interface DeleteProjectParams {
