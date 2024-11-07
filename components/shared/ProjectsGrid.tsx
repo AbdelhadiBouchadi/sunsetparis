@@ -34,11 +34,11 @@ const ProjectCard = ({
       onClick={onClick}
     >
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="absolute bottom-2 left-4 2xl:bottom-6 2xl:left-12 flex flex-col items-center justify-center gap-2 z-10 text-white transition-all duration-500 group-hover:translate-x-1">
-        <span className="w-full text-sm xl:text-lg 2xl:text-2xl font-bold uppercase text-start">
+      <div className="absolute bottom-2 left-4 2xl:bottom-6 2xl:left-12 flex flex-col items-center justify-center gap-2 z-10  transition-all duration-500 group-hover:translate-x-1">
+        <span className="w-full text-sm text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] xl:text-lg 2xl:text-2xl font-bold uppercase text-start">
           {project.title}
         </span>
-        <span className="w-full text-sm xl:text-lg 2xl:text-2xl font-light uppercase text-start">
+        <span className="w-full text-sm text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] xl:text-lg 2xl:text-2xl font-light uppercase text-start">
           {project.description}
         </span>
       </div>
