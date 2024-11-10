@@ -28,32 +28,28 @@ const ProjectCard = ({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div
-      className="w-full flex justify-center items-center cursor-pointer relative group overflow-hidden shadow-xl"
-      key={project._id}
-      onClick={onClick}
-    >
-      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="absolute bottom-2 left-4 2xl:bottom-6 2xl:left-12 flex flex-col items-center justify-center gap-2 z-10  transition-all duration-500 group-hover:translate-x-1">
-        <span className="w-full text-sm text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] xl:text-lg 2xl:text-2xl font-bold uppercase text-start">
-          {project.title}
-        </span>
-        <span className="w-full text-sm text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] xl:text-lg 2xl:text-2xl font-light uppercase text-start">
-          {project.description}
-        </span>
+    <div className="group flex flex-col" onClick={onClick}>
+      <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
+        {!imageLoaded && <ProjectSkeleton />}
+        <Image
+          src={project.imageUrl}
+          width={400}
+          height={400}
+          alt={project.title}
+          className={`object-cover w-full h-[300px] 2xl:h-[400px] transition-transform duration-500 group-hover:scale-105`}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+        />
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-      {!imageLoaded && <ProjectSkeleton />}
-      <Image
-        src={project.imageUrl}
-        width={400}
-        height={200}
-        alt="project_image_sunset_paris"
-        className={`object-cover w-full h-full transition-all duration-500 group-hover:scale-105 ease-in-out ${
-          imageLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        loading="lazy"
-        onLoad={() => setImageLoaded(true)}
-      />
+      <div className="mt-4 space-y-2 px-2 group-hover:translate-x-1 transition-all duration-500">
+        <h3 className="text-lg xl:text-xl 2xl:text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
+          {project.title}
+        </h3>
+        <p className="text-sm uppercase xl:text-base 2xl:text-lg text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
+          {project.real} . {project.dop}
+        </p>
+      </div>
     </div>
   );
 };
@@ -74,7 +70,7 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 xl:gap-8 mx-auto pb-4">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 xl:gap-8 mx-auto pb-16">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}
@@ -89,7 +85,8 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
           onClose={closeModal}
           videoId={selectedProject.videoSource}
           title={selectedProject.title}
-          subtitle={selectedProject.description}
+          real={selectedProject.real}
+          dop={selectedProject.dop}
         />
       )}
     </>

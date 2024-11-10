@@ -12,7 +12,8 @@ interface VideoModalProps {
   onClose: () => void;
   videoId: string;
   title: string;
-  subtitle: string;
+  real: string;
+  dop: string;
 }
 
 const VideoModal: React.FC<VideoModalProps> = ({
@@ -20,7 +21,8 @@ const VideoModal: React.FC<VideoModalProps> = ({
   onClose,
   videoId,
   title,
-  subtitle,
+  real,
+  dop,
 }) => {
   if (!isOpen) return null;
 
@@ -66,9 +68,11 @@ const VideoModal: React.FC<VideoModalProps> = ({
           className="w-full h-full"
         ></iframe>
       </motion.div>
-      <div className="text-white my-4">
+      <div className="text-white uppercase my-4">
         <p className="text-lg text-gray-300 text-center uppercase">{title}</p>
-        <p className="text-sm text-gray-300 text-center">{subtitle}</p>
+        <p className="text-sm text-gray-300 text-center">
+          {real} . {dop}
+        </p>
       </div>
     </motion.div>
   );
