@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <nav className="w-full fixed top-0 left-0  p-8 2xl:p-16 flex justify-between items-center gap-4 z-50 bg-background">
       <button
-        className="relative w-10 h-10 mx-4 flex items-center justify-center group"
+        className="relative size-5 md:size-10 mx-4 flex items-center justify-center group"
         onClick={() => openModal()}
       >
         <span className="absolute w-1 md:w-2 h-10 md:h-16 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4]   to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl z-10"></span>
@@ -41,7 +41,7 @@ const Header = () => {
           width={300}
           height={300}
           alt="sunsetparis_logo_image"
-          // className="w-auto h-auto"
+          className="scale-[65%] md:scale-100 "
         />
       </Link>
       <ToggleBtn />

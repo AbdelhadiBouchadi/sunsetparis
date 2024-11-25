@@ -69,7 +69,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         ></iframe>
       </motion.div>
       <div className="text-white uppercase my-4">
-        <p className="text-lg text-gray-300 text-center uppercase">{title}</p>
+        <p className="text-lg text-gray-300 text-center">{title}</p>
         <p className="text-sm text-gray-300 text-center">
           {real} . {dop}
         </p>
