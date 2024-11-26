@@ -38,6 +38,7 @@ const ToggleBtn = () => {
           width={80}
           height={80}
           alt="light_mode_btn"
+          className="scale-[65%] md:scale-100"
         />
       )}
     </div>
