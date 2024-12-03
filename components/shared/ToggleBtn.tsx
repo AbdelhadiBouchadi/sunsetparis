@@ -30,7 +30,7 @@ const ToggleBtn = () => {
           width={80}
           height={80}
           alt="dark_mode_btn"
-          className="scale-75 md:scale-100"
+          className="scale-75 md:scale-90"
         />
       ) : (
         <Image
@@ -38,7 +38,7 @@ const ToggleBtn = () => {
           width={80}
           height={80}
           alt="light_mode_btn"
-          className="scale-75 md:scale-100"
+          className="scale-75 md:scale-90"
         />
       )}
     </div>
