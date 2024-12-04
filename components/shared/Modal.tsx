@@ -24,7 +24,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
       className="fixed inset-0 w-screen h-dvh bg-white dark:bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
     >
       <div className="flex justify-between items-center mb-4 w-full">
-        <Link href="/">
+        <Link href="/" onClick={onClose}>
           <Image
             src="/assets/logo.png"
             width={100}
