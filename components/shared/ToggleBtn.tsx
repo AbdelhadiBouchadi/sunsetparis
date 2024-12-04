@@ -30,7 +30,7 @@ const ToggleBtn = () => {
         width={80}
         height={80}
         alt={theme === 'light' ? 'dark_mode_btn' : 'light_mode_btn'}
-        className="w-8 h-8 md:w-12 md:h-12"
+        className="w-8 h-8 md:w-10 md:h-10"
       />
     </div>
   );
