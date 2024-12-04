@@ -25,7 +25,7 @@ export const projectFormSchema = z.object({
       message: 'Please choose an artist',
     }
   ),
-  imageUrl: z.string().url('Image URL must be a valid URL'),
+  images: z.array(z.string()).default([]),
   videoSource: z.string().optional(),
   place: z.string().optional(),
   date: z.string().optional(),

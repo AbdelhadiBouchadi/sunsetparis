@@ -64,25 +64,16 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         type === 'Create' ? 'Creating project...' : 'Updating project...'
       );
 
-      let uploadedImageUrl = values.imageUrl;
+      let uploadedImageUrls = values.images;
 
       if (files.length > 0) {
-        try {
-          const uploadedImages = await startUpload(files);
+        const uploadedImages = await startUpload(files);
 
-          if (!uploadedImages) {
-            toast.error('Image upload failed');
-            setIsLoading(false);
-            return;
-          }
-
-          uploadedImageUrl = uploadedImages[0].url;
-        } catch (error) {
-          console.error('Upload error:', error);
-          toast.error('Failed to upload image');
-          setIsLoading(false);
+        if (!uploadedImages) {
           return;
         }
+
+        uploadedImageUrls = uploadedImages.map((img) => img.url);
       }
 
       // Parse and validate video URL if provided
@@ -101,7 +92,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         try {
           const newProject = await createProject({
             ...values,
-            imageUrl: uploadedImageUrl,
+            images: uploadedImageUrls,
           });
 
           if (newProject) {
@@ -122,7 +113,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         try {
           const updatedProject = await updateProject({
             ...values,
-            imageUrl: uploadedImageUrl,
+            images: uploadedImageUrls,
             _id: projectId,
           });
 
@@ -296,13 +287,13 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
         <FormField
           control={form.control}
-          name="imageUrl"
+          name="images"
           render={({ field }) => (
             <FormItem className="w-full">
               <FormControl className="h-72">
                 <FileUploader
                   onFieldChange={field.onChange}
-                  imageUrl={field.value}
+                  imageUrls={field.value}
                   setFiles={setFiles}
                 />
               </FormControl>

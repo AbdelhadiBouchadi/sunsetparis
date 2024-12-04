@@ -32,7 +32,7 @@ const ProjectCard = ({
       <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
         {!imageLoaded && <ProjectSkeleton />}
         <Image
-          src={project.imageUrl}
+          src={project.images[0]}
           width={400}
           height={400}
           alt={project.title}

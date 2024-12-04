@@ -39,7 +39,7 @@ export interface CreateProjectParams {
     | 'nicolas gautier'
     | 'romain loiseau'
     | 'thomas canu';
-  imageUrl: string;
+  images: string[];
   videoSource?: string;
   place?: string;
   date?: string;
@@ -59,7 +59,7 @@ export interface UpdateProjectParams {
     | 'nicolas gautier'
     | 'romain loiseau'
     | 'thomas canu';
-  imageUrl: string;
+  images: string[];
   videoSource?: string;
   place?: string;
   date?: string;

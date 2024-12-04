@@ -1,54 +1,59 @@
 'use client';
 
 import { useCallback, Dispatch, SetStateAction } from 'react';
-import { useDropzone } from '@uploadthing/react';
+import { useDropzone } from '@uploadthing/react/hooks';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
-
 import { Button } from '@/components/ui/button';
-import { cn, convertFileToUrl } from '@/lib/utils';
+import { convertFileToUrl } from '@/lib/utils';
+import { ImageSlider } from './ImageSlider';
 
 type FileUploaderProps = {
-  onFieldChange: (url: string) => void;
-  imageUrl: string;
+  onFieldChange: (urls: string[]) => void;
+  imageUrls: string[];
   setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
 export function FileUploader({
-  imageUrl,
+  imageUrls,
   onFieldChange,
   setFiles,
 }: FileUploaderProps) {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFiles(acceptedFiles);
-    onFieldChange(convertFileToUrl(acceptedFiles[0]));
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
+
+      // Create preview URLs for the dropped files
+      const newImageUrls = acceptedFiles.map((file) => convertFileToUrl(file));
+      onFieldChange([...imageUrls, ...newImageUrls]);
+    },
+    [imageUrls, onFieldChange, setFiles]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: generateClientDropzoneAccept(['image/*']),
+    multiple: true,
   });
 
-  return (
-    <div
-      {...getRootProps()}
-      className={cn(
-        'flex justify-center items-center bg-gradient-to-br from-zinc-900 to-zinc-800 border-zinc-800 hover:border-zinc-700 transition-all duration-300  cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50',
-        imageUrl ? 'h-full' : 'h-72'
-      )}
-    >
-      <input {...getInputProps()} className="cursor-pointer" />
+  const removeImage = (index: number) => {
+    const newImageUrls = [...imageUrls];
+    newImageUrls.splice(index, 1);
+    onFieldChange(newImageUrls);
 
-      {imageUrl ? (
-        <div className="flex h-full w-full flex-1 justify-center ">
-          <img
-            src={imageUrl}
-            alt="image"
-            width={250}
-            height={250}
-            className="w-full object-cover object-center"
-          />
-        </div>
-      ) : (
+    setFiles((prevFiles) => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+  };
+
+  return (
+    <div className="flex flex-col gap-4 w-full">
+      <div
+        {...getRootProps()}
+        className="flex justify-center items-center bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg border cursor-pointer flex-col rounded-xl h-72"
+      >
+        <input {...getInputProps()} className="cursor-pointer" />
         <div className="flex flex-col justify-center items-center py-5 text-grey-500">
           <img
             src="/assets/icons/file-upload.svg"
@@ -64,6 +69,12 @@ export function FileUploader({
           >
             Select From Device
           </Button>
+        </div>
+      </div>
+
+      {imageUrls.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <ImageSlider images={imageUrls} onRemove={removeImage} />
         </div>
       )}
     </div>

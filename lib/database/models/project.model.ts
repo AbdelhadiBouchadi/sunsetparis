@@ -14,7 +14,7 @@ export interface IProject extends Document {
     | 'nicolas gautier'
     | 'romain loiseau'
     | 'thomas canu';
-  imageUrl: string;
+  images: string[];
   videoSource?: string;
   place?: string;
   date?: string;
@@ -39,7 +39,10 @@ const ProjectSchema = new Schema<IProject>({
     ],
     required: true,
   },
-  imageUrl: { type: String },
+  images: {
+    type: [String],
+    default: [],
+  },
   videoSource: {
     type: String,
     required: false,
