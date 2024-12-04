@@ -42,7 +42,7 @@ const Header = () => {
           width={300}
           height={300}
           alt="sunsetparis_logo_image"
-          className="w-auto h-8 md:h-12"
+          className="w-auto h-10 md:h-12"
         />
       </Link>
       <ToggleBtn />
