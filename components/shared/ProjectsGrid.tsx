@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import VideoModal from './VideoModal';
 import { IProject } from '@/lib/database/models/project.model';
 import Image from 'next/image';
@@ -46,10 +46,10 @@ const ProjectCard = ({
         <h3 className="text-lg xl:text-xl 2xl:text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-sm uppercase xl:text-base 2xl:text-lg text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
+        <p className="text-sm xl:text-base 2xl:text-lg text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
           {project.real}
         </p>
-        <p className="text-sm uppercase xl:text-base 2xl:text-lg text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
+        <p className="text-sm xl:text-base 2xl:text-lg text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
           {project.dop}
         </p>
       </div>
@@ -86,7 +86,7 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
         <VideoModal
           isOpen={isOpen}
           onClose={closeModal}
-          videoId={selectedProject.videoSource}
+          videoSource={selectedProject.videoSource}
           title={selectedProject.title}
           real={selectedProject.real}
           dop={selectedProject.dop}

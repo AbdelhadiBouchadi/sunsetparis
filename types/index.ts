@@ -1,5 +1,10 @@
 /* eslint-disable no-unused-vars */
 
+import { z } from 'zod';
+
+export const VideoSourceType = z.enum(['vimeo', 'youtube', 'direct']);
+export type VideoSourceTypeEnum = z.infer<typeof VideoSourceType>;
+
 declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -25,7 +30,7 @@ export type UpdateUserParams = {
 // ====== PROJECT PARAMS
 export interface CreateProjectParams {
   title: string;
-  description: string;
+  description?: string;
   artist:
     | 'arthur paux'
     | 'gabriel porier'
@@ -35,9 +40,9 @@ export interface CreateProjectParams {
     | 'romain loiseau'
     | 'thomas canu';
   imageUrl: string;
-  videoSource: string;
-  place: string;
-  date: string;
+  videoSource?: string;
+  place?: string;
+  date?: string;
   real: string;
   dop: string;
 }
@@ -45,7 +50,7 @@ export interface CreateProjectParams {
 export interface UpdateProjectParams {
   _id: string;
   title: string;
-  description: string;
+  description?: string;
   artist:
     | 'arthur paux'
     | 'gabriel porier'
@@ -55,13 +60,19 @@ export interface UpdateProjectParams {
     | 'romain loiseau'
     | 'thomas canu';
   imageUrl: string;
-  videoSource: string;
-  place: string;
-  date: string;
+  videoSource?: string;
+  place?: string;
+  date?: string;
   real: string;
   dop: string;
 }
 
 export interface DeleteProjectParams {
   projectId: string;
+}
+
+export interface VideoSourceData {
+  type: VideoSourceTypeEnum;
+  url: string;
+  originalUrl: string;
 }

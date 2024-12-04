@@ -1,10 +1,11 @@
+import { VideoSourceTypeEnum } from '@/types';
 import { Schema, Document, model, models } from 'mongoose';
 
 // Interface
 export interface IProject extends Document {
   _id: string;
   title: string;
-  description: string;
+  description?: string;
   artist:
     | 'arthur paux'
     | 'gabriel porier'
@@ -14,9 +15,9 @@ export interface IProject extends Document {
     | 'romain loiseau'
     | 'thomas canu';
   imageUrl: string;
-  videoSource: string;
-  place: string;
-  date: string;
+  videoSource?: string;
+  place?: string;
+  date?: string;
   real: string;
   dop: string;
   createdAt: Date;
@@ -39,7 +40,10 @@ const ProjectSchema = new Schema<IProject>({
     required: true,
   },
   imageUrl: { type: String },
-  videoSource: { type: String, required: true },
+  videoSource: {
+    type: String,
+    required: false,
+  },
   place: { type: String },
   date: { type: String },
   real: { type: String },

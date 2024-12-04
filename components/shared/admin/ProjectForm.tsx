@@ -6,7 +6,7 @@ import { IProject } from '@/lib/database/models/project.model';
 import { useUploadThing } from '@/lib/uploadthing';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { projectFormSchema } from '@/lib/validator';
+import { parseVideoUrl, projectFormSchema } from '@/lib/validator';
 import { z } from 'zod';
 import { createProject, updateProject } from '@/lib/actions/project.actions';
 import {
@@ -80,6 +80,18 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         } catch (error) {
           console.error('Upload error:', error);
           toast.error('Failed to upload image');
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      // Parse and validate video URL if provided
+      if (values.videoSource) {
+        try {
+          const videoSource = parseVideoUrl(values.videoSource);
+          values.videoSource = videoSource;
+        } catch (error) {
+          toast.error('Invalid video URL');
           setIsLoading(false);
           return;
         }
@@ -200,7 +212,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    placeholder="Video ID"
+                    placeholder="Video URL (Optional - YouTube, Vimeo, or direct link)"
                     {...field}
                     className="shad-input border-0"
                   />
