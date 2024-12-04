@@ -5,6 +5,7 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  getPaginationRowModel,
 } from '@tanstack/react-table';
 
 import {
@@ -31,6 +32,12 @@ export function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 10,
+      },
+    },
   });
 
   return (
@@ -78,36 +85,42 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="table-actions">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-          className="shad-gray-btn"
-        >
-          <Image
-            src="/assets/icons/arrow.svg"
-            width={24}
-            height={24}
-            alt="arrow"
-          />
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-          className="shad-gray-btn"
-        >
-          <Image
-            src="/assets/icons/arrow.svg"
-            width={24}
-            height={24}
-            alt="arrow "
-            className="rotate-180"
-          />
-        </Button>
+      <div className="table-actions flex items-center justify-between mt-4">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            className="shad-gray-btn"
+          >
+            <Image
+              src="/assets/icons/arrow.svg"
+              width={24}
+              height={24}
+              alt="Previous page"
+            />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            className="shad-gray-btn"
+          >
+            <Image
+              src="/assets/icons/arrow.svg"
+              width={24}
+              height={24}
+              alt="Next page"
+              className="rotate-180"
+            />
+          </Button>
+        </div>
+        <div className="text-sm text-gray-400">
+          Page {table.getState().pagination.pageIndex + 1} of{' '}
+          {table.getPageCount()}
+        </div>
       </div>
     </div>
   );

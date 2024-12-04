@@ -12,17 +12,23 @@ import Image from 'next/image';
 export const columns: ColumnDef<IProject>[] = [
   {
     header: '#',
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
+      const pageIndex = (
+        table.getState() as { pagination: { pageIndex: number } }
+      ).pagination.pageIndex;
+      const pageSize = (
+        table.getState() as { pagination: { pageSize: number } }
+      ).pagination.pageSize;
       return <p className="text-14-medium ">{row.index + 1}</p>;
     },
   },
   {
-    accessorKey: 'imageUrl',
+    accessorKey: 'images',
     header: 'Image',
     cell: ({ row }) => {
       return (
         <div className="relative h-16 w-24 rounded-md overflow-hidden bg-neutral-900 border border-neutral-800">
-          {row.original.images ? (
+          {row.original.images && row.original.images.length > 0 ? (
             <Image
               src={row.original.images[0]}
               alt={row.original.title}
