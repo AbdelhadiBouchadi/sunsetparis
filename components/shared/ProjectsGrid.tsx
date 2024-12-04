@@ -47,7 +47,7 @@ const ProjectCard = ({
           {project.title}
         </h3>
         <p className="text-sm uppercase xl:text-base 2xl:text-lg text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
-          {project.real} . {project.dop}
+          {project.real} / {project.dop}
         </p>
       </div>
     </div>
