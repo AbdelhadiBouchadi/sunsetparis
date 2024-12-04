@@ -22,9 +22,9 @@ export const columns: ColumnDef<IProject>[] = [
     cell: ({ row }) => {
       return (
         <div className="relative h-16 w-24 rounded-md overflow-hidden bg-neutral-900 border border-neutral-800">
-          {row.original.imageUrl ? (
+          {row.original.images ? (
             <Image
-              src={row.original.imageUrl}
+              src={row.original.images[0]}
               alt={row.original.title}
               fill
               className="object-cover"
