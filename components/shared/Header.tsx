@@ -15,7 +15,6 @@ const Header = () => {
     setMounted(true);
   }, []);
 
-  // Don't render the header until mounted
   if (!mounted) return null;
 
   function openModal() {
@@ -27,21 +26,23 @@ const Header = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 left-0  p-8 2xl:p-16 flex justify-between items-center gap-4 z-50 bg-background">
+    <nav className="w-full fixed top-0 left-0 p-8 md:p-16 flex justify-between items-center z-50 bg-background">
       <button
-        className="relative size-4 md:size-10 mx-4 flex items-center justify-center group scale-80 md:scale-110"
+        className="flex items-center justify-center group"
         onClick={() => openModal()}
       >
-        <span className="absolute w-1 md:w-2 h-10 md:h-16 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4]   to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl z-10"></span>
-        <span className="absolute h-1 md:h-2 w-10 md:w-16 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl"></span>
+        <div className="relative w-8 h-8 md:w-12 md:h-12 flex items-center justify-center">
+          <span className="absolute w-1 md:w-1.5 h-8 md:h-12 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl z-10"></span>
+          <span className="absolute h-1 md:h-1.5 w-8 md:w-12 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] rounded-xl"></span>
+        </div>
       </button>
-      <Link href="/">
+      <Link href="/" className="flex items-center justify-center">
         <Image
           src="/assets/logo.png"
           width={300}
           height={300}
           alt="sunsetparis_logo_image"
-          className="scale-[70%] md:scale-100 "
+          className="w-auto h-8 md:h-12"
         />
       </Link>
       <ToggleBtn />

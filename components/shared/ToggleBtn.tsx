@@ -16,7 +16,6 @@ const ToggleBtn = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  // Don't render anything until the component is mounted
   if (!mounted) return null;
 
   return (
@@ -24,23 +23,15 @@ const ToggleBtn = () => {
       className="flex justify-center items-center cursor-pointer"
       onClick={toggleTheme}
     >
-      {theme === 'light' ? (
-        <Image
-          src="/images/light_btn.png"
-          width={80}
-          height={80}
-          alt="dark_mode_btn"
-          className="scale-75 md:scale-90"
-        />
-      ) : (
-        <Image
-          src="/images/dark_btn.png"
-          width={80}
-          height={80}
-          alt="light_mode_btn"
-          className="scale-75 md:scale-90"
-        />
-      )}
+      <Image
+        src={
+          theme === 'light' ? '/images/light_btn.png' : '/images/dark_btn.png'
+        }
+        width={80}
+        height={80}
+        alt={theme === 'light' ? 'dark_mode_btn' : 'light_mode_btn'}
+        className="w-8 h-8 md:w-12 md:h-12"
+      />
     </div>
   );
 };
