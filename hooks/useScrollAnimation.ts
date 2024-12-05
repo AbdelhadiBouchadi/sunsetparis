@@ -15,7 +15,7 @@ export const useScrollAnimation = () => {
   // Create base transforms
   const rawLogoOpacity = useTransform(scrollY, [0, 80], [1, 0]);
   const rawHeaderOpacity = useTransform(scrollY, [0, 80], [1, 0.85]);
-  const rawHeaderBlur = useTransform(scrollY, [0, 80], [0, 12]);
+  const rawHeaderBlur = useTransform(scrollY, [0, 80], [0, 10000]);
 
   // Apply spring physics to the animations
   const logoOpacity = useSpring(rawLogoOpacity, springConfig);

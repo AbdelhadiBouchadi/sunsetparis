@@ -6,11 +6,13 @@ import { X } from 'lucide-react';
 import { fadeIn } from '@/variants';
 import Link from 'next/link';
 import Image from 'next/image';
+import ImageSliderModal from './ImageSlider';
 
 interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
   videoSource?: string;
+  images: string[];
   title: string;
   real: string;
   dop: string;
@@ -20,6 +22,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
   isOpen,
   onClose,
   videoSource,
+  images,
   title,
   real,
   dop,
@@ -35,34 +38,12 @@ const VideoModal: React.FC<VideoModalProps> = ({
         exit={{ opacity: 0 }}
         className="fixed inset-0 w-screen h-dvh bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
       >
-        <div className="flex justify-between items-center mb-4 w-full">
-          <Link href="/">
-            <Image
-              src="/assets/logo.png"
-              width={100}
-              height={100}
-              alt="sunsetparis_logo_image"
-            />
-          </Link>
-          <button
-            onClick={onClose}
-            className="text-white hover:text-gray-300 transition-colors"
-            aria-label="Close modal"
-          >
-            <X size={24} />
-          </button>
-        </div>
-        <div className="flex flex-col items-center justify-center flex-grow">
-          <p className="text-white text-xl">
-            No video available for this project.
-          </p>
-        </div>
-        <div className="text-white uppercase my-4">
-          <p className="text-lg text-gray-300 text-center">{title}</p>
-          <p className="text-sm text-gray-300 text-center">
-            {real} / {dop}
-          </p>
-        </div>
+        <ImageSliderModal
+          images={images}
+          alt={title}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
       </motion.div>
     );
   }
