@@ -14,7 +14,7 @@ export const getProjectCountByArtist = async (artist: string) => {
   try {
     await connectToDatabase();
     const count = await Project.countDocuments({ artist });
-    return count; // Add 1 to include the new project being created
+    return count;
   } catch (error) {
     console.error('Error getting project count:', error);
     return 1; // Default to 1 if there's an error

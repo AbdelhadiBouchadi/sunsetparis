@@ -63,14 +63,21 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
   const watchArtist = form.watch('artist');
 
+  // Fetch max order when artist changes
   useEffect(() => {
     const updateMaxOrder = async () => {
-      const count = await getProjectCountByArtist(watchArtist);
-      setMaxOrder(count);
+      if (watchArtist) {
+        const projectCount = await getProjectCountByArtist(watchArtist);
+        setMaxOrder(type === 'Create' ? projectCount + 1 : projectCount);
+        form.setValue(
+          'order',
+          type === 'Create' ? projectCount + 1 : projectCount
+        );
+      }
     };
 
     updateMaxOrder();
-  }, [watchArtist]);
+  }, [watchArtist, type, form]);
 
   async function onSubmit(values: z.infer<typeof projectFormSchema>) {
     try {
@@ -113,6 +120,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
           const newProject = await createProject({
             ...values,
             images: uploadedImageUrls,
+            order: values.order,
           });
 
           if (newProject) {
@@ -135,6 +143,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             ...values,
             images: uploadedImageUrls,
             _id: projectId,
+            order: values.order,
           });
 
           if (updatedProject) {

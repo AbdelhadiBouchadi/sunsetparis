@@ -14,7 +14,7 @@ type FileUploaderProps = {
 };
 
 export function FileUploader({
-  imageUrls,
+  imageUrls = [],
   onFieldChange,
   setFiles,
 }: FileUploaderProps) {
