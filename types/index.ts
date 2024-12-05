@@ -44,6 +44,7 @@ export interface CreateProjectParams {
   place?: string;
   date?: string;
   real: string;
+  order: number;
   dop: string;
 }
 
@@ -64,6 +65,7 @@ export interface UpdateProjectParams {
   place?: string;
   date?: string;
   real: string;
+  order: number;
   dop: string;
 }
 

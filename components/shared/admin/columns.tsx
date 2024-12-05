@@ -8,18 +8,24 @@ import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ImageOff } from 'lucide-react';
 import Image from 'next/image';
+import { ArrowUpDown } from 'lucide-react';
 
 export const columns: ColumnDef<IProject>[] = [
   {
-    header: '#',
-    cell: ({ row, table }) => {
-      const pageIndex = (
-        table.getState() as { pagination: { pageIndex: number } }
-      ).pagination.pageIndex;
-      const pageSize = (
-        table.getState() as { pagination: { pageSize: number } }
-      ).pagination.pageSize;
-      return <p className="text-14-medium ">{row.index + 1}</p>;
+    accessorKey: 'order',
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Order
+          <ArrowUpDown className="h-4 w-4" />
+        </button>
+      );
+    },
+    cell: ({ row }) => {
+      return <p className="text-14-medium">{row.original.order}</p>;
     },
   },
   {
@@ -94,5 +100,3 @@ export const columns: ColumnDef<IProject>[] = [
     },
   },
 ];
-
-export default columns;

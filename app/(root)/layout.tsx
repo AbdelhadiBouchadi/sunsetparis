@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Jost } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/shared/theme-provider';
-import Header from '@/components/shared/Header';
+import Header from '@/components/shared/header/Header';
 
 const jost = Jost({
   subsets: ['latin'],

@@ -10,6 +10,17 @@ import Project, { IProject } from '../database/models/project.model';
 import { revalidatePath } from 'next/cache';
 import { handleError, parseStringify } from '../utils';
 
+export const getProjectCountByArtist = async (artist: string) => {
+  try {
+    await connectToDatabase();
+    const count = await Project.countDocuments({ artist });
+    return count; // Add 1 to include the new project being created
+  } catch (error) {
+    console.error('Error getting project count:', error);
+    return 1; // Default to 1 if there's an error
+  }
+};
+
 export const createProject = async (project: CreateProjectParams) => {
   try {
     await connectToDatabase();
@@ -75,14 +86,16 @@ export async function getAllProjects(): Promise<IProject[]> {
   try {
     await connectToDatabase();
 
-    // Fetch all projects as Project documents
-    const projects = await Project.find().sort({ createdAt: 'desc' });
+    const projects = await Project.find().sort({
+      order: 'asc',
+      createdAt: 'desc',
+    });
 
     return projects.map((project) => {
       return {
-        ...project.toObject(), // Convert to plain object
-        _id: project._id.toString(), // Convert _id to string
-        createdAt: project.createdAt.toISOString(), // Convert createdAt to string
+        ...project.toObject(),
+        _id: project._id.toString(),
+        createdAt: project.createdAt.toISOString(),
       } as IProject;
     });
   } catch (error) {
@@ -90,6 +103,21 @@ export async function getAllProjects(): Promise<IProject[]> {
     throw new Error('Failed to fetch projects');
   }
 }
+
+// Helper function to fetch projects by category with ordering
+const getProjectsByArtist = async (artist: string) => {
+  try {
+    await connectToDatabase();
+
+    const projects = await Project.find({ artist })
+      .sort({ order: 'asc', createdAt: 'desc' })
+      .exec();
+    return parseStringify(projects);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to fetch projects');
+  }
+};
 
 export const getProjectById = async (id: string) => {
   try {
@@ -103,19 +131,6 @@ export const getProjectById = async (id: string) => {
     return parseStringify(project);
   } catch (error) {
     throw new Error('Error fetching the specified project');
-  }
-};
-
-// Helper function to fetch projects by category
-const getProjectsByArtist = async (artist: string) => {
-  try {
-    await connectToDatabase();
-
-    const projects = await Project.find({ artist }).exec();
-    return parseStringify(projects);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Failed to fetch projects');
   }
 };
 

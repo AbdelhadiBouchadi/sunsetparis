@@ -4,11 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { projectDefaultValues } from '@/constants';
 import { IProject } from '@/lib/database/models/project.model';
 import { useUploadThing } from '@/lib/uploadthing';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { parseVideoUrl, projectFormSchema } from '@/lib/validator';
 import { z } from 'zod';
-import { createProject, updateProject } from '@/lib/actions/project.actions';
+import {
+  createProject,
+  updateProject,
+  getProjectCountByArtist,
+} from '@/lib/actions/project.actions';
 import {
   Form,
   FormControl,
@@ -33,6 +37,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [maxOrder, setMaxOrder] = useState<number>(1);
 
   const initialValues =
     project && type === 'Update'
@@ -47,7 +52,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             | 'romain loiseau'
             | 'thomas canu',
         }
-      : projectDefaultValues;
+      : { ...projectDefaultValues, order: 1 };
 
   const { startUpload } = useUploadThing('imageUploader');
 
@@ -56,8 +61,24 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
     defaultValues: initialValues as z.infer<typeof projectFormSchema>,
   });
 
+  const watchArtist = form.watch('artist');
+
+  useEffect(() => {
+    const updateMaxOrder = async () => {
+      const count = await getProjectCountByArtist(watchArtist);
+      setMaxOrder(count);
+    };
+
+    updateMaxOrder();
+  }, [watchArtist]);
+
   async function onSubmit(values: z.infer<typeof projectFormSchema>) {
     try {
+      if (values.order < 1 || values.order > maxOrder) {
+        toast.error(`Order must be between 1 and ${maxOrder}`);
+        return;
+      }
+
       setIsLoading(true);
 
       const toastId = toast.loading(
@@ -76,7 +97,6 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         uploadedImageUrls = uploadedImages.map((img) => img.url);
       }
 
-      // Parse and validate video URL if provided
       if (values.videoSource) {
         try {
           const videoSource = parseVideoUrl(values.videoSource);
@@ -179,6 +199,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             )}
           />
         </div>
+
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -198,13 +219,17 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
           <FormField
             control={form.control}
-            name="videoSource"
+            name="order"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    placeholder="Video URL (Optional - YouTube, Vimeo, or direct link)"
+                    type="number"
+                    min={1}
+                    max={maxOrder}
+                    placeholder={`Display Order (1-${maxOrder})`}
                     {...field}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
                     className="shad-input border-0"
                   />
                 </FormControl>
@@ -213,7 +238,25 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             )}
           />
         </div>
+
         <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="videoSource"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input
+                    placeholder="Video URL (Optional)"
+                    {...field}
+                    className="shad-input border-0"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="place"
@@ -230,7 +273,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               </FormItem>
             )}
           />
+        </div>
 
+        <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
             name="date"
@@ -247,9 +292,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               </FormItem>
             )}
           />
-        </div>
 
-        <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
             name="real"
@@ -266,7 +309,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               </FormItem>
             )}
           />
+        </div>
 
+        <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
             name="dop"

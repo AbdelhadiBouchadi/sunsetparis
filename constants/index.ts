@@ -39,4 +39,5 @@ export const projectDefaultValues = {
   date: '',
   real: '',
   dop: '',
+  order: 1,
 };

@@ -20,6 +20,7 @@ export interface IProject extends Document {
   date?: string;
   real: string;
   dop: string;
+  order: number;
   createdAt: Date;
 }
 
@@ -51,6 +52,7 @@ const ProjectSchema = new Schema<IProject>({
   date: { type: String },
   real: { type: String },
   dop: { type: String },
+  order: { type: Number, default: 1 },
   createdAt: { type: Date, default: Date.now },
 });
 
