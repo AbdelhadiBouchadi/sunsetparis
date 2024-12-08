@@ -69,10 +69,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
       if (watchArtist) {
         const projectCount = await getProjectCountByArtist(watchArtist);
         setMaxOrder(type === 'Create' ? projectCount + 1 : projectCount);
-        form.setValue(
-          'order',
-          type === 'Create' ? projectCount + 1 : projectCount
-        );
+        if (type === 'Create') {
+          form.setValue('order', projectCount + 1);
+        }
       }
     };
 
@@ -139,12 +138,15 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
       if (type === 'Update' && projectId) {
         try {
-          const updatedProject = await updateProject({
-            ...values,
-            images: uploadedImageUrls,
-            _id: projectId,
-            order: values.order,
-          });
+          const updatedProject = await updateProject(
+            projectId,
+            {
+              ...values,
+              images: uploadedImageUrls,
+              _id: projectId,
+            },
+            project?.order || 1
+          );
 
           if (updatedProject) {
             toast.success('Project Updated successfully', {

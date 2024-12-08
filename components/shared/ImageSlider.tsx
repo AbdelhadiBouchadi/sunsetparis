@@ -122,17 +122,17 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
 
         <button
           onClick={prevImage}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] p-3 rounded-full backdrop-blur-sm transition-all duration-200 z-10"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 transition-all duration-200 z-10"
           aria-label="Previous image"
         >
-          <ChevronLeft size={24} className="text-white" />
+          <ChevronLeft size={24} className="text-[#FB65A4]" />
         </button>
         <button
           onClick={nextImage}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3] p-3 rounded-full backdrop-blur-sm transition-all duration-200 z-10"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2  p-3 rounded-full transition-all duration-200 z-10"
           aria-label="Next image"
         >
-          <ChevronRight size={24} className="text-white" />
+          <ChevronRight size={24} className="text-[#FB65A4] " />
         </button>
       </div>
 
@@ -146,8 +146,8 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
             }}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
               currentIndex === index
-                ? 'bg-gradient-to-t from-[#FCBB53] dark:from-[#FE9492] via-[#FB65A4] to-[#A67DD2] dark:to-[#0D0DA3]'
-                : 'bg-gradient-to-t from-[#FCBB53]/50 dark:from-[#FE9492]/50 via-[#FB65A4]/50 to-[#A67DD2]/50 dark:to-[#0D0DA3]/50'
+                ? 'bg-gradient-to-t from-[#FCBB53]  via-[#FB65A4] to-[#A67DD2] '
+                : 'bg-gradient-to-t from-[#FCBB53]/50  via-[#FB65A4]/50 to-[#A67DD2]/50 '
             }`}
             aria-label={`Go to image ${index + 1}`}
           />

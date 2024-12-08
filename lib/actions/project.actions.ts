@@ -44,29 +44,69 @@ export const createProject = async (project: CreateProjectParams) => {
   }
 };
 
-export const updateProject = async (project: UpdateProjectParams) => {
+export async function updateProject(
+  projectId: string,
+  projectData: any,
+  currentOrder: number
+) {
   try {
     await connectToDatabase();
 
-    const projectToUpdate = await Project.findById(project._id);
-    if (!projectToUpdate) {
-      throw new Error('Project not found');
-    }
+    const session = await Project.startSession();
+    let updatedProject;
 
-    const updatedProject = await Project.findByIdAndUpdate(
-      project._id,
-      { ...project },
-      { new: true }
-    );
+    await session.withTransaction(async () => {
+      const projectToUpdate = await Project.findById(projectId).session(
+        session
+      );
+      if (!projectToUpdate) {
+        throw new Error('Project not found');
+      }
 
-    revalidatePath('/sunsetparis-admin');
-    revalidatePath('/');
-    return parseStringify(updatedProject);
+      const newOrder = projectData.order;
+
+      if (newOrder !== currentOrder) {
+        // Find all projects by the same artist
+        const artistProjects = await Project.find({
+          artist: projectData.artist,
+          _id: { $ne: projectId },
+        }).session(session);
+
+        // Adjust orders
+        if (newOrder > currentOrder) {
+          // Moving down the list
+          for (let project of artistProjects) {
+            if (project.order > currentOrder && project.order <= newOrder) {
+              project.order--;
+              await project.save({ session });
+            }
+          }
+        } else {
+          // Moving up the list
+          for (let project of artistProjects) {
+            if (project.order >= newOrder && project.order < currentOrder) {
+              project.order++;
+              await project.save({ session });
+            }
+          }
+        }
+      }
+
+      // Update the current project
+      updatedProject = await Project.findByIdAndUpdate(projectId, projectData, {
+        new: true,
+        session,
+      });
+    });
+
+    await session.endSession();
+
+    return JSON.parse(JSON.stringify(updatedProject));
   } catch (error) {
-    console.error('Error updating the project', error);
-    handleError(error);
+    console.error('Error updating project:', error);
+    throw error;
   }
-};
+}
 
 export const deleteProject = async ({ projectId }: DeleteProjectParams) => {
   try {
