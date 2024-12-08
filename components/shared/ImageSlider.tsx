@@ -62,15 +62,15 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 w-screen h-dvh bg-black/90 backdrop-blur-sm flex flex-col justify-center items-center z-[999] p-4 sm:p-6 md:p-8"
+      className="fixed inset-0 w-screen h-dvh bg-background backdrop-blur-sm flex flex-col justify-center items-center z-[999] p-4 sm:p-6 md:p-8"
     >
       <div className="flex justify-between items-center mb-4 w-full absolute top-0 left-0 p-4 md:p-8 2xl:p-12">
-        <span className="text-white text-lg font-medium">
+        <span className="text-dark dark:text-white text-lg font-medium">
           {currentIndex + 1} / {images.length}
         </span>
         <button
           onClick={onClose}
-          className="text-white hover:text-gray-300 transition-colors"
+          className="text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors"
           aria-label="Close modal"
         >
           <X size={24} />

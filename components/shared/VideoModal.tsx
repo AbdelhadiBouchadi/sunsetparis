@@ -36,7 +36,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 w-screen h-dvh bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+        className="fixed inset-0 w-screen h-dvh bg-background flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
       >
         <ImageSliderModal
           images={images}
@@ -53,7 +53,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 w-screen h-dvh bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+      className="fixed inset-0 w-screen h-dvh bg-background flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
     >
       <div className="flex justify-between items-center mb-4 w-full">
         <Link href="/">
@@ -66,7 +66,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         </Link>
         <button
           onClick={onClose}
-          className="text-white hover:text-gray-300 transition-colors"
+          className="text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors"
           aria-label="Close modal"
         >
           <X size={24} />
@@ -81,7 +81,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         className="w-full md:w-[60%] aspect-w-16 aspect-h-9"
       >
         <iframe
-          src={videoSource}
+          src={`${videoSource}?title=0&byline=0&portrait=0`}
           width="100%"
           height="100%"
           frameBorder={0}
@@ -90,10 +90,12 @@ const VideoModal: React.FC<VideoModalProps> = ({
           className="w-full h-full"
         ></iframe>
       </motion.div>
-      <div className="text-white uppercase my-4">
-        <p className="text-lg text-gray-300 text-center">{title}</p>
-        <p className="text-sm text-gray-300 text-center">
-          {real} . {dop}
+      <div className="text-black dark:text-white uppercase my-4">
+        <p className="text-lg text-gray-700 dark:text-gray-300 text-center">
+          {title}
+        </p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
+          {real} / {dop}
         </p>
       </div>
     </motion.div>
