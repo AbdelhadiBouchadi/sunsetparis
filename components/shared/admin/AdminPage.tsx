@@ -52,12 +52,12 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
               onClick={() => setSelectedArtist(null)}
               className="text-sm  text-white font-medium transition-color transition-colors bg-green-700 hover:bg-green-400"
             >
-              Show all projects
+              Hide projects
             </Button>
           </div>
         )}
 
-        <ProjectsTable projects={filteredProjects} />
+        {selectedArtist && <ProjectsTable projects={filteredProjects} />}
 
         <Link
           href="/sunsetparis-admin/create"
