@@ -119,7 +119,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
           const newProject = await createProject({
             ...values,
             images: uploadedImageUrls,
-            order: values.order,
+            order: maxOrder,
           });
 
           if (newProject) {

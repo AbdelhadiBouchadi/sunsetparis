@@ -29,7 +29,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  // If no video source, show a message
+  // If no video source, show a slider of images
   if (!videoSource) {
     return (
       <motion.div
