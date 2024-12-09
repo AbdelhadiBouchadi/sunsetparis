@@ -31,25 +31,27 @@ const ProjectCard = ({
     <div className="group flex flex-col" onClick={onClick}>
       <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
         {!imageLoaded && <ProjectSkeleton />}
-        <Image
-          src={project.images[0]}
-          width={400}
-          height={400}
-          alt={project.title}
-          className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105`}
-          loading="lazy"
-          onLoad={() => setImageLoaded(true)}
-        />
+        {project.images.length > 0 && (
+          <Image
+            src={project.images[0]}
+            width={400}
+            height={400}
+            alt={project.title}
+            className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105`}
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
+          />
+        )}
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-      <div className="mt-4 px-2 group-hover:translate-x-1 transition-all duration-500">
-        <h3 className="text-lg xl:text-xl 2xl:text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
+      <div className="mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
+        <h3 className="text-lg  2xl:text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-sm   text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
+        <p className="text-xs   text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
           {project.real}
         </p>
-        <p className="text-sm   text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
+        <p className="text-xs   text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
           {project.dop}
         </p>
       </div>
@@ -73,7 +75,7 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-2 gap-y-16 mx-auto pb-16">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-1 gap-y-16 mx-auto pb-16">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}

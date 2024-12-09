@@ -94,8 +94,11 @@ const VideoModal: React.FC<VideoModalProps> = ({
         <p className="text-lg text-gray-700 dark:text-gray-300 text-center">
           {title}
         </p>
-        <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
-          {real} / {dop}
+        <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
+          {real}
+        </p>
+        <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
+          {dop}
         </p>
       </div>
     </motion.div>

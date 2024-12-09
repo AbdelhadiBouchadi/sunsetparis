@@ -31,11 +31,7 @@ const Header = () => {
   return (
     <>
       <motion.nav
-        className="w-full fixed top-0 left-0 p-4 md:p-6 flex justify-between items-center z-50 bg-background/80"
-        style={{
-          opacity: headerOpacity,
-          backdropFilter: `blur(${headerBlur}px)`,
-        }}
+        className="w-full fixed top-0 left-0 p-4 md:p-6 flex justify-between items-center z-40 bg-background"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{
