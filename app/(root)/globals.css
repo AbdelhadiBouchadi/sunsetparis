@@ -45,7 +45,7 @@ body {
     --radius: 0.5rem;
   }
   .dark {
-    --background:  0 0% 7%;
+    --background: 0 0% 7%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -92,7 +92,7 @@ body {
   margin: 0 auto;
   margin-bottom: 0;
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 @media (max-width: 991px) {
@@ -106,11 +106,11 @@ body {
     max-width: 100%;
     margin: 0 auto;
     margin-bottom: 0;
-    height: auto!important;
-    width: 100%!important;
+    height: auto !important;
+    width: 100% !important;
     position: absolute;
     padding: 0 10px;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
   }
 }

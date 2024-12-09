@@ -81,7 +81,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         className="w-full md:w-[60%] aspect-w-16 aspect-h-9"
       >
         <iframe
-          src={`${videoSource}?title=0&byline=0&portrait=0`}
+          src={`${videoSource}?title=0&byline=0&portrait=0&transparent=0`}
           width="100%"
           height="100%"
           frameBorder={0}
