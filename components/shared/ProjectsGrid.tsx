@@ -45,7 +45,7 @@ const ProjectCard = ({
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <div className="mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
-        <h3 className="text-lg  2xl:text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
+        <h3 className="text-sm  2xl:text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
           {project.title}
         </h3>
         <p className="text-xs   text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
@@ -75,7 +75,7 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-1 gap-y-16 mx-auto pb-16">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 mx-auto pb-16">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}
