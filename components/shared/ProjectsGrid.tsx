@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import VideoModal from './VideoModal';
 import { IProject } from '@/lib/database/models/project.model';
 import Image from 'next/image';
@@ -30,8 +30,7 @@ const ProjectCard = ({
   return (
     <div className="group flex flex-col" onClick={onClick}>
       <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
-        {!imageLoaded && <ProjectSkeleton />}
-        {project.images.length > 0 && (
+        <Suspense fallback={<ProjectSkeleton />}>
           <Image
             src={project.images[0]}
             width={400}
@@ -39,9 +38,8 @@ const ProjectCard = ({
             alt={project.title}
             className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105`}
             loading="lazy"
-            onLoad={() => setImageLoaded(true)}
           />
-        )}
+        </Suspense>
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <div className="mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
