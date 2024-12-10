@@ -10,7 +10,7 @@ interface ProjectsGridProps {
 }
 
 const ProjectSkeleton = () => (
-  <div className="w-full h-[300px] 2xl:h-[400px] bg-gray-200 dark:bg-gray-700 animate-pulse overflow-hidden">
+  <div className="w-full aspect-video bg-gray-200 dark:bg-gray-700 animate-pulse overflow-hidden">
     <div className="w-full h-full flex flex-col justify-end p-4 2xl:p-12">
       <div className="w-3/4 h-6 bg-gray-300 dark:bg-gray-600 mb-2"></div>
       <div className="w-1/2 h-4 bg-gray-300 dark:bg-gray-600"></div>
@@ -30,8 +30,9 @@ const ProjectCard = ({
   return (
     <div className="group flex flex-col" onClick={onClick}>
       <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
-        {!imageLoaded && <ProjectSkeleton />}
-        {project.images.length > 0 && (
+        {!imageLoaded ? (
+          <ProjectSkeleton />
+        ) : (
           <Image
             src={project.images[0]}
             width={400}
@@ -42,6 +43,7 @@ const ProjectCard = ({
             onLoad={() => setImageLoaded(true)}
           />
         )}
+
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <div className="mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
