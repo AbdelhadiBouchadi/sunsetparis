@@ -30,9 +30,8 @@ const ProjectCard = ({
   return (
     <div className="group flex flex-col" onClick={onClick}>
       <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
-        {!imageLoaded ? (
-          <ProjectSkeleton />
-        ) : (
+        {!imageLoaded && <ProjectSkeleton />}
+        {project.images.length > 0 && (
           <Image
             src={project.images[0]}
             width={400}
@@ -43,7 +42,6 @@ const ProjectCard = ({
             onLoad={() => setImageLoaded(true)}
           />
         )}
-
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <div className="mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
