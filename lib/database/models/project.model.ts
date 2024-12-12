@@ -1,4 +1,3 @@
-import { VideoSourceTypeEnum } from '@/types';
 import { Schema, Document, model, models } from 'mongoose';
 
 // Interface

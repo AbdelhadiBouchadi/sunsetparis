@@ -25,8 +25,6 @@ const ProjectCard = ({
   project: IProject;
   onClick: () => void;
 }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   return (
     <div className="group flex flex-col" onClick={onClick}>
       <div className="relative overflow-hidden  shadow-xl cursor-pointer group">

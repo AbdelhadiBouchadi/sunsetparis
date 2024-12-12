@@ -7,7 +7,7 @@ export const useScrollAnimation = () => {
 
   // Create spring configurations for smoother animations
   const springConfig = {
-    stiffness: 100,
+    stiffness: 800,
     damping: 30,
     restDelta: 0.001,
   };
