@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useImagePreloader } from '@/hooks/useImagePreloader';
+import Link from 'next/link';
 
 interface ImageSliderModalProps {
   isOpen: boolean;
@@ -65,12 +66,17 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
       className="fixed inset-0 w-screen h-dvh bg-background backdrop-blur-sm flex flex-col justify-center items-center z-[999] p-4 sm:p-6 md:p-8"
     >
       <div className="flex justify-between items-center mb-4 w-full absolute top-0 left-0 p-4 md:p-8 2xl:p-12">
-        <span className="text-dark dark:text-white text-lg font-medium">
-          {currentIndex + 1} / {images.length}
-        </span>
+        <Link href="/">
+          <Image
+            src="/assets/logo.png"
+            width={100}
+            height={100}
+            alt="sunsetparis_logo_image"
+          />
+        </Link>
         <button
           onClick={onClose}
-          className="text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors"
+          className="text-[#FB65A4] hover:opacity-80 transition-all duration-150"
           aria-label="Close modal"
         >
           <X size={24} />

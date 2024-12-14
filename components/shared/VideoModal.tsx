@@ -66,7 +66,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         </Link>
         <button
           onClick={onClose}
-          className="text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors"
+          className="text-[#FB65A4] hover:opacity-80 transition-all duration-150"
           aria-label="Close modal"
         >
           <X size={24} />
