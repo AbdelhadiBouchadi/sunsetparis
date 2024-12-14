@@ -1,9 +1,11 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import VideoModal from './VideoModal';
 import { IProject } from '@/lib/database/models/project.model';
 import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { NavigationSection } from './NavigationSection';
 
 interface ProjectsGridProps {
   projects: IProject[];
@@ -56,15 +58,34 @@ const ProjectCard = ({
 };
 
 const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
 
+  useEffect(() => {
+    const projectTitle = searchParams.get('project');
+    if (projectTitle) {
+      const project = projects.find(
+        (p) => p.title.toLowerCase().replace(/\s+/g, '-') === projectTitle
+      );
+      if (project) {
+        setSelectedProject(project);
+        setIsOpen(true);
+      }
+    }
+  }, [searchParams, projects]);
+
   function openModal(project: IProject) {
+    const projectSlug = project.title.toLowerCase().replace(/\s+/g, '-');
+    router.push(`?project=${projectSlug}`, { scroll: false });
     setSelectedProject(project);
     setIsOpen(true);
   }
 
   function closeModal() {
+    router.push(pathname, { scroll: false });
     setSelectedProject(null);
     setIsOpen(false);
   }
@@ -80,6 +101,7 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
           />
         ))}
       </div>
+      <NavigationSection />
       {selectedProject && (
         <VideoModal
           isOpen={isOpen}

@@ -105,7 +105,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
             className="absolute w-full h-full flex items-center justify-center"
           >
             {isLoading ? (
-              <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-black dark:border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               <Image
                 src={images[currentIndex]}
@@ -144,7 +144,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
               setDirection(index > currentIndex ? 1 : -1);
               setCurrentIndex(index);
             }}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
               currentIndex === index
                 ? 'bg-gradient-to-t from-[#FCBB53]  via-[#FB65A4] to-[#A67DD2] '
                 : 'bg-gradient-to-t from-[#FCBB53]/50  via-[#FB65A4]/50 to-[#A67DD2]/50 '

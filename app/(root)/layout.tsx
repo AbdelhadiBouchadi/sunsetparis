@@ -47,7 +47,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="w-full h-full mt-32 px-8 md:px-12 xl:px-20">
+          <main className="w-full min-h-screen mt-24 px-8 md:px-12 xl:px-20 flex flex-col justify-center items-center">
             {children}
           </main>
         </ThemeProvider>
