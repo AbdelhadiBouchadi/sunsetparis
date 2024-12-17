@@ -9,6 +9,7 @@ import { NavigationSection } from './NavigationSection';
 
 interface ProjectsGridProps {
   projects: IProject[];
+  link?: string;
 }
 
 const ProjectSkeleton = () => (
@@ -57,7 +58,7 @@ const ProjectCard = ({
   );
 };
 
-const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
+const ProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -101,7 +102,7 @@ const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
           />
         ))}
       </div>
-      <NavigationSection />
+      <NavigationSection href={link} />
       {selectedProject && (
         <VideoModal
           isOpen={isOpen}

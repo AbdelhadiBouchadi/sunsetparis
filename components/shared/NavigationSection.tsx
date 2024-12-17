@@ -32,11 +32,15 @@ export const NavigationSection = ({ href }: { href?: string }) => {
         <Link
           href={href}
           className="flex items-center gap-2 group hover:opacity-80 transition-opacity"
+          target="_blank"
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] font-medium">
             View More
           </span>
-          <ChevronRight size={24} className="text-[#FB65A4]" />
+          <ChevronRight
+            size={24}
+            className="text-[#FB65A4] group-hover:translate-x-2 transition-all duration-300"
+          />
         </Link>
       )}
     </div>

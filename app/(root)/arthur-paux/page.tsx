@@ -15,7 +15,7 @@ const page = async () => {
           arthur paux
         </h1>
       </div>
-      <ProjectsGrid projects={projects} />
+      <ProjectsGrid projects={projects} link="https://www.arthur-paux.com" />
     </>
   );
 };
