@@ -14,7 +14,7 @@ const page = () => {
   if (!mounted) return null;
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center my-32">
+    <div className="w-full h-full flex flex-col items-center justify-center">
       <ul className="flex flex-col items-center justify-center gap-8 sm:gap-20">
         {artists.map((artist, index) => (
           <li key={index} className="w-full flex justify-center items-center">
