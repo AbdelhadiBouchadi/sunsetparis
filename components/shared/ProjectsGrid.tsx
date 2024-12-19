@@ -93,7 +93,7 @@ const ProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 mx-auto pb-16 mt-32">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 mx-auto pb-16 mt-8">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}
