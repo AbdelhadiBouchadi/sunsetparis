@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoveLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export const NavigationSection = ({ href }: { href?: string }) => {
@@ -20,13 +20,10 @@ export const NavigationSection = ({ href }: { href?: string }) => {
         onClick={handleHomeClick}
         className="flex items-center gap-2 group hover:opacity-80 transition-opacity"
       >
-        <ChevronLeft
+        <MoveLeft
           size={24}
           className="text-[#FB65A4] group-hover:-translate-x-2 transition-all duration-300"
         />
-        <span className="text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] font-medium">
-          Back to Home
-        </span>
       </button>
       {href && (
         <Link

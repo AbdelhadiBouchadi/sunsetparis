@@ -39,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jost.variable} antialiased bg-background`}>
+      <body
+        className={`${jost.variable} antialiased bg-background flex flex-col min-h-screen`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -47,7 +49,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="w-full min-h-screen mt-24 px-8 md:px-12 xl:px-20 flex flex-col justify-center items-center">
+          <main className="flex-grow flex flex-col justify-center items-center px-8 md:px-12 xl:px-20 mt-24">
             {children}
           </main>
         </ThemeProvider>
