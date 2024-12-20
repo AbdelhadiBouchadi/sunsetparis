@@ -20,7 +20,7 @@ const page = () => {
           <li key={index} className="w-full flex justify-center items-center">
             <Link
               href={artist.path}
-              className="uppercase text-2xl sm:text-4xl text-center font-light tracking-tighter hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300 px-2"
+              className="uppercase text-3xl sm:text-4xl text-center font-light tracking-tighter hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300 px-2"
             >
               {artist.name}
             </Link>
