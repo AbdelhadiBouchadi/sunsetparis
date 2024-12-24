@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation';
 import { FileUploader } from './FileUploader';
 import SubmitButton from './SubmitButton';
 import { toast } from 'sonner';
+import { Artist, IProjectForm } from '@/types';
 
 type ProjectFormProps = {
   type: 'Create' | 'Update';
@@ -39,31 +40,33 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [maxOrder, setMaxOrder] = useState<number>(1);
 
-  const initialValues =
-    project && type === 'Update'
-      ? {
-          ...project,
-          artist: project.artist as
-            | 'arthur paux'
-            | 'gabriel porier'
-            | 'kevin le dortz'
-            | 'mathieu caplanne'
-            | 'nicolas gautier'
-            | 'romain loiseau'
-            | 'thomas canu',
-        }
-      : { ...projectDefaultValues, order: 1 };
+  const getInitialValues = (): IProjectForm => {
+    if (project && type === 'Update') {
+      return {
+        title: project.title || '',
+        description: project.description || '',
+        artist: project.artist as Artist,
+        images: project.images || [],
+        videoSource: project.videoSource || '',
+        place: project.place || '',
+        date: project.date || '',
+        real: project.real || '',
+        dop: project.dop || '',
+        order: project.order || 1,
+      };
+    }
+    return projectDefaultValues;
+  };
+
+  const form = useForm<IProjectForm>({
+    resolver: zodResolver(projectFormSchema),
+    defaultValues: getInitialValues(),
+  });
 
   const { startUpload } = useUploadThing('imageUploader');
 
-  const form = useForm<z.infer<typeof projectFormSchema>>({
-    resolver: zodResolver(projectFormSchema),
-    defaultValues: initialValues as z.infer<typeof projectFormSchema>,
-  });
-
   const watchArtist = form.watch('artist');
 
-  // Fetch max order when artist changes
   useEffect(() => {
     const updateMaxOrder = async () => {
       if (watchArtist) {
@@ -91,12 +94,14 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         type === 'Create' ? 'Creating project...' : 'Updating project...'
       );
 
-      let uploadedImageUrls = values.images;
+      let uploadedImageUrls = values.images || [];
 
       if (files.length > 0) {
         const uploadedImages = await startUpload(files);
 
         if (!uploadedImages) {
+          toast.error('Failed to upload images');
+          setIsLoading(false);
           return;
         }
 
@@ -340,7 +345,6 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             )}
           />
         </div>
-
         <FormField
           control={form.control}
           name="images"
@@ -349,7 +353,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               <FormControl className="h-72">
                 <FileUploader
                   onFieldChange={field.onChange}
-                  imageUrls={field.value}
+                  imageUrls={field.value || []}
                   setFiles={setFiles}
                 />
               </FormControl>

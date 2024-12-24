@@ -10,6 +10,15 @@ declare type SearchParamProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export type Artist =
+  | 'arthur paux'
+  | 'gabriel porier'
+  | 'kevin le dortz'
+  | 'mathieu caplanne'
+  | 'nicolas gautier'
+  | 'romain loiseau'
+  | 'thomas canu';
+
 // ====== USER PARAMS
 export type CreateUserParams = {
   clerkId: string;
@@ -27,18 +36,24 @@ export type UpdateUserParams = {
   photo: string;
 };
 
+export interface IProjectForm {
+  title: string;
+  artist: Artist;
+  images: string[];
+  real: string;
+  description?: string;
+  videoSource?: string;
+  place?: string;
+  date?: string;
+  dop: string;
+  order: number;
+}
+
 // ====== PROJECT PARAMS
 export interface CreateProjectParams {
   title: string;
   description?: string;
-  artist:
-    | 'arthur paux'
-    | 'gabriel porier'
-    | 'kevin le dortz'
-    | 'mathieu caplanne'
-    | 'nicolas gautier'
-    | 'romain loiseau'
-    | 'thomas canu';
+  artist: Artist;
   images: string[];
   videoSource?: string;
   place?: string;

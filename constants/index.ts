@@ -1,3 +1,5 @@
+import { Artist } from '@/types';
+
 export const artists = [
   {
     name: 'arthur paux',
@@ -32,8 +34,8 @@ export const artists = [
 export const projectDefaultValues = {
   title: '',
   description: '',
-  artist: 'arthur paux',
-  imageUrl: '',
+  artist: 'arthur paux' as Artist,
+  images: [],
   videoSource: '',
   place: '',
   date: '',

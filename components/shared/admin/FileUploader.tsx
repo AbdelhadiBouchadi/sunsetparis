@@ -1,11 +1,26 @@
 'use client';
 
-import { useCallback, Dispatch, SetStateAction } from 'react';
+import { useCallback, Dispatch, SetStateAction, useEffect } from 'react';
 import { useDropzone } from '@uploadthing/react/hooks';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
 import { Button } from '@/components/ui/button';
 import { convertFileToUrl } from '@/lib/utils';
-import { ImageSlider } from './ImageSlider';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { SortableImage } from './SortableImages';
 
 type FileUploaderProps = {
   onFieldChange: (urls: string[]) => void;
@@ -18,11 +33,16 @@ export function FileUploader({
   onFieldChange,
   setFiles,
 }: FileUploaderProps) {
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
-
-      // Create preview URLs for the dropped files
       const newImageUrls = acceptedFiles.map((file) => convertFileToUrl(file));
       onFieldChange([...imageUrls, ...newImageUrls]);
     },
@@ -45,6 +65,18 @@ export function FileUploader({
       newFiles.splice(index, 1);
       return newFiles;
     });
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = imageUrls.indexOf(active.id.toString());
+      const newIndex = imageUrls.indexOf(over.id.toString());
+
+      const newOrder = arrayMove(imageUrls, oldIndex, newIndex);
+      onFieldChange(newOrder);
+    }
   };
 
   return (
@@ -73,8 +105,23 @@ export function FileUploader({
       </div>
 
       {imageUrls.length > 0 && (
-        <div className="flex flex-col gap-4">
-          <ImageSlider images={imageUrls} onRemove={removeImage} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext items={imageUrls} strategy={rectSortingStrategy}>
+              {imageUrls.map((url, index) => (
+                <SortableImage
+                  key={url}
+                  url={url}
+                  index={index}
+                  onRemove={removeImage}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
         </div>
       )}
     </div>

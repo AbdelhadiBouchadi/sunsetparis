@@ -1,3 +1,4 @@
+import { Artist } from '@/types';
 import * as z from 'zod';
 
 export const videoSourceSchema = z.object({
@@ -20,7 +21,7 @@ export const projectFormSchema = z.object({
       'nicolas gautier',
       'romain loiseau',
       'thomas canu',
-    ],
+    ] as [Artist, ...Artist[]],
     {
       message: 'Please choose an artist',
     }

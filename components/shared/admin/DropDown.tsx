@@ -7,11 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useEffect, useState } from 'react';
+import { Artist } from '@/types';
 
 type DropDownProps = {
-  value?: string;
-  onChangeHandler: (value: string) => void;
+  value?: Artist;
+  onChangeHandler: (value: Artist) => void;
 };
 
 const artists = [
@@ -21,27 +21,22 @@ const artists = [
   { id: 'mathieu caplanne', name: 'Mathieu Caplanne' },
   { id: 'nicolas gautier', name: 'Nicolas Gautier' },
   { id: 'romain loiseau', name: 'Romain Loiseau' },
-  { id: 'thomas canu', name: 'Tomas Canu' },
-];
+  { id: 'thomas canu', name: 'Thomas Canu' },
+] as const;
 
 const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
-  const [selectedValue, setSelectedValue] = useState(value?.toString() || '');
-
-  useEffect(() => {
-    setSelectedValue(value?.toString() || '');
-  }, [value]);
-
-  const handleChange = (value: string) => {
-    setSelectedValue(value);
-    onChangeHandler(value);
+  const getArtistName = (id: Artist) => {
+    return artists.find((artist) => artist.id === id)?.name || id;
   };
 
   return (
-    <Select onValueChange={handleChange}>
+    <Select value={value} onValueChange={onChangeHandler}>
       <SelectTrigger className="shad-select-trigger">
-        <SelectValue placeholder={'Choose An Artist'} />
+        <SelectValue placeholder="Choose An Artist">
+          {value ? getArtistName(value) : 'Choose An Artist'}
+        </SelectValue>
       </SelectTrigger>
-      <SelectContent className="shad-select-content capitalize">
+      <SelectContent className="shad-select-content">
         {artists.map((item) => (
           <SelectItem
             key={item.id}
