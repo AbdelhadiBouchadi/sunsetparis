@@ -18,6 +18,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from '../../ui/form';
 import { Input } from '../../ui/input';
@@ -186,6 +187,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="title"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Title
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Project Title"
@@ -203,6 +207,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="description"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Description
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Project Description"
@@ -222,6 +229,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="artist"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Artist
+                </FormLabel>
                 <FormControl>
                   <Dropdown
                     onChangeHandler={field.onChange}
@@ -238,6 +248,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="order"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Order
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -261,6 +274,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="videoSource"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Video URL
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Video URL (Optional)"
@@ -278,6 +294,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="place"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Location
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Project Location"
@@ -297,6 +316,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="date"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Date
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Project Date"
@@ -314,6 +336,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="real"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Real
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Project Real"
@@ -333,6 +358,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             name="dop"
             render={({ field }) => (
               <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Dop
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Project DOP"
