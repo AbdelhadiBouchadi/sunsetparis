@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import {
   Select,
   SelectContent,
@@ -8,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Artist } from '@/types';
+import { useEffect } from 'react';
 
 type DropDownProps = {
   value?: Artist;
@@ -25,6 +27,15 @@ const artists = [
 ] as const;
 
 const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const artistFromUrl = searchParams.get('artist');
+    if (artistFromUrl && !value) {
+      onChangeHandler(artistFromUrl as Artist);
+    }
+  }, [searchParams, value, onChangeHandler]);
+
   const getArtistName = (id: Artist) => {
     return artists.find((artist) => artist.id === id)?.name || id;
   };

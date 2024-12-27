@@ -28,6 +28,7 @@ import { FileUploader } from './FileUploader';
 import SubmitButton from './SubmitButton';
 import { toast } from 'sonner';
 import { Artist, IProjectForm } from '@/types';
+import { useProjectForm } from '@/hooks/useProjectForm';
 
 type ProjectFormProps = {
   type: 'Create' | 'Update';
@@ -63,6 +64,8 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
     resolver: zodResolver(projectFormSchema),
     defaultValues: getInitialValues(),
   });
+
+  useProjectForm(form.setValue);
 
   const { startUpload } = useUploadThing('imageUploader');
 

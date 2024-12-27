@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn, updateSearchParams } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IProject } from '@/lib/database/models/project.model';
 import { ProjectStats } from './ProjectsStats';
 import { ProjectsTable } from './ProjectsTable';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 interface AdminDashboardProps {
   projects: IProject[];
@@ -14,10 +15,28 @@ interface AdminDashboardProps {
 
 export function AdminDashboard({ projects }: AdminDashboardProps) {
   const [selectedArtist, setSelectedArtist] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const artistFromUrl = searchParams.get('artist');
+    setSelectedArtist(artistFromUrl);
+  }, [searchParams]);
 
   const filteredProjects = selectedArtist
     ? projects.filter((project) => project.artist === selectedArtist)
     : projects;
+
+  const handleHideProjects = () => {
+    const params = updateSearchParams(searchParams, 'artist', null);
+    router.push(`${pathname}?${params.toString()}`);
+    setSelectedArtist(null);
+  };
+
+  const createProjectUrl = selectedArtist
+    ? `/sunsetparis-admin/create?artist=${encodeURIComponent(selectedArtist)}`
+    : '/sunsetparis-admin/create';
 
   return (
     <main className="p-8 w-full mx-auto">
@@ -49,8 +68,8 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
               </span>
             </p>
             <Button
-              onClick={() => setSelectedArtist(null)}
-              className="text-sm  text-white font-medium transition-color transition-colors bg-green-700 hover:bg-green-400"
+              onClick={handleHideProjects}
+              className="text-sm text-white font-medium transition-color transition-colors bg-green-700 hover:bg-green-400"
             >
               Hide projects
             </Button>
@@ -60,7 +79,7 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
         {selectedArtist && <ProjectsTable projects={filteredProjects} />}
 
         <Link
-          href="/sunsetparis-admin/create"
+          href={createProjectUrl}
           className={cn(
             'inline-flex items-center justify-center w-full py-3 px-4 rounded-lg bg-green-700 hover:bg-green-400 text-white font-medium transition-colors',
             buttonVariants({ variant: 'link' })

@@ -21,3 +21,26 @@ export const handleError = (error: unknown) => {
   console.error(error);
   throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
 };
+
+export function capitalizeWords(str: string): string {
+  return str
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export function updateSearchParams(
+  searchParams: URLSearchParams,
+  key: string,
+  value: string | null
+): URLSearchParams {
+  const params = new URLSearchParams(searchParams);
+
+  if (value === null) {
+    params.delete(key);
+  } else {
+    params.set(key, value);
+  }
+
+  return params;
+}
