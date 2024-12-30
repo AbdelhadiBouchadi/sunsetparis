@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     initialState: {
       pagination: {
-        pageSize: 10,
+        pageSize: 24,
       },
     },
   });

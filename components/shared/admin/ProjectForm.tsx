@@ -23,12 +23,13 @@ import {
 } from '../../ui/form';
 import { Input } from '../../ui/input';
 import Dropdown from './DropDown';
-import { useRouter } from 'next/navigation';
 import { FileUploader } from './FileUploader';
 import SubmitButton from './SubmitButton';
 import { toast } from 'sonner';
 import { Artist, IProjectForm } from '@/types';
 import { useProjectForm } from '@/hooks/useProjectForm';
+import { usePathname, useRouter } from 'next/navigation';
+import { updateSearchParams } from '@/lib/utils';
 
 type ProjectFormProps = {
   type: 'Create' | 'Update';
@@ -137,7 +138,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               description: 'Your project has been created and saved',
             });
             form.reset();
-            router.push('/sunsetparis-admin');
+            const params = new URLSearchParams();
+            params.set('artist', values.artist);
+            router.push(`/sunsetparis-admin?${params.toString()}`);
           }
         } catch (error) {
           console.error('Create project error:', error);
@@ -163,7 +166,9 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
               description: 'Your project has been updated and saved',
             });
             form.reset();
-            router.push('/sunsetparis-admin');
+            const params = new URLSearchParams();
+            params.set('artist', values.artist);
+            router.push(`/sunsetparis-admin?${params.toString()}`);
           }
         } catch (error) {
           console.error('Update project error:', error);

@@ -53,9 +53,9 @@ const VideoModal: React.FC<VideoModalProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 w-screen h-dvh bg-background flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+      className="fixed inset-0 w-screen h-dvh bg-background flex flex-col justify-center items-center z-[999] p-4 sm:p-6 md:p-8"
     >
-      <div className="flex justify-between items-center mb-4 w-full">
+      <div className="flex justify-between items-center mb-4 w-full absolute top-4 px-4 md:px-8">
         <Link href="/">
           <Image
             src="/assets/logo.png"
@@ -73,33 +73,35 @@ const VideoModal: React.FC<VideoModalProps> = ({
         </button>
       </div>
 
-      <motion.div
-        variants={fadeIn('up', 0.1)}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className="w-full md:w-[60%] aspect-w-16 aspect-h-9"
-      >
-        <iframe
-          src={`${videoSource}?title=0&byline=0&portrait=0&transparent=0`}
-          width="100%"
-          height="100%"
-          frameBorder={0}
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        ></iframe>
-      </motion.div>
-      <div className="text-black dark:text-white uppercase my-4">
-        <p className="text-lg text-gray-700 dark:text-gray-300 text-center">
-          {title}
-        </p>
-        <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
-          {real}
-        </p>
-        <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
-          {dop}
-        </p>
+      <div className="flex flex-col items-center justify-center gap-4 md:gap-8 w-full md:mt-16">
+        <motion.div
+          variants={fadeIn('up', 0.1)}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          className="w-full md:w-[60%] aspect-w-16 aspect-h-9"
+        >
+          <iframe
+            src={`${videoSource}?title=0&byline=0&portrait=0&transparent=0`}
+            width="100%"
+            height="100%"
+            frameBorder={0}
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          ></iframe>
+        </motion.div>
+        <div className="text-black dark:text-white uppercase my-4">
+          <p className="text-lg text-gray-700 dark:text-gray-300 text-center">
+            {title}
+          </p>
+          <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
+            {real}
+          </p>
+          <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
+            {dop}
+          </p>
+        </div>
       </div>
     </motion.div>
   );
