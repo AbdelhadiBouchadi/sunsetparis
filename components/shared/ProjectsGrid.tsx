@@ -40,12 +40,12 @@ const ProjectCard = ({
             width={400}
             height={400}
             alt={project.title}
-            className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105 group-hover:blur-sm md:group-hover:blur-none`}
+            className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105 group-hover:blur-sm`}
             loading="lazy"
           />
         </Suspense>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="text-center px-2 md:hidden">
+          <div className="text-center px-2">
             <h3 className="text-sm sm:text-base md:text-lg font-bold text-white">
               {project.title}
             </h3>
@@ -54,7 +54,7 @@ const ProjectCard = ({
           </div>
         </div>
       </div>
-      <div className="hidden md:block mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
+      {/* <div className="hidden md:block mt-1 px-2 group-hover:translate-x-1 transition-all duration-500">
         <h3 className="text-sm  2xl:text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
           {project.title}
         </h3>
@@ -64,7 +64,7 @@ const ProjectCard = ({
         <p className="text-xs   text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors duration-300">
           {project.dop}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -104,7 +104,7 @@ const ProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-y-10 mx-auto pb-16 mt-8">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto pb-16 mt-8">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}
