@@ -29,15 +29,18 @@ const ProjectCard = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="group flex flex-col" onClick={onClick}>
-      <div className="relative overflow-hidden  shadow-xl cursor-pointer group">
+    <div className="group flex flex-col">
+      <div
+        className="relative overflow-hidden  shadow-xl cursor-pointer group"
+        onClick={onClick}
+      >
         <Suspense fallback={<ProjectSkeleton />}>
           <Image
             src={project.images[0]}
             width={400}
             height={400}
             alt={project.title}
-            className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105 group-hover:blur-sm`}
+            className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105 group-hover:blur-sm md:group-hover:blur-none`}
             loading="lazy"
           />
         </Suspense>

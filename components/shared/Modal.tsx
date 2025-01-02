@@ -34,7 +34,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         </Link>
         <button
           onClick={onClose}
-          className="dark:text-white text-gray-900 hover:text-gray-500 dark:hover:text-gray-300 transition-colors"
+          className="text-[#FB65A4] hover:opacity-80 transition-all duration-150"
           aria-label="Close modal"
         >
           <X size={24} />

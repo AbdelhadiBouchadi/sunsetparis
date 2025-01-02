@@ -65,7 +65,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
       exit={{ opacity: 0 }}
       className="fixed inset-0 w-screen h-dvh bg-background backdrop-blur-sm flex flex-col justify-center items-center z-[999] p-4 sm:p-6 md:p-8"
     >
-      <div className="flex justify-between items-center mb-4 w-full absolute top-0 left-0 p-4 md:p-8 2xl:p-12">
+      <div className="flex justify-between items-center mb-4 w-full absolute top-4 px-4 md:px-8">
         <Link href="/">
           <Image
             src="/assets/logo.png"
@@ -111,7 +111,14 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
             className="absolute w-full h-full flex items-center justify-center"
           >
             {isLoading ? (
-              <div className="w-8 h-8 border-4 border-black dark:border-white border-t-transparent rounded-full animate-spin" />
+              <div
+                className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+                role="status"
+              >
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                  Loading...
+                </span>
+              </div>
             ) : (
               <Image
                 src={images[currentIndex]}
