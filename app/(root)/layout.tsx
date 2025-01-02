@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jost.variable} antialiased bg-background flex flex-col min-h-screen`}
+        className={`${jost.variable} antialiased bg-background dark:bg-black flex flex-col min-h-screen`}
       >
         <ThemeProvider
           attribute="class"
@@ -49,7 +49,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex-grow flex flex-col justify-center items-center px-8 md:px-12 xl:px-20 mt-16 sm:mt-24">
+          <main className="flex-grow flex flex-col justify-center items-center md:px-12 xl:px-20 mt-16 sm:mt-24">
             {children}
           </main>
         </ThemeProvider>
