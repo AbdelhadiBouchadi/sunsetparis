@@ -49,7 +49,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex-grow flex flex-col justify-center items-center md:px-12 xl:px-20 mt-16 sm:mt-24">
+          <main className="flex-grow flex flex-col justify-center items-center mt-16 sm:mt-24">
             {children}
           </main>
         </ThemeProvider>

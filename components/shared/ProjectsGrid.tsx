@@ -29,7 +29,7 @@ const ProjectCard = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="group flex flex-col">
+    <div className="flex flex-col">
       <div
         className="relative overflow-hidden  shadow-xl cursor-pointer group"
         onClick={onClick}
@@ -40,8 +40,7 @@ const ProjectCard = ({
             width={400}
             height={400}
             alt={project.title}
-            className={`object-cover w-full aspect-video transition-transform duration-500 group-hover:scale-105 group-hover:blur-sm`}
-            loading="lazy"
+            className={`object-cover w-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`}
           />
         </Suspense>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -104,7 +103,7 @@ const ProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto pb-16 mt-8">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-y-10 mx-auto pb-16 mt-8">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}
