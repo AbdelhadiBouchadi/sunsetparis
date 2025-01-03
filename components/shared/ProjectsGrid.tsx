@@ -43,13 +43,13 @@ const ProjectCard = ({
             className={`object-cover w-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`}
           />
         </Suspense>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="text-center px-2">
-            <h3 className="text-sm sm:text-base md:text-lg font-bold text-white">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-slate-400/60 w-full h-full">
+          <div className="text-center px-2 flex flex-col justify-center items-center  w-full h-full">
+            <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-800">
               {project.title}
             </h3>
-            <p className="text-xs sm:text-sm text-gray-300">{project.real}</p>
-            <p className="text-xs sm:text-sm text-gray-300">{project.dop}</p>
+            <p className="text-xs sm:text-sm text-gray-800">{project.real}</p>
+            <p className="text-xs sm:text-sm text-gray-800">{project.dop}</p>
           </div>
         </div>
       </div>
