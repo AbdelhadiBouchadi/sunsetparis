@@ -45,31 +45,30 @@ const ProjectCard = ({
           />
         </Suspense>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ">
-          <div className="text-center px-2 flex flex-col justify-center items-center  w-full h-full">
+          <div className="text-center px-2 flex flex-col justify-center items-center  w-full h-full text-white">
             <h3
               className={cn(
                 'text-sm sm:text-base md:text-lg font-bold',
-                project.textColor === 'white' ? 'text-white' : 'text-black'
+                project.textColor === 'white' && 'text-white',
+                project.textColor === 'black' && 'text-black'
               )}
             >
               {project.title}
             </h3>
             <p
               className={cn(
-                'text-xs sm:text-sm text-gray-300',
-                project.textColor === 'white'
-                  ? 'text-gray-300'
-                  : 'text-gray-700'
+                'text-xs sm:text-sm',
+                project.textColor === 'white' && 'text-gray-200',
+                project.textColor === 'black' && 'text-gray-800'
               )}
             >
               {project.real}
             </p>
             <p
               className={cn(
-                'text-xs sm:text-sm text-gray-300',
-                project.textColor === 'white'
-                  ? 'text-gray-300'
-                  : 'text-gray-700'
+                'text-xs sm:text-sm',
+                project.textColor === 'white' && 'text-gray-50',
+                project.textColor === 'black' && 'text-gray-900'
               )}
             >
               {project.dop}
