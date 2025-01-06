@@ -1,4 +1,4 @@
-import { Artist } from '@/types';
+import { Artist, TextColor } from '@/types';
 
 export const artists = [
   {
@@ -42,4 +42,5 @@ export const projectDefaultValues = {
   real: '',
   dop: '',
   order: 1,
+  textColor: 'white' as TextColor,
 };

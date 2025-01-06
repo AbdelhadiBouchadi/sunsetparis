@@ -20,6 +20,7 @@ export interface IProject extends Document {
   real: string;
   dop: string;
   order: number;
+  textColor: 'white' | 'black';
   createdAt: Date;
 }
 
@@ -52,6 +53,7 @@ const ProjectSchema = new Schema<IProject>({
   real: { type: String },
   dop: { type: String },
   order: { type: Number, default: 1 },
+  textColor: { type: String, enum: ['white', 'black'], required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

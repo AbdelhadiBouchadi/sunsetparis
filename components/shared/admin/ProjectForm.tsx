@@ -28,8 +28,8 @@ import SubmitButton from './SubmitButton';
 import { toast } from 'sonner';
 import { Artist, IProjectForm } from '@/types';
 import { useProjectForm } from '@/hooks/useProjectForm';
-import { usePathname, useRouter } from 'next/navigation';
-import { updateSearchParams } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import TextColorDropDown from './TextColorDropDown';
 
 type ProjectFormProps = {
   type: 'Create' | 'Update';
@@ -56,6 +56,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         real: project.real || '',
         dop: project.dop || '',
         order: project.order || 1,
+        textColor: project.textColor || 'white',
       };
     }
     return projectDefaultValues;
@@ -374,6 +375,24 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
                     placeholder="Project DOP"
                     {...field}
                     className="shad-input border-0"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="textColor"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel className="text-lg font-medium text-gray-300">
+                  Text Color
+                </FormLabel>
+                <FormControl>
+                  <TextColorDropDown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />

@@ -6,6 +6,7 @@ import { IProject } from '@/lib/database/models/project.model';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { NavigationSection } from './NavigationSection';
+import { cn } from '@/lib/utils';
 
 interface ProjectsGridProps {
   projects: IProject[];
@@ -45,11 +46,34 @@ const ProjectCard = ({
         </Suspense>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ">
           <div className="text-center px-2 flex flex-col justify-center items-center  w-full h-full">
-            <h3 className="text-sm sm:text-base md:text-lg font-bold text-white">
+            <h3
+              className={cn(
+                'text-sm sm:text-base md:text-lg font-bold',
+                project.textColor === 'white' ? 'text-white' : 'text-black'
+              )}
+            >
               {project.title}
             </h3>
-            <p className="text-xs sm:text-sm text-gray-300">{project.real}</p>
-            <p className="text-xs sm:text-sm text-gray-300">{project.dop}</p>
+            <p
+              className={cn(
+                'text-xs sm:text-sm text-gray-300',
+                project.textColor === 'white'
+                  ? 'text-gray-300'
+                  : 'text-gray-700'
+              )}
+            >
+              {project.real}
+            </p>
+            <p
+              className={cn(
+                'text-xs sm:text-sm text-gray-300',
+                project.textColor === 'white'
+                  ? 'text-gray-300'
+                  : 'text-gray-700'
+              )}
+            >
+              {project.dop}
+            </p>
           </div>
         </div>
       </div>

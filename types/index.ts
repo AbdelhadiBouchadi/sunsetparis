@@ -10,6 +10,8 @@ declare type SearchParamProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export type TextColor = 'black' | 'white';
+
 export type Artist =
   | 'arthur paux'
   | 'gabriel porier'
@@ -47,6 +49,7 @@ export interface IProjectForm {
   date?: string;
   dop: string;
   order: number;
+  textColor: TextColor;
 }
 
 // ====== PROJECT PARAMS
@@ -61,6 +64,7 @@ export interface CreateProjectParams {
   real: string;
   order: number;
   dop: string;
+  textColor: TextColor;
 }
 
 export interface UpdateProjectParams {
@@ -82,6 +86,7 @@ export interface UpdateProjectParams {
   real: string;
   order: number;
   dop: string;
+  textColor: TextColor;
 }
 
 export interface DeleteProjectParams {
