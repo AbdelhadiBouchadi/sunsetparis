@@ -44,13 +44,14 @@ const ProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
 
   return (
     <>
-      {selectedCategory === 'all' ? (
+      {/* {selectedCategory === 'all' ? (
         <AllProjectsGrid projects={filteredProjects} link={link} />
       ) : selectedCategory === 'features' ? (
         <FeaturesProjectsGrid projects={filteredProjects} link={link} />
       ) : (
         <VideoProjectsGrid projects={filteredProjects} link={link} />
-      )}
+      )} */}
+      <AllProjectsGrid projects={filteredProjects} link={link} />
       {/* <NavigationSection
         href={link}
         selectedCategory={selectedCategory}
