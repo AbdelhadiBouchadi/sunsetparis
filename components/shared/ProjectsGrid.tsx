@@ -51,12 +51,12 @@ const ProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
       ) : (
         <VideoProjectsGrid projects={filteredProjects} link={link} />
       )}
-      <NavigationSection
+      {/* <NavigationSection
         href={link}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
         hasFeatures={true}
-      />
+      /> */}
     </>
   );
 };
