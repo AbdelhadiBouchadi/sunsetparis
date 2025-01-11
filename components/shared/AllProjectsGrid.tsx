@@ -41,7 +41,7 @@ const ProjectCard = ({
           height={400}
           alt={project.title}
           className={cn(
-            `w-full h-full transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`,
+            `w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`,
             project.category === 'features' ? ' object-fill' : 'object-cover'
           )}
         />
@@ -81,7 +81,7 @@ const ProjectCard = ({
   );
 };
 
-const AllProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
+const AllProjectsGrid = ({ projects }: ProjectsGridProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
