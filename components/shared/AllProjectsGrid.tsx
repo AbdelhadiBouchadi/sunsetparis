@@ -118,7 +118,7 @@ const AllProjectsGrid = ({ projects, link }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-y-8 mx-auto mt-8">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-y-8 mx-auto mt-8 overflow-hidden">
         {projects.map((project, index) => (
           <ProjectCard
             key={project._id || index}
