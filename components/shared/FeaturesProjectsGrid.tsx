@@ -5,7 +5,6 @@ import VideoModal from './VideoModal';
 import { IProject } from '@/lib/database/models/project.model';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { NavigationSection } from './NavigationSection';
 import { cn } from '@/lib/utils';
 
 interface ProjectsGridProps {
@@ -14,7 +13,7 @@ interface ProjectsGridProps {
 }
 
 const ProjectSkeleton = () => (
-  <div className="w-full aspect-[9/16] bg-gray-200 dark:bg-gray-700 animate-pulse overflow-hidden">
+  <div className="w-full aspect-video bg-gray-200 dark:bg-gray-700 animate-pulse overflow-hidden">
     <div className="w-full h-full flex flex-col justify-end p-4 2xl:p-12">
       <div className="w-3/4 h-6 bg-gray-300 dark:bg-gray-600 mb-2"></div>
       <div className="w-1/2 h-4 bg-gray-300 dark:bg-gray-600"></div>
@@ -41,7 +40,7 @@ const ProjectCard = ({
             width={400}
             height={400}
             alt={project.title}
-            className={`object-fill w-full max-h-screen aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`}
+            className={`object-fill w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`}
           />
         </Suspense>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ">

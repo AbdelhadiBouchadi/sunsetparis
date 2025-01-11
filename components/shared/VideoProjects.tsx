@@ -5,7 +5,6 @@ import VideoModal from './VideoModal';
 import { IProject } from '@/lib/database/models/project.model';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { NavigationSection } from './NavigationSection';
 import { cn } from '@/lib/utils';
 
 interface ProjectsGridProps {

@@ -29,52 +29,54 @@ const ProjectCard = ({
   onClick: () => void;
 }) => {
   return (
-    <div
-      className="relative overflow-hidden cursor-pointer group aspect-video"
-      onClick={onClick}
-      style={{ margin: '-1px', padding: 0 }}
-    >
-      <Suspense fallback={<ProjectSkeleton />}>
-        <Image
-          src={project.images[0]}
-          width={400}
-          height={400}
-          alt={project.title}
-          className={cn(
-            `w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`,
-            project.category === 'features' ? ' object-fill' : 'object-cover'
-          )}
-        />
-      </Suspense>
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-        <div className="text-center px-2 flex flex-col justify-center items-center w-full h-full text-white">
-          <h3
+    <div className="flex flex-col">
+      <div
+        className="relative overflow-hidden  shadow-xl cursor-pointer group"
+        onClick={onClick}
+        style={{ margin: '-1px', padding: 0 }}
+      >
+        <Suspense fallback={<ProjectSkeleton />}>
+          <Image
+            src={project.images[0]}
+            width={400}
+            height={400}
+            alt={project.title}
             className={cn(
-              'text-sm sm:text-base md:text-lg font-bold',
-              project.textColor === 'white' && 'text-white',
-              project.textColor === 'black' && 'text-black'
+              `w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`,
+              project.category === 'features' ? ' object-fill' : 'object-cover'
             )}
-          >
-            {project.title}
-          </h3>
-          <p
-            className={cn(
-              'text-xs sm:text-sm',
-              project.textColor === 'white' && 'text-gray-200',
-              project.textColor === 'black' && 'text-gray-800'
-            )}
-          >
-            {project.real}
-          </p>
-          <p
-            className={cn(
-              'text-xs sm:text-sm',
-              project.textColor === 'white' && 'text-gray-50',
-              project.textColor === 'black' && 'text-gray-900'
-            )}
-          >
-            {project.dop}
-          </p>
+          />
+        </Suspense>
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+          <div className="text-center px-2 flex flex-col justify-center items-center w-full h-full text-white">
+            <h3
+              className={cn(
+                'text-sm sm:text-base md:text-lg font-bold',
+                project.textColor === 'white' && 'text-white',
+                project.textColor === 'black' && 'text-black'
+              )}
+            >
+              {project.title}
+            </h3>
+            <p
+              className={cn(
+                'text-xs sm:text-sm',
+                project.textColor === 'white' && 'text-gray-200',
+                project.textColor === 'black' && 'text-gray-800'
+              )}
+            >
+              {project.real}
+            </p>
+            <p
+              className={cn(
+                'text-xs sm:text-sm',
+                project.textColor === 'white' && 'text-gray-50',
+                project.textColor === 'black' && 'text-gray-900'
+              )}
+            >
+              {project.dop}
+            </p>
+          </div>
         </div>
       </div>
     </div>
