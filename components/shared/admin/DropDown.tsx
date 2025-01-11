@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select';
 import { Artist } from '@/types';
 import { useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 type DropDownProps = {
   value?: Artist;
@@ -24,6 +25,7 @@ const artists = [
   { id: 'nicolas gautier', name: 'Nicolas Gautier' },
   { id: 'romain loiseau', name: 'Romain Loiseau' },
   { id: 'thomas canu', name: 'Thomas Canu' },
+  { id: 'abdelhadi bouchadi', name: 'Abdelhadi Bouchadi' },
 ] as const;
 
 const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
@@ -52,7 +54,10 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
           <SelectItem
             key={item.id}
             value={item.id}
-            className="flex cursor-pointer items-center gap-2"
+            className={cn(
+              'flex cursor-pointer items-center gap-2',
+              item.name === 'Abdelhadi Bouchadi' && 'hidden'
+            )}
           >
             {item.name}
           </SelectItem>

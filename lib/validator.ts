@@ -1,4 +1,4 @@
-import { Artist } from '@/types';
+import { Artist, Category } from '@/types';
 import * as z from 'zod';
 
 export const videoSourceSchema = z.object({
@@ -21,11 +21,15 @@ export const projectFormSchema = z.object({
       'nicolas gautier',
       'romain loiseau',
       'thomas canu',
+      'abdelhadi bouchadi',
     ] as [Artist, ...Artist[]],
     {
       message: 'Please choose an artist',
     }
   ),
+  category: z.enum(['videos', 'features'] as [Category, ...Category[]], {
+    message: 'Please choose a category',
+  }),
   images: z.array(z.string()).default([]),
   videoSource: z.string().optional(),
   place: z.string().optional(),
@@ -71,3 +75,10 @@ export function parseVideoUrl(url: string): string {
   // If no matches, return the original URL
   return url;
 }
+
+export const contactFormSchema = z.object({
+  fullName: z.string().min(1, { message: 'Full name is required' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  phone: z.string().min(1, { message: 'Phone number is required' }),
+  message: z.string().min(1, { message: 'Message is required' }),
+});

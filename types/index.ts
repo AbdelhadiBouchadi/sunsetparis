@@ -11,6 +11,7 @@ declare type SearchParamProps = {
 };
 
 export type TextColor = 'black' | 'white';
+export type Category = 'videos' | 'features';
 
 export type Artist =
   | 'arthur paux'
@@ -19,7 +20,8 @@ export type Artist =
   | 'mathieu caplanne'
   | 'nicolas gautier'
   | 'romain loiseau'
-  | 'thomas canu';
+  | 'thomas canu'
+  | 'abdelhadi bouchadi';
 
 // ====== USER PARAMS
 export type CreateUserParams = {
@@ -41,6 +43,7 @@ export type UpdateUserParams = {
 export interface IProjectForm {
   title: string;
   artist: Artist;
+  category: Category;
   images: string[];
   real: string;
   description?: string;
@@ -57,6 +60,7 @@ export interface CreateProjectParams {
   title: string;
   description?: string;
   artist: Artist;
+  category: Category;
   images: string[];
   videoSource?: string;
   place?: string;
@@ -78,7 +82,9 @@ export interface UpdateProjectParams {
     | 'mathieu caplanne'
     | 'nicolas gautier'
     | 'romain loiseau'
-    | 'thomas canu';
+    | 'thomas canu'
+    | 'abdelhadi bouchadi';
+  category: Category;
   images: string[];
   videoSource?: string;
   place?: string;
@@ -97,4 +103,20 @@ export interface VideoSourceData {
   type: VideoSourceTypeEnum;
   url: string;
   originalUrl: string;
+}
+
+// Contact Params
+export interface CreateContactParams {
+  fullName: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+export interface UpdateContactParams {
+  _id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  message: string;
 }

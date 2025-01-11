@@ -59,10 +59,12 @@ export const columns: ColumnDef<IProject>[] = [
     },
   },
   {
-    accessorKey: 'artist',
-    header: 'Artist',
+    accessorKey: 'category',
+    header: 'Category',
     cell: ({ row }) => {
-      return <p className="text-14-medium capitalize">{row.original.artist}</p>;
+      return (
+        <p className="text-14-medium capitalize">{row.original.category}</p>
+      );
     },
   },
   {

@@ -6,6 +6,7 @@ export const ARTISTS = [
   'nicolas gautier',
   'romain loiseau',
   'thomas canu',
+  'abdelhadi bouchadi',
 ] as const;
 
 export type Artist = (typeof ARTISTS)[number];

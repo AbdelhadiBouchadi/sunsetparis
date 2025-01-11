@@ -12,8 +12,10 @@ export interface IProject extends Document {
     | 'mathieu caplanne'
     | 'nicolas gautier'
     | 'romain loiseau'
-    | 'thomas canu';
+    | 'thomas canu'
+    | 'abdelhadi bouchadi';
   images: string[];
+  category: 'videos' | 'features';
   videoSource?: string;
   place?: string;
   date?: string;
@@ -37,7 +39,13 @@ const ProjectSchema = new Schema<IProject>({
       'nicolas gautier',
       'romain loiseau',
       'thomas canu',
+      'abdelhadi bouchadi',
     ],
+    required: true,
+  },
+  category: {
+    type: String,
+    enum: ['videos', 'features'],
     required: true,
   },
   images: {

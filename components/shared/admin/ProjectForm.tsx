@@ -30,6 +30,8 @@ import { Artist, IProjectForm } from '@/types';
 import { useProjectForm } from '@/hooks/useProjectForm';
 import { useRouter } from 'next/navigation';
 import TextColorDropDown from './TextColorDropDown';
+import CategoryDropDown from './CategoryDropDown';
+import { getVideoThumbnail } from '@/lib/utils';
 
 type ProjectFormProps = {
   type: 'Create' | 'Update';
@@ -49,6 +51,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
         title: project.title || '',
         description: project.description || '',
         artist: project.artist as Artist,
+        category: project.category || '',
         images: project.images || [],
         videoSource: project.videoSource || '',
         place: project.place || '',
@@ -102,6 +105,18 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
       let uploadedImageUrls = values.images || [];
 
+      // If there's a video URL and no images uploaded, try to get the video thumbnail
+      if (
+        values.videoSource &&
+        (!uploadedImageUrls.length || uploadedImageUrls.length === 0)
+      ) {
+        const thumbnailUrl = await getVideoThumbnail(values.videoSource);
+        if (thumbnailUrl) {
+          uploadedImageUrls = [thumbnailUrl];
+        }
+      }
+
+      // Only upload new images if files were selected
       if (files.length > 0) {
         const uploadedImages = await startUpload(files);
 
@@ -400,6 +415,25 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="text-lg font-medium text-gray-300">
+                Category
+              </FormLabel>
+              <FormControl>
+                <CategoryDropDown
+                  onChangeHandler={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="images"

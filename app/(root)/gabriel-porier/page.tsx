@@ -1,3 +1,4 @@
+import PageHeader from '@/components/shared/PageHeader';
 import ProjectsGrid from '@/components/shared/ProjectsGrid';
 import { getGabrielProjects } from '@/lib/actions/project.actions';
 import React from 'react';
@@ -10,11 +11,7 @@ const page = async () => {
 
   return (
     <>
-      <div className="z-40 py-5 md:py-8 h-full w-full flex justify-center items-center">
-        <h1 className=" text-2xl lg:text-4xl font-light text-center uppercase text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] tracking-tighter">
-          gabriel porier
-        </h1>
-      </div>
+      <PageHeader artistName="Gabriel Porier" />
       <ProjectsGrid projects={projects} />
     </>
   );

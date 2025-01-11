@@ -1,10 +1,6 @@
 'use server';
 
-import {
-  CreateProjectParams,
-  DeleteProjectParams,
-  UpdateProjectParams,
-} from '@/types';
+import { CreateProjectParams, DeleteProjectParams } from '@/types';
 import { connectToDatabase } from '../database';
 import Project, { IProject } from '../database/models/project.model';
 import { revalidatePath } from 'next/cache';
@@ -207,4 +203,9 @@ export const getRomainProjects = async () => {
 // Thomas Projects
 export const getThomasProjects = async () => {
   return getProjectsByArtist('thomas canu');
+};
+
+// Abdelhadi Projects
+export const getAbdelhadiProjects = async () => {
+  return getProjectsByArtist('abdelhadi bouchadi');
 };

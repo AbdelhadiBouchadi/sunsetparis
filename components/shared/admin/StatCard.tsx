@@ -10,7 +10,8 @@ type StatCardProps = {
     | 'mathieu caplanne'
     | 'nicolas gautier'
     | 'romain loiseau'
-    | 'thomas canu';
+    | 'thomas canu'
+    | 'abdelhadi bouchadi';
   count: number;
   label: string;
   icon: LucideIcon;
@@ -24,12 +25,14 @@ export function StatCard({
   icon: Icon,
   isSelected = false,
   onClick,
+  type,
 }: StatCardProps) {
   return (
     <Card
       className={cn(
         'bg-gradient-to-br from-zinc-900 to-zinc-800 border-zinc-800 hover:border-green-700 transition-all duration-300 cursor-pointer group',
-        isSelected && 'border-green-700 from-zinc-800 to-zinc-900'
+        isSelected && 'border-green-700 from-zinc-800 to-zinc-900',
+        type === 'abdelhadi bouchadi' && 'hidden'
       )}
       onClick={onClick}
     >

@@ -3,7 +3,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import Image from 'next/image';
-import { X, GripVertical } from 'lucide-react';
+import { X, GripVertical, Download, DownloadIcon } from 'lucide-react';
 
 interface SortableImageProps {
   url: string;
@@ -27,6 +27,24 @@ export function SortableImage({ url, index, onRemove }: SortableImageProps) {
     opacity: isDragging ? 0.5 : 1,
   };
 
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `image-${index + 1}.${blob.type.split('/')[1]}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error downloading image:', error);
+    }
+  };
+
   return (
     <div
       ref={setNodeRef}
@@ -42,11 +60,18 @@ export function SortableImage({ url, index, onRemove }: SortableImageProps) {
       />
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
         <button
-          className="absolute top-2 right-2 p-1 bg-red-500 rounded-full hover:bg-red-600 transition-colors"
+          onClick={handleDownload}
+          className="absolute top-2 right-10 p-2 rounded-full bg-blue-600/80 hover:bg-blue-500 transition-colors"
+          type="button"
+        >
+          <DownloadIcon className="size-4 text-white" />
+        </button>
+        <button
+          className="absolute top-2 right-2 p-[0.45rem] bg-red-500 rounded-full hover:bg-red-600 transition-colors"
           onClick={() => onRemove(index)}
           type="button"
         >
-          <X className="w-4 h-4 text-white" />
+          <X className="size-4 text-white" />
         </button>
         <div
           {...attributes}

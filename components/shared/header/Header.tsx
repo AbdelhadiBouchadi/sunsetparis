@@ -12,7 +12,7 @@ import ContactUs from '../ContactUs';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { logoOpacity, headerOpacity, headerBlur } = useScrollAnimation();
+  const { logoOpacity, headerBlur } = useScrollAnimation();
 
   useEffect(() => {
     setMounted(true);

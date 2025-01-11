@@ -14,12 +14,12 @@ type DropDownProps = {
   onChangeHandler: (value: string) => void;
 };
 
-const textColors = [
-  { id: 'white', name: 'White' },
-  { id: 'black', name: 'Black' },
+const categories = [
+  { id: 'videos', name: 'Videos' },
+  { id: 'features', name: 'Features' },
 ] as const;
 
-const TextColorDropDown = ({ value, onChangeHandler }: DropDownProps) => {
+const CategoryDropDown = ({ value, onChangeHandler }: DropDownProps) => {
   const [selectedValue, setSelectedValue] = useState(value?.toString() || '');
 
   useEffect(() => {
@@ -34,10 +34,10 @@ const TextColorDropDown = ({ value, onChangeHandler }: DropDownProps) => {
   return (
     <Select value={value} onValueChange={onChangeHandler}>
       <SelectTrigger className="shad-select-trigger">
-        <SelectValue placeholder="Choose a text color" />
+        <SelectValue placeholder="Choose a category" />
       </SelectTrigger>
       <SelectContent className="shad-select-content">
-        {textColors.map((item, index) => (
+        {categories.map((item, index) => (
           <SelectItem
             key={index}
             value={item.id}
@@ -51,4 +51,4 @@ const TextColorDropDown = ({ value, onChangeHandler }: DropDownProps) => {
   );
 };
 
-export default TextColorDropDown;
+export default CategoryDropDown;

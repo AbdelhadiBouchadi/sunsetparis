@@ -15,7 +15,7 @@ const page = () => {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <ul className="flex flex-col items-center justify-center gap-8 md:gap-6">
+      <ul className="flex flex-col items-center justify-center gap-8 md:gap-6 ">
         {artists.map((artist, index) => (
           <li key={index} className="w-full flex justify-center items-center">
             <Link

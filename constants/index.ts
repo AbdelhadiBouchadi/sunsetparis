@@ -1,4 +1,4 @@
-import { Artist, TextColor } from '@/types';
+import { Artist, Category, TextColor } from '@/types';
 
 export const artists = [
   {
@@ -35,6 +35,7 @@ export const projectDefaultValues = {
   title: '',
   description: '',
   artist: 'arthur paux' as Artist,
+  category: 'videos' as Category,
   images: [],
   videoSource: '',
   place: '',
