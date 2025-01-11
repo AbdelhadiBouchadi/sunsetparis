@@ -1,3 +1,4 @@
+import AllProjectsGrid from '@/components/shared/AllProjectsGrid';
 import PageHeader from '@/components/shared/PageHeader';
 import ProjectsGrid from '@/components/shared/ProjectsGrid';
 import { getArthurProjects } from '@/lib/actions/project.actions';
@@ -12,7 +13,7 @@ const page = async () => {
   return (
     <>
       <PageHeader artistName="Arthur Paux" />
-      <ProjectsGrid projects={projects} link="https://www.arthur-paux.com" />
+      <AllProjectsGrid projects={projects} link="https://www.arthur-paux.com" />
     </>
   );
 };
