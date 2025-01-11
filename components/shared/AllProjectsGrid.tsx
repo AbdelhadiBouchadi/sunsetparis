@@ -32,7 +32,7 @@ const ProjectCard = ({
     <div
       className="relative overflow-hidden cursor-pointer group aspect-video"
       onClick={onClick}
-      style={{ margin: '-1px', padding: 0 }}
+      // style={{ margin: '-1px', padding: 0 }}
     >
       <Suspense fallback={<ProjectSkeleton />}>
         <Image
