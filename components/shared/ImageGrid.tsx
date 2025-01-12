@@ -33,14 +33,14 @@ const ImageGrid: React.FC<ImageGridProps> = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-1">
+      <div className="grid grid-cols-3 gap-[0.05rem]">
         {images.map((image, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
-            className="relative aspect-[3/2] cursor-pointer group overflow-hidden"
+            className="relative aspect-video cursor-pointer group overflow-hidden"
             onClick={() => onImageClick(index)}
           >
             <Image
