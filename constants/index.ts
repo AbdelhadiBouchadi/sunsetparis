@@ -44,4 +44,5 @@ export const projectDefaultValues = {
   dop: '',
   order: 1,
   textColor: 'white' as TextColor,
+  isHidden: false,
 };

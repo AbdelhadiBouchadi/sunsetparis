@@ -29,7 +29,7 @@ const ProjectCard = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className={cn('flex flex-col', project.isHidden && 'hidden')}>
       <div
         className="relative overflow-hidden  shadow-xl cursor-pointer group"
         onClick={onClick}

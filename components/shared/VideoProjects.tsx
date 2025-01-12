@@ -30,7 +30,10 @@ const ProjectCard = ({
 }) => {
   return (
     <div
-      className="relative overflow-hidden cursor-pointer group"
+      className={cn(
+        'relative overflow-hidden cursor-pointer group',
+        project.isHidden && 'hidden'
+      )}
       onClick={onClick}
       style={{ margin: '-1px', padding: 0 }}
     >

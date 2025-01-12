@@ -269,21 +269,16 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
           <FormField
             control={form.control}
-            name="order"
+            name="category"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel className="text-lg font-medium text-gray-300">
-                  Order
+                  Category
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    min={1}
-                    max={maxOrder}
-                    placeholder={`Display Order (1-${maxOrder})`}
-                    {...field}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                    className="shad-input border-0"
+                  <CategoryDropDown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -415,24 +410,6 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             )}
           />
         </div>
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel className="text-lg font-medium text-gray-300">
-                Category
-              </FormLabel>
-              <FormControl>
-                <CategoryDropDown
-                  onChangeHandler={field.onChange}
-                  value={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
         <FormField
           control={form.control}

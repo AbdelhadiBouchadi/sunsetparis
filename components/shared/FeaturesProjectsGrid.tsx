@@ -29,10 +29,11 @@ const ProjectCard = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className={cn('flex flex-col', project.isHidden && 'hidden')}>
       <div
         className="relative overflow-hidden  shadow-xl cursor-pointer group"
         onClick={onClick}
+        style={{ margin: '-1px', padding: 0 }}
       >
         <Suspense fallback={<ProjectSkeleton />}>
           <Image
@@ -118,7 +119,7 @@ const FeaturesProjectsGrid = ({ projects }: ProjectsGridProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-y-10 mx-auto pb-16 mt-8">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-y-10 mx-auto pb-16 mt-8 overflow-hidden">
         {featuresProjects.map((project) => (
           <ProjectCard
             key={project._id}

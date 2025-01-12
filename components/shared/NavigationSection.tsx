@@ -47,7 +47,7 @@ export const NavigationSection = ({
       </div>
 
       {hasFeatures && (
-        <div className=" justify-center items-center gap-6 md:gap-24 text-xs md:text-lg hidden">
+        <div className="hidden justify-center items-center gap-6 md:gap-24 text-xs md:text-lg">
           {selectedCategory !== 'videos' && (
             <button
               onClick={() => onCategoryChange('videos')}

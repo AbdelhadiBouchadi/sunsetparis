@@ -76,7 +76,13 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
           </div>
         )}
 
-        {selectedArtist && <ProjectsTable projects={filteredProjects} />}
+        {selectedArtist && (
+          <ProjectsTable
+            key={selectedArtist}
+            projects={filteredProjects}
+            selectedArtist={selectedArtist}
+          />
+        )}
 
         <Link
           href={createProjectUrl}

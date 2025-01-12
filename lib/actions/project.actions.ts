@@ -108,11 +108,38 @@ export const deleteProject = async ({ projectId }: DeleteProjectParams) => {
   try {
     await connectToDatabase();
 
-    const deletedProject = await Project.findByIdAndDelete(projectId);
-    if (deletedProject) {
-      revalidatePath('/sunsetparis-admin');
-      revalidatePath('/');
-    }
+    // Start a session for the transaction
+    const session = await Project.startSession();
+
+    await session.withTransaction(async () => {
+      // Get the project to be deleted
+      const projectToDelete = await Project.findById(projectId).session(
+        session
+      );
+      if (!projectToDelete) {
+        throw new Error('Project not found');
+      }
+
+      const { artist, order } = projectToDelete;
+
+      // Delete the project
+      await Project.findByIdAndDelete(projectId).session(session);
+
+      // Update order of remaining projects
+      await Project.updateMany(
+        {
+          artist,
+          order: { $gt: order },
+        },
+        { $inc: { order: -1 } },
+        { session }
+      );
+    });
+
+    await session.endSession();
+
+    revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
   } catch (error) {
     handleError(error);
   }
@@ -167,6 +194,24 @@ export const getProjectById = async (id: string) => {
     return parseStringify(project);
   } catch (error) {
     throw new Error('Error fetching the specified project');
+  }
+};
+
+export const toggleProjectHidden = async (projectId: string) => {
+  try {
+    await connectToDatabase();
+    const project = await Project.findById(projectId);
+    if (!project) throw new Error('Project not found');
+
+    project.isHidden = !project.isHidden;
+    await project.save();
+
+    revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
+    return JSON.parse(JSON.stringify(project));
+  } catch (error) {
+    console.error('Error toggling project visibility:', error);
+    throw error;
   }
 };
 

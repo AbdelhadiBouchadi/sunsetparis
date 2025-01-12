@@ -9,6 +9,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { ImageOff } from 'lucide-react';
 import Image from 'next/image';
 import { ArrowUpDown } from 'lucide-react';
+import { ToggleHidden } from './ToggleHidden';
 
 export const columns: ColumnDef<IProject>[] = [
   {
@@ -83,6 +84,7 @@ export const columns: ColumnDef<IProject>[] = [
     header: 'Actions',
     cell: ({ row }) => {
       const projectId = row.original._id;
+      const isHidden = row.original.isHidden;
 
       return (
         <div className="flex gap-1">
@@ -96,6 +98,7 @@ export const columns: ColumnDef<IProject>[] = [
             Edit
           </Link>
 
+          <ToggleHidden projectId={projectId} isHidden={isHidden} />
           <DeleteConfirmation projectId={projectId} />
         </div>
       );

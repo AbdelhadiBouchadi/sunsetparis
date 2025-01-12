@@ -61,7 +61,7 @@ export function SortableImage({ url, index, onRemove }: SortableImageProps) {
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
         <button
           onClick={handleDownload}
-          className="absolute top-2 right-10 p-2 rounded-full bg-blue-600/80 hover:bg-blue-500 transition-colors"
+          className="absolute top-2 right-12 p-2 rounded-full bg-blue-600/80 hover:bg-blue-500 transition-colors"
           type="button"
         >
           <DownloadIcon className="size-4 text-white" />
