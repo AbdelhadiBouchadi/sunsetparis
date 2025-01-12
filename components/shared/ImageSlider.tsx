@@ -12,6 +12,7 @@ interface ImageSliderModalProps {
   onClose: () => void;
   images: string[];
   alt: string;
+  initialIndex?: number;
 }
 
 const slideVariants = {
@@ -41,8 +42,9 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
   onClose,
   images,
   alt,
+  initialIndex = 0,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
   const { loadedImages, isLoading } = useImagePreloader(images);
 
@@ -142,10 +144,10 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
         </button>
         <button
           onClick={nextImage}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2  p-3 rounded-full transition-all duration-200 z-10"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full transition-all duration-200 z-10"
           aria-label="Next image"
         >
-          <ChevronRight size={24} className="text-[#FB65A4] " />
+          <ChevronRight size={24} className="text-[#FB65A4]" />
         </button>
       </div>
 
@@ -159,8 +161,8 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
             }}
             className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
               currentIndex === index
-                ? 'bg-gradient-to-t from-[#FCBB53]  via-[#FB65A4] to-[#A67DD2] '
-                : 'bg-gradient-to-t from-[#FCBB53]/50  via-[#FB65A4]/50 to-[#A67DD2]/50 '
+                ? 'bg-gradient-to-t from-[#FCBB53] via-[#FB65A4] to-[#A67DD2]'
+                : 'bg-gradient-to-t from-[#FCBB53]/50 via-[#FB65A4]/50 to-[#A67DD2]/50'
             }`}
             aria-label={`Go to image ${index + 1}`}
           />

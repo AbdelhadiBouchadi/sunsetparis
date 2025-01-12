@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { fadeIn } from '@/variants';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageSliderModal from './ImageSlider';
+import ImageGrid from './ImageGrid';
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -27,23 +28,69 @@ const VideoModal: React.FC<VideoModalProps> = ({
   real,
   dop,
 }) => {
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
+
   if (!isOpen) return null;
 
-  // If no video source, show a slider of images
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  const handleSliderClose = () => {
+    setSelectedImageIndex(null);
+  };
+
+  // If slider is open, show the ImageSliderModal
+  if (selectedImageIndex !== null) {
+    return (
+      <ImageSliderModal
+        images={images}
+        alt={title}
+        isOpen={true}
+        onClose={handleSliderClose}
+        initialIndex={selectedImageIndex}
+      />
+    );
+  }
+
+  // If no video source, show the image grid
   if (!videoSource) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 w-screen h-dvh bg-background dark:bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+        className="fixed inset-0 w-screen h-dvh bg-background dark:bg-black flex flex-col z-[999] overflow-y-auto"
       >
-        <ImageSliderModal
-          images={images}
-          alt={title}
-          isOpen={isOpen}
-          onClose={onClose}
-        />
+        <div className="flex justify-between items-center w-full sticky top-0 px-4 py-4 md:px-8 bg-background/80 dark:bg-black/80 backdrop-blur-sm z-10">
+          <Link href="/">
+            <Image
+              src="/assets/logo.png"
+              width={100}
+              height={100}
+              alt="sunsetparis_logo_image"
+            />
+          </Link>
+          <button
+            onClick={onClose}
+            className="text-[#FB65A4] hover:opacity-80 transition-all duration-150"
+            aria-label="Close modal"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="flex-1 py-8">
+          <ImageGrid
+            images={images}
+            onImageClick={handleImageClick}
+            title={title}
+            real={real}
+            dop={dop}
+          />
+        </div>
       </motion.div>
     );
   }
