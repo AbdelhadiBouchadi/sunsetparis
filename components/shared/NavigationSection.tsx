@@ -47,10 +47,13 @@ export const NavigationSection = ({
       </div>
 
       {hasFeatures && (
-        <div className="hidden justify-center items-center gap-6 md:gap-24 text-xs md:text-lg">
+        <div className="flex justify-center items-center gap-6 md:gap-24 text-xs md:text-lg">
           {selectedCategory !== 'videos' && (
             <button
-              onClick={() => onCategoryChange('videos')}
+              onClick={() => {
+                onCategoryChange('videos');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className={cn(
                 'tracking-tighter  hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-t hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2] transition duration-300 uppercase'
               )}
@@ -60,7 +63,10 @@ export const NavigationSection = ({
           )}
           {selectedCategory !== 'all' && (
             <button
-              onClick={() => onCategoryChange('all')}
+              onClick={() => {
+                onCategoryChange('all');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className={cn(
                 'tracking-tighter hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-t hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2] transition duration-300 uppercase'
               )}
@@ -70,7 +76,10 @@ export const NavigationSection = ({
           )}
           {selectedCategory !== 'features' && (
             <button
-              onClick={() => onCategoryChange('features')}
+              onClick={() => {
+                onCategoryChange('features');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className={cn(
                 'tracking-tighter hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-t hover:from-[#FCBB54] hover:via-[#FB65A4] hover:to-[#A67DD2] transition duration-300 uppercase'
               )}
