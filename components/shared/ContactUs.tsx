@@ -47,35 +47,35 @@ const ContactUs = () => {
   const emailLink = `mailto:${contact.email}?subject=Subject%20Here&body=Body%20Text%20Here`;
 
   return (
-    <div className="max-w-[80vw] w-full h-full flex flex-col justify-center items-center bg-white dark:bg-black py-4 md:py-8 rounded-xl overflow-hidden">
-      <div className="w-full flex flex-col items-center justify-center gap-4 py-4 md:py-8 lg:py-12">
-        {contact.message && (
-          <p className="text-lg text-start text-black dark:text-white mt-2 hidden">
-            {contact.message}
-          </p>
-        )}
-        <div className="flex flex-col items-start justify-center">
-          <h3 className="font-semibold text-xl lg:text-3xl uppercase text-black dark:text-white tracking-widest">
-            contact sunset :
-          </h3>
-          <h5 className="text-lg text-start tracking-widest text-black dark:text-white">
-            {contact.fullName}
-          </h5>
-          <Link
-            href={whatsappLink}
-            className="w-full text-lg text-start uppercase text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {contact.phone}
-          </Link>
-          <Link
-            href={emailLink}
-            className="text-lg text-start text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-          >
-            {contact.email}
-          </Link>
-        </div>
+    <div className="flex flex-col justify-center items-center w-full h-full py-10 bg-white dark:bg-black px-6 md:px-12">
+      <p className="md:text-2xl text-black dark:text-white text-center tracking-wide">
+        Shaping the craft of color grading and talent management in Paris since
+        2017,
+      </p>
+      <p className="md:text-2xl text-black dark:text-white text-center mt-2">
+        We proudly showcase Paris’s leading colorists,
+      </p>
+      <p className="md:text-2xl text-black dark:text-white text-center mt-2">
+        Bringing unparalleled expertise to your creative projects.
+      </p>
+      <div className="mt-12 text-center">
+        <h5 className="text-xl text-black dark:text-white">
+          {contact.fullName}
+        </h5>
+        <Link
+          href={whatsappLink}
+          className="block text-xl text-black dark:text-white hover:text-transparent dark:hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {contact.phone}
+        </Link>
+        <Link
+          href={emailLink}
+          className="block text-xl text-black dark:text-white hover:text-transparent dark:hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
+        >
+          {contact.email.charAt(0).toUpperCase() + contact.email.slice(1)}
+        </Link>
       </div>
     </div>
   );
