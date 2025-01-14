@@ -47,8 +47,8 @@ const ContactUs = () => {
   const emailLink = `mailto:${contact.email}?subject=Subject%20Here&body=Body%20Text%20Here`;
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full py-10 bg-white dark:bg-black px-6 md:px-12">
-      <p className="md:text-2xl text-black dark:text-white text-center tracking-wide">
+    <div className="flex flex-col justify-center items-center w-full h-full py-10 bg-white dark:bg-black px-2 md:px-12">
+      <p className="md:text-2xl text-black dark:text-white text-center leading-relaxed">
         Shaping the craft of color grading and talent management in Paris since
         2017,
       </p>
