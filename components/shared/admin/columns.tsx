@@ -33,11 +33,15 @@ export const columns: ColumnDef<IProject>[] = [
     accessorKey: 'images',
     header: 'Image',
     cell: ({ row }) => {
+      const thumbnailUrl =
+        row.original.images[row.original.thumbnailIndex] ||
+        row.original.images[0];
+
       return (
         <div className="relative h-16 w-24 rounded-md overflow-hidden bg-neutral-900 border border-neutral-800">
           {row.original.images && row.original.images.length > 0 ? (
             <Image
-              src={row.original.images[0]}
+              src={thumbnailUrl}
               alt={row.original.title}
               fill
               className="object-cover"

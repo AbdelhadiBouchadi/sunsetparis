@@ -21,8 +21,14 @@ export const createProject = async (project: CreateProjectParams) => {
   try {
     await connectToDatabase();
 
+    const lastProject = await Project.findOne({ artist: project.artist })
+      .sort({ order: -1 })
+      .exec();
+
     const newProject = await Project.create({
       ...project,
+      thumbnailIndex: project.thumbnailIndex || 0,
+      order: lastProject ? lastProject.order + 1 : 1,
     });
 
     revalidatePath('/sunsetparis-admin');
@@ -65,6 +71,7 @@ export async function updateProject(
         // Find all projects by the same artist
         const artistProjects = await Project.find({
           artist: projectData.artist,
+          thumbnailIndex: projectData.thumbnailIndex || 0,
           _id: { $ne: projectId },
         }).session(session);
 

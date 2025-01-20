@@ -45,6 +45,7 @@ export interface IProjectForm {
   artist: Artist;
   category: Category;
   images: string[];
+  thumbnailIndex: number;
   real: string;
   description?: string;
   videoSource?: string;
@@ -62,6 +63,7 @@ export interface CreateProjectParams {
   artist: Artist;
   category: Category;
   images: string[];
+  thumbnailIndex: number;
   videoSource?: string;
   place?: string;
   date?: string;
@@ -86,6 +88,7 @@ export interface UpdateProjectParams {
     | 'abdelhadi bouchadi';
   category: Category;
   images: string[];
+  thumbnailIndex: number;
   videoSource?: string;
   place?: string;
   date?: string;

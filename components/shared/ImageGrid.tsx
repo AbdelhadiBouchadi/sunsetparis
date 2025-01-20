@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 interface ImageGridProps {
   images: string[];
@@ -35,11 +34,8 @@ const ImageGrid: React.FC<ImageGridProps> = ({
 
       <div className="grid grid-cols-3 gap-[0.05rem]">
         {images.map((image, index) => (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
             className="relative aspect-video cursor-pointer group overflow-hidden"
             onClick={() => onImageClick(index)}
           >
@@ -50,7 +46,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
               className="object-fill transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

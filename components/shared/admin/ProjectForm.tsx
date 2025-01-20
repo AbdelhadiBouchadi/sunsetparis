@@ -44,22 +44,26 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [maxOrder, setMaxOrder] = useState<number>(1);
+  const [thumbnailIndex, setThumbnailIndex] = useState(
+    project?.thumbnailIndex || 0
+  );
 
   const getInitialValues = (): IProjectForm => {
     if (project && type === 'Update') {
       return {
-        title: project.title || '',
-        description: project.description || '',
-        artist: project.artist as Artist,
-        category: project.category || '',
-        images: project.images || [],
-        videoSource: project.videoSource || '',
-        place: project.place || '',
-        date: project.date || '',
-        real: project.real || '',
-        dop: project.dop || '',
-        order: project.order || 1,
-        textColor: project.textColor || 'white',
+        title: project?.title || '',
+        description: project?.description || '',
+        artist: project?.artist as Artist,
+        category: project?.category || '',
+        images: project?.images || [],
+        thumbnailIndex: project?.thumbnailIndex || 0,
+        videoSource: project?.videoSource || '',
+        place: project?.place || '',
+        date: project?.date || '',
+        real: project?.real || '',
+        dop: project?.dop || '',
+        order: project?.order || 1,
+        textColor: project?.textColor || 'white',
       };
     }
     return projectDefaultValues;
@@ -89,6 +93,10 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
 
     updateMaxOrder();
   }, [watchArtist, type, form]);
+
+  useEffect(() => {
+    form.setValue('thumbnailIndex', thumbnailIndex);
+  }, [thumbnailIndex, form]);
 
   async function onSubmit(values: z.infer<typeof projectFormSchema>) {
     try {
@@ -146,6 +154,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             ...values,
             images: uploadedImageUrls,
             order: values.order,
+            thumbnailIndex,
           });
 
           if (newProject) {
@@ -171,6 +180,7 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
             {
               ...values,
               images: uploadedImageUrls,
+              thumbnailIndex,
               _id: projectId,
             },
             project?.order || 1
@@ -421,6 +431,8 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
                   onFieldChange={field.onChange}
                   imageUrls={field.value || []}
                   setFiles={setFiles}
+                  thumbnailIndex={thumbnailIndex}
+                  onThumbnailChange={setThumbnailIndex}
                 />
               </FormControl>
               <FormMessage />

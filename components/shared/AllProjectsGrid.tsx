@@ -28,6 +28,9 @@ const ProjectCard = ({
   project: IProject;
   onClick: () => void;
 }) => {
+  const thumbnailUrl =
+    project.images[project.thumbnailIndex] || project.images[0];
+
   return (
     <div className={cn('flex flex-col', project.isHidden && 'hidden')}>
       <div
@@ -37,7 +40,7 @@ const ProjectCard = ({
       >
         <Suspense fallback={<ProjectSkeleton />}>
           <Image
-            src={project.images[0]}
+            src={thumbnailUrl}
             width={400}
             height={400}
             alt={project.title}

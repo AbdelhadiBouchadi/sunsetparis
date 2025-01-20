@@ -31,6 +31,7 @@ export const projectFormSchema = z.object({
     message: 'Please choose a category',
   }),
   images: z.array(z.string()).default([]),
+  thumbnailIndex: z.number().default(0),
   videoSource: z.string().optional(),
   place: z.string().optional(),
   date: z.string().optional(),

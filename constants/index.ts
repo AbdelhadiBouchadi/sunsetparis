@@ -37,6 +37,7 @@ export const projectDefaultValues = {
   artist: 'arthur paux' as Artist,
   category: 'videos' as Category,
   images: [],
+  thumbnailIndex: 0,
   videoSource: '',
   place: '',
   date: '',

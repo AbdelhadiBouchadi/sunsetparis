@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, Dispatch, SetStateAction, useEffect } from 'react';
+import { useCallback, Dispatch, SetStateAction } from 'react';
 import { useDropzone } from '@uploadthing/react/hooks';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
 import { Button } from '@/components/ui/button';
@@ -26,12 +26,16 @@ type FileUploaderProps = {
   onFieldChange: (urls: string[]) => void;
   imageUrls: string[];
   setFiles: Dispatch<SetStateAction<File[]>>;
+  thumbnailIndex?: number;
+  onThumbnailChange?: (index: number) => void;
 };
 
 export function FileUploader({
   imageUrls = [],
   onFieldChange,
   setFiles,
+  thumbnailIndex = 0,
+  onThumbnailChange,
 }: FileUploaderProps) {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -44,7 +48,8 @@ export function FileUploader({
     (acceptedFiles: File[]) => {
       setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
       const newImageUrls = acceptedFiles.map((file) => convertFileToUrl(file));
-      onFieldChange([...imageUrls, ...newImageUrls]);
+      // Add new images to the beginning of the array
+      onFieldChange([...newImageUrls, ...imageUrls]);
     },
     [imageUrls, onFieldChange, setFiles]
   );
@@ -65,6 +70,13 @@ export function FileUploader({
       newFiles.splice(index, 1);
       return newFiles;
     });
+
+    // Update thumbnail index if needed
+    if (index === thumbnailIndex && onThumbnailChange) {
+      onThumbnailChange(0);
+    } else if (index < thumbnailIndex && onThumbnailChange) {
+      onThumbnailChange(thumbnailIndex - 1);
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -76,6 +88,23 @@ export function FileUploader({
 
       const newOrder = arrayMove(imageUrls, oldIndex, newIndex);
       onFieldChange(newOrder);
+
+      // Update thumbnail index if needed
+      if (oldIndex === thumbnailIndex && onThumbnailChange) {
+        onThumbnailChange(newIndex);
+      } else if (
+        oldIndex < thumbnailIndex &&
+        newIndex >= thumbnailIndex &&
+        onThumbnailChange
+      ) {
+        onThumbnailChange(thumbnailIndex - 1);
+      } else if (
+        oldIndex > thumbnailIndex &&
+        newIndex <= thumbnailIndex &&
+        onThumbnailChange
+      ) {
+        onThumbnailChange(thumbnailIndex + 1);
+      }
     }
   };
 
@@ -117,7 +146,10 @@ export function FileUploader({
                   key={url}
                   url={url}
                   index={index}
+                  totalImages={imageUrls.length}
                   onRemove={removeImage}
+                  isThumbnail={index === thumbnailIndex}
+                  onSetThumbnail={() => onThumbnailChange?.(index)}
                 />
               ))}
             </SortableContext>

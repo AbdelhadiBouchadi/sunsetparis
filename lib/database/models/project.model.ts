@@ -15,6 +15,7 @@ export interface IProject extends Document {
     | 'thomas canu'
     | 'abdelhadi bouchadi';
   images: string[];
+  thumbnailIndex: number;
   category: 'videos' | 'features';
   videoSource?: string;
   place?: string;
@@ -52,6 +53,10 @@ const ProjectSchema = new Schema<IProject>({
   images: {
     type: [String],
     default: [],
+  },
+  thumbnailIndex: {
+    type: Number,
+    default: 0,
   },
   videoSource: {
     type: String,
