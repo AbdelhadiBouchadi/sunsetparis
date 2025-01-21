@@ -20,9 +20,9 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 w-screen h-dvh bg-white dark:bg-black flex flex-col justify-between items-center z-[999] p-4 sm:p-6 md:p-8"
+          className="fixed inset-0 w-screen h-dvh bg-white dark:bg-black flex flex-col justify-between items-center z-[999] sm:p-6 md:p-8"
         >
-          <div className="flex justify-between items-center mb-4 w-full">
+          <div className="flex justify-between items-center mb-4 w-full p-4">
             <Link href="/" onClick={onClose}>
               <Image
                 src="/assets/logo.png"
