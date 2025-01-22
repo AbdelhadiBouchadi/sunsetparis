@@ -49,8 +49,13 @@ const ContactUs = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full py-10 bg-white dark:bg-black md:px-12">
       <p className="md:text-2xl text-black dark:text-white text-center leading-relaxed">
-        Shaping the craft of color grading and talent management in Paris since
-        2017,
+        Shaping the craft of color grading{' '}
+        <span className="hidden sm:inline">
+          and talent management in Paris since 2017,
+        </span>
+      </p>
+      <p className="sm:hidden md:text-2xl text-black dark:text-white text-center leading-relaxed">
+        and talent management in Paris since 2017,
       </p>
       <p className="md:text-2xl text-black dark:text-white text-center mt-2">
         We proudly showcase Paris’s leading colorists,
@@ -58,6 +63,7 @@ const ContactUs = () => {
       <p className="md:text-2xl text-black dark:text-white text-center mt-2">
         Bringing unparalleled expertise to your creative projects.
       </p>
+
       <div className="mt-12 text-center">
         <h5 className="text-xl text-black dark:text-white">
           {contact.fullName}

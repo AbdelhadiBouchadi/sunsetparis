@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { IContact } from '@/lib/database/models/contact.model';
 import { z } from 'zod';
+import TiptapEditor from './TiptapEditor';
 
 const ContactForm = ({ contact }: { contact?: IContact }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -158,11 +159,10 @@ const ContactForm = ({ contact }: { contact?: IContact }) => {
                 Message
               </FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Enter contact message"
-                  {...field}
-                  className="shad-textArea border-0"
-                  rows={4}
+                <TiptapEditor
+                  content={field.value}
+                  onChange={field.onChange}
+                  dir="ltr"
                 />
               </FormControl>
               <FormMessage />

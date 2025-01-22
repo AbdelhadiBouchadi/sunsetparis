@@ -114,3 +114,15 @@ body {
     transform: translateY(-50%);
   }
 }
+
+.tiptap-content {
+  font-family: inherit;
+}
+
+.tiptap-content p {
+  font-family: inherit;
+}
+
+.tiptap-content code {
+  font-family: inherit;
+}
