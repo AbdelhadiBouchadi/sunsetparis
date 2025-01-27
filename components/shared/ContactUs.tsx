@@ -65,12 +65,12 @@ const ContactUs = () => {
       </p>
 
       <div className="mt-12 text-center">
-        <h5 className="text-xl text-black dark:text-white">
+        <h5 className="md:text-xl text-black dark:text-white">
           {contact.fullName}
         </h5>
         <Link
           href={whatsappLink}
-          className="block text-xl text-black dark:text-white hover:text-transparent dark:hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
+          className="block md:text-xl text-black dark:text-white hover:text-transparent dark:hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -78,7 +78,7 @@ const ContactUs = () => {
         </Link>
         <Link
           href={emailLink}
-          className="block text-xl text-black dark:text-white hover:text-transparent dark:hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
+          className="block md:text-xl text-black dark:text-white hover:text-transparent dark:hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300"
         >
           {contact.email.charAt(0).toUpperCase() + contact.email.slice(1)}
         </Link>
