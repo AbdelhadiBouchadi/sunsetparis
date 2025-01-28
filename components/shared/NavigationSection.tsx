@@ -46,7 +46,7 @@ export const NavigationSection = ({
         </button>
       </div>
 
-      {hasFeatures && (
+      {/* {hasFeatures && (
         <div className="flex justify-center items-center gap-6 md:gap-24 text-xs md:text-lg">
           {selectedCategory !== 'videos' && (
             <button
@@ -88,7 +88,7 @@ export const NavigationSection = ({
             </button>
           )}
         </div>
-      )}
+      )} */}
 
       {href && (
         <div className="flex items-center justify-end">
