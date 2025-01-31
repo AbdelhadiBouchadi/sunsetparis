@@ -11,7 +11,9 @@ type StatCardProps = {
     | 'nicolas gautier'
     | 'romain loiseau'
     | 'thomas canu'
-    | 'abdelhadi bouchadi';
+    | 'abdelhadi bouchadi'
+    | 'evy roselet'
+    | 'salman laudier';
   count: number;
   label: string;
   icon: LucideIcon;
