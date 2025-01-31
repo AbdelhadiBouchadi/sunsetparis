@@ -26,6 +26,8 @@ const artists = [
   { id: 'romain loiseau', name: 'Romain Loiseau' },
   { id: 'thomas canu', name: 'Thomas Canu' },
   { id: 'abdelhadi bouchadi', name: 'Abdelhadi Bouchadi' },
+  { id: 'evy roselet', name: 'Evy Roselet' },
+  { id: 'salman laudier', name: 'Salman Laudier' },
 ] as const;
 
 const DropDown = ({ value, onChangeHandler }: DropDownProps) => {

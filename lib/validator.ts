@@ -22,6 +22,8 @@ export const projectFormSchema = z.object({
       'romain loiseau',
       'thomas canu',
       'abdelhadi bouchadi',
+      'evy roselet',
+      'salman laudier',
     ] as [Artist, ...Artist[]],
     {
       message: 'Please choose an artist',

@@ -13,7 +13,9 @@ export interface IProject extends Document {
     | 'nicolas gautier'
     | 'romain loiseau'
     | 'thomas canu'
-    | 'abdelhadi bouchadi';
+    | 'abdelhadi bouchadi'
+    | 'evy roselet'
+    | 'salman laudier';
   images: string[];
   thumbnailIndex: number;
   category: 'videos' | 'features';
@@ -42,6 +44,8 @@ const ProjectSchema = new Schema<IProject>({
       'romain loiseau',
       'thomas canu',
       'abdelhadi bouchadi',
+      'evy roselet',
+      'salman laudier',
     ],
     required: true,
   },

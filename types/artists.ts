@@ -7,6 +7,8 @@ export const ARTISTS = [
   'romain loiseau',
   'thomas canu',
   'abdelhadi bouchadi',
+  'evy roselet',
+  'salman laudier',
 ] as const;
 
 export type Artist = (typeof ARTISTS)[number];

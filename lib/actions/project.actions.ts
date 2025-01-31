@@ -261,3 +261,13 @@ export const getThomasProjects = async () => {
 export const getAbdelhadiProjects = async () => {
   return getProjectsByArtist('abdelhadi bouchadi');
 };
+
+// Evy Projects
+export const getEvyProjects = async () => {
+  return getProjectsByArtist('evy roselet');
+};
+
+// Salman Projects
+export const getSalmanProjects = async () => {
+  return getProjectsByArtist('salman laudier');
+};

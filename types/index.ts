@@ -21,7 +21,9 @@ export type Artist =
   | 'nicolas gautier'
   | 'romain loiseau'
   | 'thomas canu'
-  | 'abdelhadi bouchadi';
+  | 'abdelhadi bouchadi'
+  | 'evy roselet'
+  | 'salman laudier';
 
 // ====== USER PARAMS
 export type CreateUserParams = {
