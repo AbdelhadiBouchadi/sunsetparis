@@ -1,6 +1,10 @@
 'use server';
 
-import { CreateProjectParams, DeleteProjectParams } from '@/types';
+import {
+  CreateProjectParams,
+  DeleteProjectParams,
+  UpdateProjectParams,
+} from '@/types';
 import { connectToDatabase } from '../database';
 import Project, { IProject } from '../database/models/project.model';
 import { revalidatePath } from 'next/cache';
@@ -17,7 +21,7 @@ export const getProjectCountByArtist = async (artist: string) => {
   }
 };
 
-export const createProject = async (project: CreateProjectParams) => {
+export async function createProject(project: CreateProjectParams) {
   try {
     await connectToDatabase();
 
@@ -27,130 +31,83 @@ export const createProject = async (project: CreateProjectParams) => {
 
     const newProject = await Project.create({
       ...project,
-      thumbnailIndex: project.thumbnailIndex || 0,
       order: lastProject ? lastProject.order + 1 : 1,
+      thumbnailIndex:
+        typeof project.thumbnailIndex === 'number' ? project.thumbnailIndex : 0,
     });
 
+    // Normalize order numbers after creation
+    await normalizeProjectOrder(project.artist);
+
     revalidatePath('/sunsetparis-admin');
-    revalidatePath('/arthur-paux');
-    revalidatePath('/gabriel-porier');
-    revalidatePath('/kevin-le-dortz');
-    revalidatePath('/mathieu-caplanne');
-    revalidatePath('/nicolas-gautier');
-    revalidatePath('/romain-loiseau');
-    revalidatePath('/thomas-canu');
-    return parseStringify(newProject);
+    revalidatePath('/');
+
+    return JSON.parse(JSON.stringify(newProject));
   } catch (error) {
-    console.error('Error creating a new project', error);
     handleError(error);
   }
-};
+}
 
 export async function updateProject(
   projectId: string,
-  projectData: any,
-  currentOrder: number
+  project: UpdateProjectParams,
+  oldOrder?: number
 ) {
   try {
     await connectToDatabase();
 
-    const session = await Project.startSession();
-    let updatedProject;
+    const updatedProject = await Project.findByIdAndUpdate(
+      projectId,
+      {
+        ...project,
+        thumbnailIndex:
+          typeof project.thumbnailIndex === 'number'
+            ? project.thumbnailIndex
+            : 0,
+      },
+      { new: true }
+    );
 
-    await session.withTransaction(async () => {
-      const projectToUpdate = await Project.findById(projectId).session(
-        session
-      );
-      if (!projectToUpdate) {
-        throw new Error('Project not found');
-      }
+    if (!updatedProject) throw new Error('Project update failed');
 
-      const newOrder = projectData.order;
-
-      if (newOrder !== currentOrder) {
-        // Find all projects by the same artist
-        const artistProjects = await Project.find({
-          artist: projectData.artist,
-          thumbnailIndex: projectData.thumbnailIndex || 0,
-          _id: { $ne: projectId },
-        }).session(session);
-
-        // Adjust orders
-        if (newOrder > currentOrder) {
-          // Moving down the list
-          for (let project of artistProjects) {
-            if (project.order > currentOrder && project.order <= newOrder) {
-              project.order--;
-              await project.save({ session });
-            }
-          }
-        } else {
-          // Moving up the list
-          for (let project of artistProjects) {
-            if (project.order >= newOrder && project.order < currentOrder) {
-              project.order++;
-              await project.save({ session });
-            }
-          }
-        }
-      }
-
-      // Update the current project
-      updatedProject = await Project.findByIdAndUpdate(projectId, projectData, {
-        new: true,
-        session,
-      });
-    });
-
-    await session.endSession();
-
-    return JSON.parse(JSON.stringify(updatedProject));
-  } catch (error) {
-    console.error('Error updating project:', error);
-    throw error;
-  }
-}
-
-export const deleteProject = async ({ projectId }: DeleteProjectParams) => {
-  try {
-    await connectToDatabase();
-
-    // Start a session for the transaction
-    const session = await Project.startSession();
-
-    await session.withTransaction(async () => {
-      // Get the project to be deleted
-      const projectToDelete = await Project.findById(projectId).session(
-        session
-      );
-      if (!projectToDelete) {
-        throw new Error('Project not found');
-      }
-
-      const { artist, order } = projectToDelete;
-
-      // Delete the project
-      await Project.findByIdAndDelete(projectId).session(session);
-
-      // Update order of remaining projects
-      await Project.updateMany(
-        {
-          artist,
-          order: { $gt: order },
-        },
-        { $inc: { order: -1 } },
-        { session }
-      );
-    });
-
-    await session.endSession();
+    // If order changed, normalize all projects' order
+    if (oldOrder && oldOrder !== project.order) {
+      await normalizeProjectOrder(project.artist);
+    }
 
     revalidatePath('/sunsetparis-admin');
     revalidatePath('/');
+
+    return JSON.parse(JSON.stringify(updatedProject));
   } catch (error) {
     handleError(error);
   }
-};
+}
+
+export async function deleteProject(projectId: string) {
+  try {
+    await connectToDatabase();
+
+    // First, get the project to be deleted
+    const projectToDelete = await Project.findById(projectId);
+    if (!projectToDelete) throw new Error('Project not found');
+
+    const { artist } = projectToDelete;
+
+    // Delete the project
+    await Project.findByIdAndDelete(projectId);
+
+    // Normalize order numbers after deletion
+    await normalizeProjectOrder(artist);
+
+    revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
+
+    return { success: true };
+  } catch (error) {
+    handleError(error);
+  }
+}
 
 export async function getAllProjects(): Promise<IProject[]> {
   try {
@@ -171,6 +128,46 @@ export async function getAllProjects(): Promise<IProject[]> {
   } catch (error) {
     console.error('Error fetching projects:', error);
     throw new Error('Failed to fetch projects');
+  }
+}
+
+async function normalizeProjectOrder(artist: string) {
+  try {
+    // Get all projects for the artist, sorted by current order
+    const projects = await Project.find({ artist }).sort({ order: 1 });
+
+    // Create an array of update operations
+    const updates = projects.map((project, index) => ({
+      updateOne: {
+        filter: { _id: project._id },
+        update: { $set: { order: index + 1 } },
+        // Add upsert false to prevent creating new documents
+        upsert: false,
+      },
+    }));
+
+    if (updates.length > 0) {
+      // Use ordered: false to continue processing even if one update fails
+      await Project.bulkWrite(updates, { ordered: false });
+
+      // Verify the updates
+      const verifyProjects = await Project.find({ artist }).sort({ order: 1 });
+      const hasIssues = verifyProjects.some(
+        (project, index) => project.order !== index + 1
+      );
+
+      if (hasIssues) {
+        // If there are still issues, try one more time with a simpler approach
+        for (let i = 0; i < verifyProjects.length; i++) {
+          await Project.findByIdAndUpdate(verifyProjects[i]._id, {
+            $set: { order: i + 1 },
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error normalizing project order:', error);
+    throw error;
   }
 }
 

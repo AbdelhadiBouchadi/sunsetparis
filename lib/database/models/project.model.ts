@@ -32,7 +32,7 @@ export interface IProject extends Document {
 
 const ProjectSchema = new Schema<IProject>({
   title: { type: String, required: true },
-  description: { type: String, required: true },
+  description: { type: String, required: false },
   artist: {
     type: String,
     enum: [

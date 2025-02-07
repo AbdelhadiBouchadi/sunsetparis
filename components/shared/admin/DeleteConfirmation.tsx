@@ -1,9 +1,6 @@
 'use client';
 
 import { useTransition } from 'react';
-import { usePathname } from 'next/navigation';
-import Image from 'next/image';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -52,7 +49,7 @@ export const DeleteConfirmation = ({ projectId }: { projectId: string }) => {
           <AlertDialogAction
             onClick={() =>
               startTransition(async () => {
-                await deleteProject({ projectId });
+                await deleteProject(projectId);
               })
             }
             className="bg-red-700 hover:bg-red-800"

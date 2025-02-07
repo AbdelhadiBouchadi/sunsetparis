@@ -39,7 +39,7 @@ export const projectFormSchema = z.object({
   date: z.string().optional(),
   real: z.string().min(1, { message: 'You forgot to enter the REAL' }),
   order: z.number().min(1, 'Order must be at least 1'),
-  dop: z.string().min(1, { message: 'You forgot to enter the DOP' }),
+  dop: z.string().optional(),
   textColor: z.enum(['white', 'black'], {
     message: 'Please choose a text color',
   }),

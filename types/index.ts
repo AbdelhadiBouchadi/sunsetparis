@@ -53,7 +53,7 @@ export interface IProjectForm {
   videoSource?: string;
   place?: string;
   date?: string;
-  dop: string;
+  dop?: string;
   order: number;
   textColor: TextColor;
 }
@@ -71,7 +71,7 @@ export interface CreateProjectParams {
   date?: string;
   real: string;
   order: number;
-  dop: string;
+  dop?: string;
   textColor: TextColor;
 }
 
@@ -79,15 +79,7 @@ export interface UpdateProjectParams {
   _id: string;
   title: string;
   description?: string;
-  artist:
-    | 'arthur paux'
-    | 'gabriel porier'
-    | 'kevin le dortz'
-    | 'mathieu caplanne'
-    | 'nicolas gautier'
-    | 'romain loiseau'
-    | 'thomas canu'
-    | 'abdelhadi bouchadi';
+  artist: Artist;
   category: Category;
   images: string[];
   thumbnailIndex: number;
@@ -96,7 +88,7 @@ export interface UpdateProjectParams {
   date?: string;
   real: string;
   order: number;
-  dop: string;
+  dop?: string;
   textColor: TextColor;
 }
 
