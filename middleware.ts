@@ -16,6 +16,8 @@ const isPublicRoute = createRouteMatcher([
   '/nicolas-gautier',
   '/romain-loiseau',
   '/thomas-canu',
+  '/evy-roselet',
+  '/salman-laudier',
 ]);
 
 export default clerkMiddleware((auth, request) => {
