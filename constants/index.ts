@@ -29,6 +29,14 @@ export const artists = [
     name: 'thomas canu',
     path: '/thomas-canu',
   },
+  {
+    name: 'evy roselet',
+    path: '/evy-roselet',
+  },
+  {
+    name: 'salman laudier',
+    path: '/salman-laudier',
+  },
 ];
 
 export const projectDefaultValues = {

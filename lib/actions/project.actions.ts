@@ -171,6 +171,24 @@ async function normalizeProjectOrder(artist: string) {
   }
 }
 
+export const toggleProjectHidden = async (projectId: string) => {
+  try {
+    await connectToDatabase();
+    const project = await Project.findById(projectId);
+    if (!project) throw new Error('Project not found');
+
+    project.isHidden = !project.isHidden;
+    await project.save();
+
+    revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
+    return JSON.parse(JSON.stringify(project));
+  } catch (error) {
+    console.error('Error toggling project visibility:', error);
+    throw error;
+  }
+};
+
 // Helper function to fetch projects by category with ordering
 const getProjectsByArtist = async (artist: string) => {
   try {
@@ -198,24 +216,6 @@ export const getProjectById = async (id: string) => {
     return parseStringify(project);
   } catch (error) {
     throw new Error('Error fetching the specified project');
-  }
-};
-
-export const toggleProjectHidden = async (projectId: string) => {
-  try {
-    await connectToDatabase();
-    const project = await Project.findById(projectId);
-    if (!project) throw new Error('Project not found');
-
-    project.isHidden = !project.isHidden;
-    await project.save();
-
-    revalidatePath('/sunsetparis-admin');
-    revalidatePath('/');
-    return JSON.parse(JSON.stringify(project));
-  } catch (error) {
-    console.error('Error toggling project visibility:', error);
-    throw error;
   }
 };
 
@@ -267,4 +267,29 @@ export const getEvyProjects = async () => {
 // Salman Projects
 export const getSalmanProjects = async () => {
   return getProjectsByArtist('salman laudier');
+};
+
+// Artist visibility toggle
+export const toggleArtistVisibility = async (artist: string) => {
+  try {
+    await connectToDatabase();
+
+    // Get one project to check current visibility state
+    const sampleProject = await Project.findOne({ artist });
+    if (!sampleProject) throw new Error('No projects found for this artist');
+
+    // Toggle visibility for all projects of this artist
+    const newVisibilityState = !sampleProject.artistIsHidden;
+    await Project.updateMany(
+      { artist },
+      { $set: { artistIsHidden: newVisibilityState } }
+    );
+
+    revalidatePath('/sunsetparis-admin');
+    revalidatePath('/');
+    return { success: true, isHidden: newVisibilityState };
+  } catch (error) {
+    console.error('Error toggling artist visibility:', error);
+    throw error;
+  }
 };

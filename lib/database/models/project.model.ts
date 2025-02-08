@@ -27,6 +27,7 @@ export interface IProject extends Document {
   order: number;
   textColor: 'white' | 'black';
   isHidden: boolean;
+  artistIsHidden: boolean;
   createdAt: Date;
 }
 
@@ -73,6 +74,7 @@ const ProjectSchema = new Schema<IProject>({
   order: { type: Number, default: 1 },
   textColor: { type: String, enum: ['white', 'black'], required: true },
   isHidden: { type: Boolean, default: false },
+  artistIsHidden: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });
 

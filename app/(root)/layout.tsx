@@ -3,6 +3,7 @@ import { Jost } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/shared/theme-provider';
 import Header from '@/components/shared/header/Header';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const jost = Jost({
   subsets: ['latin'],
@@ -38,22 +39,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${jost.variable} antialiased bg-background dark:bg-black flex flex-col min-h-screen`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${jost.variable} antialiased bg-background dark:bg-black flex flex-col min-h-screen`}
         >
-          <Header />
-          <main className="flex-grow flex flex-col justify-center items-center mt-16 sm:mt-24">
-            {children}
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <main className="flex-grow flex flex-col justify-center items-center mt-16 sm:mt-24">
+              {children}
+            </main>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

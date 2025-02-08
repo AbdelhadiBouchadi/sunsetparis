@@ -1,6 +1,9 @@
+'use client';
+
 import { LucideIcon } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { ToggleArtistVisibility } from './ToggleArtistVisibility';
 
 type StatCardProps = {
   type:
@@ -19,6 +22,8 @@ type StatCardProps = {
   icon: LucideIcon;
   isSelected?: boolean;
   onClick?: () => void;
+  isHidden?: boolean;
+  hasProjects?: boolean;
 };
 
 export function StatCard({
@@ -28,6 +33,8 @@ export function StatCard({
   isSelected = false,
   onClick,
   type,
+  isHidden = false,
+  hasProjects = false,
 }: StatCardProps) {
   return (
     <Card
@@ -41,14 +48,19 @@ export function StatCard({
       <CardContent className="pt-6">
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <p
-              className={cn(
-                'text-sm font-medium text-zinc-400 group-hover:text-green-400',
-                isSelected && 'text-green-400'
+            <div className="flex items-center gap-2">
+              <p
+                className={cn(
+                  'text-sm font-medium text-zinc-400 group-hover:text-green-400',
+                  isSelected && 'text-green-400'
+                )}
+              >
+                {label}
+              </p>
+              {hasProjects && (
+                <ToggleArtistVisibility artist={type} isHidden={isHidden} />
               )}
-            >
-              {label}
-            </p>
+            </div>
             <p
               className={cn(
                 'text-2xl font-medium text-zinc-400 group-hover:text-green-400',
