@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -46,12 +46,33 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
-  const { loadedImages, isLoading } = useImagePreloader(images);
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const { loadedImages, isLoading } = useImagePreloader(images, 3);
+
+  // Preload the next set of images when current index changes
+  const preloadNextImages = useCallback(() => {
+    const nextIndexes = [
+      (currentIndex + 1) % images.length,
+      (currentIndex + 2) % images.length,
+    ];
+
+    nextIndexes.forEach((index) => {
+      const imgElement = document.createElement('img');
+      imgElement.src = images[index];
+    });
+  }, [currentIndex, images]);
+
+  useEffect(() => {
+    if (isOpen) {
+      preloadNextImages();
+    }
+  }, [isOpen, currentIndex, preloadNextImages]);
 
   if (!isOpen) return null;
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
+    setIsImageLoading(true);
     setCurrentIndex(
       (prevIndex) => (prevIndex + newDirection + images.length) % images.length
     );
@@ -74,6 +95,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
             width={100}
             height={100}
             alt="sunsetparis_logo_image"
+            priority
           />
         </Link>
         <button
@@ -112,7 +134,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
             }}
             className="absolute w-full h-full flex items-center justify-center"
           >
-            {isLoading ? (
+            {(isLoading || isImageLoading) && (
               <div
                 className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] border-[#FB65A4]"
                 role="status"
@@ -121,17 +143,20 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
                   Loading...
                 </span>
               </div>
-            ) : (
-              <Image
-                src={images[currentIndex]}
-                alt={`${alt} - Image ${currentIndex + 1}`}
-                fill
-                className="object-contain"
-                priority
-                quality={100}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-              />
             )}
+            <Image
+              src={images[currentIndex]}
+              alt={`${alt} - Image ${currentIndex + 1}`}
+              fill
+              className={`object-contain transition-opacity duration-300 ${
+                isImageLoading ? 'opacity-0' : 'opacity-100'
+              }`}
+              priority
+              quality={75}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+              onLoadingComplete={() => setIsImageLoading(false)}
+              loading="eager"
+            />
           </motion.div>
         </AnimatePresence>
 
