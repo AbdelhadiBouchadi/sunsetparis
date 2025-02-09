@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, Dispatch, SetStateAction } from 'react';
+import { useCallback, Dispatch, SetStateAction, useState } from 'react';
 import { useDropzone } from '@uploadthing/react/hooks';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,7 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortableImage } from './SortableImages';
+import { Loader2 } from 'lucide-react';
 
 type FileUploaderProps = {
   onFieldChange: (urls: string[]) => void;
@@ -30,6 +31,65 @@ type FileUploaderProps = {
   onThumbnailChange?: (index: number) => void;
 };
 
+const compressImage = async (file: File): Promise<File> => {
+  try {
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Could not get canvas context');
+
+    // Create an image element
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    await new Promise((resolve) => {
+      img.onload = resolve;
+    });
+
+    // Calculate new dimensions (max 2000px while maintaining aspect ratio)
+    let width = img.width;
+    let height = img.height;
+    const maxDimension = 2000;
+
+    if (width > maxDimension || height > maxDimension) {
+      if (width > height) {
+        height = (height / width) * maxDimension;
+        width = maxDimension;
+      } else {
+        width = (width / height) * maxDimension;
+        height = maxDimension;
+      }
+    }
+
+    // Set canvas dimensions
+    canvas.width = width;
+    canvas.height = height;
+
+    // Draw and compress image
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Convert to blob with reduced quality
+    const blob = await new Promise<Blob>((resolve) => {
+      canvas.toBlob(
+        (blob) => resolve(blob as Blob),
+        'image/webp',
+        0.8 // 80% quality
+      );
+    });
+
+    // Clean up
+    URL.revokeObjectURL(img.src);
+
+    // Create new file
+    return new File([blob], file.name.replace(/\.[^/.]+$/, '.webp'), {
+      type: 'image/webp',
+    });
+  } catch (error) {
+    console.error('Image compression failed:', error);
+    return file; // Return original file if compression fails
+  }
+};
+
 export function FileUploader({
   imageUrls = [],
   onFieldChange,
@@ -37,6 +97,7 @@ export function FileUploader({
   thumbnailIndex = 0,
   onThumbnailChange,
 }: FileUploaderProps) {
+  const [isProcessing, setIsProcessing] = useState(false);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -45,16 +106,32 @@ export function FileUploader({
   );
 
   const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
-      const newImageUrls = acceptedFiles.map((file) => convertFileToUrl(file));
-      // Add new images to the beginning of the array
-      onFieldChange([...newImageUrls, ...imageUrls]);
+    async (acceptedFiles: File[]) => {
+      setIsProcessing(true);
+      try {
+        // Compress images before upload
+        const compressedFiles = await Promise.all(
+          acceptedFiles.map(async (file) => {
+            if (!file.type.startsWith('image/')) return file;
+            return await compressImage(file);
+          })
+        );
+
+        setFiles((prevFiles) => [...prevFiles, ...compressedFiles]);
+        const newImageUrls = compressedFiles.map((file) =>
+          convertFileToUrl(file)
+        );
+        onFieldChange([...newImageUrls, ...imageUrls]);
+      } catch (error) {
+        console.error('Error processing images:', error);
+      } finally {
+        setIsProcessing(false);
+      }
     },
     [imageUrls, onFieldChange, setFiles]
   );
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: generateClientDropzoneAccept(['image/*']),
     multiple: true,
@@ -71,7 +148,6 @@ export function FileUploader({
       return newFiles;
     });
 
-    // Update thumbnail index if needed
     if (index === thumbnailIndex && onThumbnailChange) {
       onThumbnailChange(0);
     } else if (index < thumbnailIndex && onThumbnailChange) {
@@ -89,7 +165,6 @@ export function FileUploader({
       const newOrder = arrayMove(imageUrls, oldIndex, newIndex);
       onFieldChange(newOrder);
 
-      // Update thumbnail index if needed
       if (oldIndex === thumbnailIndex && onThumbnailChange) {
         onThumbnailChange(newIndex);
       } else if (
@@ -112,24 +187,35 @@ export function FileUploader({
     <div className="flex flex-col gap-4 w-full">
       <div
         {...getRootProps()}
-        className="flex justify-center items-center bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg border cursor-pointer flex-col rounded-xl h-72"
+        className={`flex justify-center items-center bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg border cursor-pointer flex-col rounded-xl h-72 transition-all duration-200 ${
+          isDragActive ? 'border-[#FB65A4] bg-opacity-60' : ''
+        }`}
       >
         <input {...getInputProps()} className="cursor-pointer" />
         <div className="flex flex-col justify-center items-center py-5 text-grey-500">
-          <img
-            src="/assets/icons/file-upload.svg"
-            width={77}
-            height={77}
-            alt="file upload"
-          />
-          <h3 className="mb-2 mt-2">Drag & Drop Photo Here</h3>
-          <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
-          <Button
-            type="button"
-            className="rounded-full shad-primary-btn hover:bg-green-400"
-          >
-            Select From Device
-          </Button>
+          {isProcessing ? (
+            <div className="flex flex-col items-center gap-2">
+              <Loader2 className="h-10 w-10 animate-spin text-[#FB65A4]" />
+              <p>Processing images...</p>
+            </div>
+          ) : (
+            <>
+              <img
+                src="/assets/icons/file-upload.svg"
+                width={77}
+                height={77}
+                alt="file upload"
+              />
+              <h3 className="mb-2 mt-2">Drag & Drop Photo Here</h3>
+              <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
+              <Button
+                type="button"
+                className="rounded-full shad-primary-btn hover:bg-green-400"
+              >
+                Select From Device
+              </Button>
+            </>
+          )}
         </div>
       </div>
 

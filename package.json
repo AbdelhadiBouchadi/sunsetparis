@@ -36,6 +36,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.1",
+    "sharp": "^0.33.5",
     "sonner": "^1.5.0",
     "svix": "^1.37.0",
     "tailwind-merge": "^2.5.2",
