@@ -176,26 +176,6 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
         </button>
       </div>
 
-      {/* Pagination dots for large screens */}
-      <div className="hidden lg:flex justify-center mt-6 gap-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1);
-              setCurrentIndex(index);
-            }}
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-              currentIndex === index
-                ? 'bg-gradient-to-t from-[#FCBB53] via-[#FB65A4] to-[#A67DD2]'
-                : 'bg-gradient-to-t from-[#FCBB53]/50 via-[#FB65A4]/50 to-[#A67DD2]/50'
-            }`}
-            aria-label={`Go to image ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Counter for small screens */}
       <div className="lg:hidden flex justify-center mt-6">
         <span className="text-[#FB65A4] font-medium">
           {currentIndex + 1}/{images.length}
