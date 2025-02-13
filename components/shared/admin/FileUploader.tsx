@@ -1,6 +1,12 @@
 'use client';
 
-import { useCallback, Dispatch, SetStateAction, useState } from 'react';
+import {
+  useCallback,
+  Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+} from 'react';
 import { useDropzone } from '@uploadthing/react/hooks';
 import { generateClientDropzoneAccept } from 'uploadthing/client';
 import { Button } from '@/components/ui/button';
@@ -98,6 +104,14 @@ export function FileUploader({
   onThumbnailChange,
 }: FileUploaderProps) {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [localImageUrls, setLocalImageUrls] = useState<string[]>(imageUrls);
+  const [newFiles, setNewFiles] = useState<File[]>([]);
+
+  // Update local state when imageUrls prop changes
+  useEffect(() => {
+    setLocalImageUrls(imageUrls);
+  }, [imageUrls]);
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -117,18 +131,28 @@ export function FileUploader({
           })
         );
 
-        setFiles((prevFiles) => [...prevFiles, ...compressedFiles]);
+        // Add new files to the newFiles state
+        setNewFiles((prev) => [...prev, ...compressedFiles]);
+
+        // Only set the new files for upload
+        setFiles(compressedFiles);
+
+        // Generate URLs for new files
         const newImageUrls = compressedFiles.map((file) =>
           convertFileToUrl(file)
         );
-        onFieldChange([...newImageUrls, ...imageUrls]);
+
+        // Combine existing URLs with new ones
+        const updatedImageUrls = [...localImageUrls, ...newImageUrls];
+        setLocalImageUrls(updatedImageUrls);
+        onFieldChange(updatedImageUrls);
       } catch (error) {
         console.error('Error processing images:', error);
       } finally {
         setIsProcessing(false);
       }
     },
-    [imageUrls, onFieldChange, setFiles]
+    [localImageUrls, onFieldChange, setFiles]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -138,15 +162,20 @@ export function FileUploader({
   });
 
   const removeImage = (index: number) => {
-    const newImageUrls = [...imageUrls];
-    newImageUrls.splice(index, 1);
+    const newImageUrls = [...localImageUrls];
+    const removedUrl = newImageUrls.splice(index, 1)[0];
+    setLocalImageUrls(newImageUrls);
     onFieldChange(newImageUrls);
 
-    setFiles((prevFiles) => {
-      const newFiles = [...prevFiles];
-      newFiles.splice(index, 1);
-      return newFiles;
-    });
+    // Only remove from newFiles if it's a newly added file
+    if (newFiles.some((file) => convertFileToUrl(file) === removedUrl)) {
+      setNewFiles((prev) =>
+        prev.filter((file) => convertFileToUrl(file) !== removedUrl)
+      );
+      setFiles((prev) =>
+        prev.filter((file) => convertFileToUrl(file) !== removedUrl)
+      );
+    }
 
     if (index === thumbnailIndex && onThumbnailChange) {
       onThumbnailChange(0);
@@ -159,10 +188,11 @@ export function FileUploader({
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      const oldIndex = imageUrls.indexOf(active.id.toString());
-      const newIndex = imageUrls.indexOf(over.id.toString());
+      const oldIndex = localImageUrls.indexOf(active.id.toString());
+      const newIndex = localImageUrls.indexOf(over.id.toString());
 
-      const newOrder = arrayMove(imageUrls, oldIndex, newIndex);
+      const newOrder = arrayMove(localImageUrls, oldIndex, newIndex);
+      setLocalImageUrls(newOrder);
       onFieldChange(newOrder);
 
       if (oldIndex === thumbnailIndex && onThumbnailChange) {
@@ -219,20 +249,23 @@ export function FileUploader({
         </div>
       </div>
 
-      {imageUrls.length > 0 && (
+      {localImageUrls.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
-            <SortableContext items={imageUrls} strategy={rectSortingStrategy}>
-              {imageUrls.map((url, index) => (
+            <SortableContext
+              items={localImageUrls}
+              strategy={rectSortingStrategy}
+            >
+              {localImageUrls.map((url, index) => (
                 <SortableImage
                   key={url}
                   url={url}
                   index={index}
-                  totalImages={imageUrls.length}
+                  totalImages={localImageUrls.length}
                   onRemove={removeImage}
                   isThumbnail={index === thumbnailIndex}
                   onSetThumbnail={() => onThumbnailChange?.(index)}

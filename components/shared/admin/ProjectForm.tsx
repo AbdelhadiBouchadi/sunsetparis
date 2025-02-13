@@ -134,7 +134,13 @@ const ProjectForm = ({ type, project, projectId }: ProjectFormProps) => {
           return;
         }
 
-        uploadedImageUrls = uploadedImages.map((img) => img.url);
+        const existingImages = uploadedImageUrls.filter(
+          (url) => !url.startsWith('blob:')
+        );
+        uploadedImageUrls = [
+          ...existingImages,
+          ...uploadedImages.map((img) => img.url),
+        ];
       }
 
       if (values.videoSource) {
