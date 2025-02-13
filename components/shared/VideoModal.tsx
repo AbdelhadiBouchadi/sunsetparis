@@ -56,7 +56,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
   }
 
   // If no video source, show the image grid
-  if (!videoSource) {
+  if (!videoSource || images.length > 1) {
     return (
       <motion.div
         initial={{ opacity: 0 }}

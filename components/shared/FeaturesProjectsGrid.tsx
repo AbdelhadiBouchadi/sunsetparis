@@ -135,7 +135,7 @@ const FeaturesProjectsGrid = ({ projects }: ProjectsGridProps) => {
         <VideoModal
           isOpen={isOpen}
           onClose={closeModal}
-          videoSource={selectedProject.videoSource}
+          // videoSource={selectedProject.videoSource}
           title={selectedProject.title}
           real={selectedProject.real}
           dop={selectedProject.dop}

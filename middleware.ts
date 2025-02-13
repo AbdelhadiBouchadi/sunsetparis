@@ -23,6 +23,7 @@ const artistRoutes = [
   '/thomas-canu',
   '/evy-roselet',
   '/salman-laudier',
+  '/abdelhadi-bouchadi',
 ];
 
 // Combine all public routes
