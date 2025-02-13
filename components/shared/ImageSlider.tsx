@@ -177,7 +177,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
       </div>
 
       {/* Pagination dots for large screens */}
-      <div className="hidden lg:flex justify-center mt-6 gap-2">
+      <div className="flex justify-center mt-6 gap-2">
         {images.map((_, index) => (
           <button
             key={index}
@@ -196,11 +196,11 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
       </div>
 
       {/* Counter for small screens */}
-      <div className="lg:hidden flex justify-center mt-6">
+      {/* <div className="lg:hidden flex justify-center mt-6">
         <span className="text-[#FB65A4] font-medium">
           {currentIndex + 1}/{images.length}
         </span>
-      </div>
+      </div> */}
     </motion.div>
   );
 };
