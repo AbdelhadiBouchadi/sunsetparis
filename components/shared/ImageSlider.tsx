@@ -148,7 +148,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
               src={images[currentIndex]}
               alt={`${alt} - Image ${currentIndex + 1}`}
               fill
-              className={`object-contain transition-opacity duration-300 ${
+              className={`object-cover transition-opacity duration-300 ${
                 isImageLoading ? 'opacity-0' : 'opacity-100'
               }`}
               priority
