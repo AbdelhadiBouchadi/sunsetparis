@@ -176,7 +176,7 @@ const ImageSliderModal: React.FC<ImageSliderModalProps> = ({
         </button>
       </div>
 
-      <div className="lg:hidden flex justify-center mt-6">
+      <div className=" flex justify-center mt-6">
         <span className="text-[#FB65A4] font-medium">
           {currentIndex + 1}/{images.length}
         </span>
