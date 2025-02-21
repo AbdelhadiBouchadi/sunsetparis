@@ -40,30 +40,24 @@ const Page = () => {
     {}
   );
 
+  // Filter and sort visible artists alphabetically
+  const visibleArtists = artists
+    .filter((artist) => !artistsStatus[artist.name]?.isHidden)
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <ul className="flex flex-col items-center justify-center gap-8 md:gap-6">
-        {artists.map((artist, index) => {
-          const status = artistsStatus[artist.name];
-          const shouldHide = status.isHidden || status.count === 0;
-
-          return (
-            <li
-              key={index}
-              className={cn(
-                'w-full flex justify-center items-center',
-                shouldHide && 'hidden'
-              )}
+        {visibleArtists.map((artist, index) => (
+          <li key={index} className="w-full flex justify-center items-center">
+            <Link
+              href={artist.path}
+              className="uppercase text-3xl sm:text-4xl text-center font-light tracking-tighter hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300 px-2"
             >
-              <Link
-                href={artist.path}
-                className="uppercase text-3xl sm:text-4xl text-center font-light tracking-tighter hover:text-transparent bg-clip-text bg-gradient-to-t from-[#FCBB54] via-[#FB65A4] to-[#A67DD2] transition duration-300 px-2"
-              >
-                {artist.name}
-              </Link>
-            </li>
-          );
-        })}
+              {artist.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -46,7 +46,7 @@ const ProjectCard = ({
             alt={project.title}
             className={cn(
               `w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`,
-              project.category === 'features' ? ' object-fill' : 'object-cover'
+              project.category === 'features' ? ' object-cover' : 'object-cover'
             )}
           />
         </Suspense>

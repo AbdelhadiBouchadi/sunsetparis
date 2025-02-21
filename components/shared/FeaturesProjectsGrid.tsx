@@ -44,7 +44,7 @@ const ProjectCard = ({
             width={400}
             height={400}
             alt={project.title}
-            className={`object-fill w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`}
+            className={`object-cover w-full h-full aspect-video transition-all duration-500 group-hover:scale-105 group-hover:blur-sm`}
           />
         </Suspense>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ">
