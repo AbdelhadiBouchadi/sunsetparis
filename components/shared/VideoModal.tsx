@@ -100,7 +100,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 w-screen h-dvh bg-background dark:bg-black flex flex-col justify-center items-center z-[999] p-4 sm:p-6 md:p-8"
+      className="fixed inset-0 w-screen h-dvh bg-background dark:bg-black flex flex-col justify-center items-center z-[999] sm:p-6 md:p-8"
     >
       <div className="flex justify-between items-center mb-4 w-full absolute top-4 px-4 md:px-8">
         <Link href="/">
