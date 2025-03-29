@@ -25,19 +25,19 @@ export async function createProject(project: CreateProjectParams) {
   try {
     await connectToDatabase();
 
-    const lastProject = await Project.findOne({ artist: project.artist })
-      .sort({ order: -1 })
-      .exec();
+    // Increment all existing projects' order by 1
+    await Project.updateMany(
+      { artist: project.artist },
+      { $inc: { order: 1 } }
+    );
 
+    // Create new project with order 1
     const newProject = await Project.create({
       ...project,
-      order: lastProject ? lastProject.order + 1 : 1,
+      order: 1, // Always set new projects to order 1
       thumbnailIndex:
         typeof project.thumbnailIndex === 'number' ? project.thumbnailIndex : 0,
     });
-
-    // Normalize order numbers after creation
-    await normalizeProjectOrder(project.artist);
 
     revalidatePath('/sunsetparis-admin');
     revalidatePath('/');
@@ -133,13 +133,16 @@ export async function deleteProject(projectId: string) {
     const projectToDelete = await Project.findById(projectId);
     if (!projectToDelete) throw new Error('Project not found');
 
-    const { artist } = projectToDelete;
+    const { artist, order } = projectToDelete;
 
     // Delete the project
     await Project.findByIdAndDelete(projectId);
 
-    // Normalize order numbers after deletion
-    await normalizeProjectOrder(artist);
+    // Decrease order of all projects that came after the deleted one
+    await Project.updateMany(
+      { artist, order: { $gt: order } },
+      { $inc: { order: -1 } }
+    );
 
     revalidatePath('/sunsetparis-admin');
     revalidatePath('/');
@@ -155,7 +158,7 @@ export async function getAllProjects(): Promise<IProject[]> {
     await connectToDatabase();
 
     const projects = await Project.find().sort({
-      order: 'asc',
+      order: 'desc',
       createdAt: 'desc',
     });
 
