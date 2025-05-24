@@ -56,65 +56,17 @@ export async function updateProject(
   try {
     await connectToDatabase();
 
-    // Get the project before update to check artist
     const existingProject = await Project.findById(projectId);
     if (!existingProject) throw new Error('Project not found');
 
-    // If order changed, handle reordering
-    if (oldOrder && oldOrder !== project.order) {
-      // Get all projects for the same artist
-      const artistProjects = await Project.find({
-        artist: existingProject.artist,
-        _id: { $ne: projectId }, // Exclude current project
-      }).sort({ order: 1 });
-
-      // Calculate new positions
-      const newOrder = Math.max(
-        1,
-        Math.min(project.order, artistProjects.length + 1)
-      );
-
-      // Update orders for other projects
-      if (oldOrder < newOrder) {
-        // Moving down - shift projects up
-        await Project.updateMany(
-          {
-            artist: existingProject.artist,
-            order: { $gt: oldOrder, $lte: newOrder },
-            _id: { $ne: projectId },
-          },
-          { $inc: { order: -1 } }
-        );
-      } else {
-        // Moving up - shift projects down
-        await Project.updateMany(
-          {
-            artist: existingProject.artist,
-            order: { $gte: newOrder, $lt: oldOrder },
-            _id: { $ne: projectId },
-          },
-          { $inc: { order: 1 } }
-        );
-      }
-    }
-
-    // Update the project
+    // If no order change, just update the project normally
     const updatedProject = await Project.findByIdAndUpdate(
       projectId,
-      {
-        ...project,
-        thumbnailIndex:
-          typeof project.thumbnailIndex === 'number'
-            ? project.thumbnailIndex
-            : 0,
-      },
+      { ...project },
       { new: true }
     );
 
     if (!updatedProject) throw new Error('Project update failed');
-
-    // Ensure order is normalized
-    await normalizeProjectOrder(updatedProject.artist);
 
     revalidatePath('/sunsetparis-admin');
     revalidatePath('/');
@@ -122,6 +74,70 @@ export async function updateProject(
     return JSON.parse(JSON.stringify(updatedProject));
   } catch (error) {
     handleError(error);
+    throw error; // Re-throw to allow the client to handle it
+  }
+}
+
+export async function updateProjectsOrder(
+  projects: { _id: string; order: number }[]
+) {
+  try {
+    await connectToDatabase();
+
+    console.log('[updateProjectsOrder] Incoming reorder payload:', projects);
+
+    const bulkOps = projects.map((project) => ({
+      updateOne: {
+        filter: { _id: project._id },
+        update: { $set: { order: project.order } },
+      },
+    }));
+
+    console.log('[updateProjectsOrder] Prepared bulk operations:', bulkOps);
+
+    if (bulkOps.length > 0) {
+      const result = await Project.bulkWrite(bulkOps);
+      console.log('[updateProjectsOrder] Bulk write result:', result);
+      revalidatePath('/sunsetparis-admin');
+      revalidatePath('/');
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error('[updateProjectsOrder] ERROR:', error);
+    throw new Error('Failed to update project order');
+  }
+}
+
+/**
+ * Helper function to normalize project order
+ * This ensures all projects have sequential ordering without gaps
+ */
+export async function normalizeProjectOrder(artist: string) {
+  try {
+    await connectToDatabase();
+
+    // Get all projects for the artist, sorted by current order
+    const projects = await Project.find({ artist }).sort({ order: 1 });
+
+    // Create bulk write operations for updating orders sequentially
+    const bulkOps = projects.map((project, index) => ({
+      updateOne: {
+        filter: { _id: project._id },
+        update: { $set: { order: index + 1 } },
+      },
+    }));
+
+    if (bulkOps.length > 0) {
+      await Project.bulkWrite(bulkOps);
+      revalidatePath('/sunsetparis-admin');
+      revalidatePath('/');
+    }
+
+    return { success: true, message: 'Project order normalized' };
+  } catch (error) {
+    console.error('Error normalizing project order:', error);
+    throw error;
   }
 }
 
@@ -172,28 +188,6 @@ export async function getAllProjects(): Promise<IProject[]> {
   } catch (error) {
     console.error('Error fetching projects:', error);
     throw new Error('Failed to fetch projects');
-  }
-}
-
-async function normalizeProjectOrder(artist: string) {
-  try {
-    // Get all projects for the artist, sorted by current order
-    const projects = await Project.find({ artist }).sort({ order: 1 });
-
-    // Create bulk write operations for updating orders
-    const bulkOps = projects.map((project, index) => ({
-      updateOne: {
-        filter: { _id: project._id },
-        update: { $set: { order: index + 1 } },
-      },
-    }));
-
-    if (bulkOps.length > 0) {
-      await Project.bulkWrite(bulkOps);
-    }
-  } catch (error) {
-    console.error('Error normalizing project order:', error);
-    throw error;
   }
 }
 

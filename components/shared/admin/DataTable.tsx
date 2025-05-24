@@ -8,6 +8,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
+  Row,
 } from '@tanstack/react-table';
 
 import {
@@ -16,9 +17,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '../../ui/table';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../ui/button';
 import { useState } from 'react';
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import {
@@ -26,7 +27,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { DraggableTableRow } from './DraggableTableRow';
-import { updateProject } from '@/lib/actions/project.actions';
+import { updateProjectsOrder } from '@/lib/actions/project.actions';
 import { toast } from 'sonner';
 
 interface DataTableProps<TData, TValue> {
@@ -38,10 +39,12 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  // Initialize with empty sorting to prevent initial sort issues
   const [sorting, setSorting] = useState<SortingState>([
     { id: 'order', desc: false },
   ]);
   const [projects, setProjects] = useState(data);
+  const [isDragging, setIsDragging] = useState(false);
 
   const table = useReactTable({
     data: projects as TData[],
@@ -60,43 +63,67 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
   const handleDragEnd = async (event: DragEndEvent) => {
+    setIsDragging(false);
     const { active, over } = event;
 
     if (!over || active.id === over.id) return;
 
-    const oldIndex = projects.findIndex((p: any) => p._id === active.id);
-    const newIndex = projects.findIndex((p: any) => p._id === over.id);
+    // Get the actual row data from the table's rows
+    const rows = table.getRowModel().rows;
 
-    if (oldIndex === -1 || newIndex === -1) return;
+    // Find visual indices (from the sorted/filtered table view)
+    const activeRowIndex = rows.findIndex(
+      (row) => (row.original as any)._id === active.id
+    );
+    const overRowIndex = rows.findIndex(
+      (row) => (row.original as any)._id === over.id
+    );
 
-    const newProjects = [...projects];
-    const [movedProject] = newProjects.splice(oldIndex, 1);
-    newProjects.splice(newIndex, 0, movedProject);
+    if (activeRowIndex === -1 || overRowIndex === -1) return;
 
-    // Update order numbers
-    const updatedProjects = newProjects.map((project: any, index: number) => ({
+    // Create a new array based on the VISUAL order (what the user sees)
+    const orderedData = rows.map((row) => row.original);
+
+    // Move the item in the visually ordered array
+    const newOrderedData = [...orderedData];
+    const [movedItem] = newOrderedData.splice(activeRowIndex, 1);
+    newOrderedData.splice(overRowIndex, 0, movedItem);
+
+    // Update order values sequentially based on new positions
+    const updatedProjects = newOrderedData.map((project, index) => ({
       ...project,
       order: index + 1,
     }));
 
+    // Optimistically update UI
     setProjects(updatedProjects as TData[]);
 
-    // Update the moved project in the database
     try {
-      const projectToUpdate = updatedProjects[newIndex];
-      await updateProject(projectToUpdate._id, projectToUpdate, oldIndex + 1);
-      toast.success('Project order updated successfully');
+      // Use the existing updateProjectsOrder action
+      await updateProjectsOrder(
+        updatedProjects.map((project) => ({
+          _id: (project as any)._id,
+          order: project.order,
+        }))
+      );
+      toast.success('Project order updated');
     } catch (error) {
-      console.error('Error updating project order:', error);
+      console.error('Failed to update orders:', error);
       toast.error('Failed to update project order');
-      // Revert the state on error
-      setProjects(data);
+      setProjects(data); // Revert on error
     }
   };
 
   return (
-    <div className="data-table">
+    <div className={`data-table ${isDragging ? 'cursor-grabbing' : ''}`}>
+      <div className="mb-4 p-2 bg-zinc-800 rounded text-zinc-300 text-sm">
+        <p>Drag projects to reorder them. Changes are saved automatically.</p>
+      </div>
       <Table className="shad-table">
         <TableHeader className="bg-dark-200">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -118,10 +145,13 @@ export function DataTable<TData, TValue>({
         <TableBody>
           <DndContext
             collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={projects.map((p: any) => p._id)}
+              items={table
+                .getRowModel()
+                .rows.map((row) => (row.original as any)._id)}
               strategy={verticalListSortingStrategy}
             >
               {table.getRowModel().rows?.length ? (
