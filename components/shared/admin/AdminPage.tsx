@@ -102,6 +102,15 @@ export function AdminDashboard({ projects }: AdminDashboardProps) {
         >
           Manage Contact Section
         </Link>
+        <Link
+          href="/sunsetparis-admin/users"
+          className={cn(
+            'inline-flex items-center justify-center w-full py-3 px-4 rounded-lg bg-gradient-to-br from-zinc-900 to-zinc-800  border-2 border-zinc-800 hover:border-green-700 hover:from-zinc-800 hover:to-zinc-900 !text-zinc-400 hover:text-green-500 font-medium transition-colors',
+            buttonVariants({ variant: 'link' })
+          )}
+        >
+          Manage Users
+        </Link>
       </div>
     </main>
   );

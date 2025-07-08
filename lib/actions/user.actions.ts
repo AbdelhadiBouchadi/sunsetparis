@@ -103,3 +103,47 @@ export async function getUserCounts() {
     throw new Error('Failed to fetch user statistics');
   }
 }
+
+export async function updateUserPermissions(
+  userId: string,
+  permissions: {
+    isAdmin?: boolean;
+    canViewHiddenArtists?: boolean;
+  }
+) {
+  try {
+    await connectToDatabase();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: permissions,
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) throw new Error('User update failed');
+
+    revalidatePath('/admin/users');
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+/**
+ * Get users with special permissions
+ */
+export async function getUsersWithSpecialAccess() {
+  try {
+    await connectToDatabase();
+
+    const users = await User.find({
+      $or: [{ isAdmin: true }, { canViewHiddenArtists: true }],
+    }).sort({ createdAt: -1 });
+
+    return JSON.parse(JSON.stringify(users));
+  } catch (error) {
+    handleError(error);
+  }
+}

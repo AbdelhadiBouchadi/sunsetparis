@@ -4,7 +4,8 @@ import PageHeader from '@/components/shared/PageHeader';
 import ProjectsGrid from '@/components/shared/ProjectsGrid';
 import { getArthurProjects } from '@/lib/actions/project.actions';
 import { getUserById } from '@/lib/actions/user.actions';
-import { UnauthorizedAccess } from '@/components/shared/admin/UnauthorizedAccess';
+import { canViewHiddenContent } from '@/lib/permissions';
+import { AccessDenied } from '@/components/shared/admin/users/AccessDenied';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -29,8 +30,8 @@ const page = async () => {
       return null;
     }
 
-    if (!currentUserFromDb.isAdmin) {
-      return <UnauthorizedAccess />;
+    if (!canViewHiddenContent(currentUserFromDb)) {
+      return <AccessDenied />;
     }
   }
 

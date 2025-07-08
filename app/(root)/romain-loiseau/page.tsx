@@ -1,8 +1,9 @@
-import { UnauthorizedAccess } from '@/components/shared/admin/UnauthorizedAccess';
+import { AccessDenied } from '@/components/shared/admin/users/AccessDenied';
 import PageHeader from '@/components/shared/PageHeader';
 import ProjectsGrid from '@/components/shared/ProjectsGrid';
 import { getRomainProjects } from '@/lib/actions/project.actions';
 import { getUserById } from '@/lib/actions/user.actions';
+import { canViewHiddenContent } from '@/lib/permissions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import React from 'react';
@@ -30,8 +31,8 @@ const page = async () => {
       return null;
     }
 
-    if (!currentUserFromDb.isAdmin) {
-      return <UnauthorizedAccess />;
+    if (!canViewHiddenContent(currentUserFromDb)) {
+      return <AccessDenied />;
     }
   }
 

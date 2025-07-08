@@ -26,6 +26,19 @@ export type Artist =
   | 'salman laudier';
 
 // ====== USER PARAMS
+export interface User {
+  _id: string;
+  clerkId: string;
+  email: string;
+  username: string;
+  photo: string;
+  firstName?: string;
+  lastName?: string;
+  isAdmin: boolean;
+  canViewHiddenArtists: boolean;
+  createdAt: Date;
+}
+
 export type CreateUserParams = {
   clerkId: string;
   firstName: string;
